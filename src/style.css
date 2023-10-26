@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%; */
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title-page {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(58, 39, 39);
+  text-align: center;
+  line-height: 3.1;
+  text-transform: capitalize;
+}
+
+#app {
+  margin: 0 auto;
+}
