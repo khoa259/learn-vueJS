@@ -1,16 +1,22 @@
-import HomePage from "../pages/HomePage.vue";
-import Contact from "../pages/Contact.vue";
-import About from "../pages/About.vue";
-import Posts from "../pages/Posts.vue";
-import ChatRoom from "../pages/ChatRoom.vue";
+import { urlRouter, urlRouterAuth } from "../utils/contants";
 
+import Error404 from "../pages/404/404.vue";
+import DefaulLayout from "../layouts/DefaultLayout.vue";
+import AuthLayout from "../layouts/AuthLayout.vue";
 import { createRouter, createWebHistory } from "vue-router";
-export const routes = [
-  { path: "/", component: HomePage, label: "Trang chủ" },
-  { path: "/about", component: About, label: "Giới thiệu" },
-  { path: "/contact", component: Contact, label: "Liên hệ" },
-  { path: "/posts", component: Posts, label: "Thêm bài viết" },
-  { path: "/message", component: ChatRoom, label: "Chat" },
+const routes = [
+  {
+    path: "/",
+    component: DefaulLayout,
+    children: urlRouter,
+  },
+  {
+    path: "/auth",
+    component: AuthLayout,
+    redirect: "/login",
+    children: urlRouterAuth,
+  },
+  { path: "/:pathMatch(.*)*", component: Error404 },
 ];
 
 const router = createRouter({
@@ -19,3 +25,10 @@ const router = createRouter({
 });
 
 export default router;
+// { path: "/", component: HomePage, label: "Trang chủ" },
+// { path: "/about", component: About, label: "Giới thiệu" },
+// { path: "/contact", component: Contact, label: "Liên hệ" },
+// { path: "/posts", component: Posts, label: "Thêm bài viết" },
+// { path: "/message", component: ChatRoom, label: "Chat" },
+// { path: "/login", component: Posts, label: "Thêm bài viết" },
+// { path: "/register", component: ChatRoom, label: "Chat" },
