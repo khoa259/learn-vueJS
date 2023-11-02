@@ -1,5 +1,5 @@
 <template>
-  <div class="posts">
+  <div class="posts container">
     <h1 class="title-page">tạo bài viết</h1>
     <form>
       <div class="flex items-center justify-center w-full">

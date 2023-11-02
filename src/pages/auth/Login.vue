@@ -96,7 +96,6 @@
 
 <script>
 import Author from "../../api/auth";
-import HomePageVue from "../HomePage.vue";
 export default {
   name: "Login",
   data() {

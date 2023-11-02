@@ -1,4 +1,4 @@
-import HomePage from "../pages/HomePage.vue";
+import HomePage from "../pages/homepage/HomePage.vue";
 import Contact from "../pages/Contact.vue";
 import About from "../pages/About.vue";
 import Posts from "../pages/Posts.vue";
@@ -26,5 +26,3 @@ export const urlRouterAuth = [
     label: "Đăng ký",
   },
 ];
-
-export const baseURL = "http:localhost:5000/api";

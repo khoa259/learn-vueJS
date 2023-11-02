@@ -9,6 +9,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%; */
+  --cl-yellow: rgb(200, 169, 126);
+  --cl-yellow2: rgb(214, 179, 130);
+  --cl-red: rgb(219 39 39)
 }
 
 body {
@@ -29,6 +32,47 @@ body {
   text-transform: capitalize;
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--cl-yellow) !important;
+  width: 20px !important;
+  font-weight: 800;
+  height: 20px !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 26px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--cl-yellow) !important;
+}
+
 #app {
   margin: 0 auto;
+}
+
+.titleCate {
+  font-family: 'Agbalumo', sans-serif;
+  display: inline-block;
+  text-transform: uppercase;
+  line-height: 2;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--cl-yellow);
+}
+
+
+.titleCate::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 3px;
+  background: var(--cl-yellow);
+  transition: width .5s;
+}
+
+.titleCate:hover::after {
+  width: 100%;
 }
