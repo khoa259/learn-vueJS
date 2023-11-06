@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import Author from "../../api/auth";
+import Author from "@/api/auth";
 export default {
   name: "Login",
   data() {

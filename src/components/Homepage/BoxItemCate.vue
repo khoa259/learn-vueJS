@@ -2,7 +2,7 @@
   <div class="w-full">
     <h2 class="titleCate">lựa chọn nhanh chóng</h2>
     <div
-      class="grid lg:grid-cols-5 lg:gap-2 md:mt-6 md:grid-cols-2 md:gap-3 sm:grid-cols-2 sm:gap-4"
+      class="grid lg:grid-cols-5 lg:gap-2 md:mt-6 md:grid-cols-3 md:gap-3 sm:grid-cols-2 sm:gap-4"
     >
       <figure
         class="relative max-w-sm overflow-hidden"

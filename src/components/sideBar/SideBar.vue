@@ -1,0 +1,28 @@
+<template>
+  <div
+    class="w-1/4 max-h-[500px] border-[var(--cl-yellow)] border-2 rounded-lg shadow-md sticky px-2 py-3 top-2"
+  >
+    <div class="text-[var(--cl-yellow)] uppercase font-semibold">
+      <i class="fa-solid fa-filter"></i>
+      địa điểm và giá cả
+    </div>
+    <div class="flex flex-col gap-4 mt-5">
+      <InputSearch />
+      <ListAllCategory />
+      <SortByPrice />
+    </div>
+  </div>
+</template>
+
+<script>
+import InputSearch from "./InputSearch.vue";
+import ListAllCategory from "./ListAllCategory.vue";
+import SortByPrice from "./SortByPrice.vue";
+
+export default {
+  name: "SideBar",
+  components: { InputSearch, ListAllCategory, SortByPrice },
+};
+</script>
+
+<style></style>

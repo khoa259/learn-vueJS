@@ -11,16 +11,25 @@
             alt="Flowbite Logo"
           />
         </router-link>
+
         <div class="flex items-center md:order-2">
           <div class="dropdown">
             <button class="dropbtn text-gray-200">
-              Xin chào,
-              <span class="text-gray-200 font-bold">{{ local.userName }}</span>
+              <i class="fa-solid fa-user"></i>
             </button>
             <div class="dropdown-content">
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
+              <router-link to="/auth" v-if="local === null"
+                >đăng nhập</router-link
+              >
+              <router-link to="/profile" v-if="local !== null"
+                >Xin chào, {{ local.userName }}</router-link
+              >
+              <router-link to="/profile" v-if="local !== null"
+                >Thông tin cá nhân</router-link
+              >
+              <router-link to="/profile" v-if="local !== null"
+                >Đăng xuất</router-link
+              >
             </div>
           </div>
           <!-- Dropdown menu -->
@@ -29,7 +38,7 @@
             id="user-dropdown"
           >
             <ul class="py-2" aria-labelledby="user-menu-button">
-              <li v-for="item in menuItems" :key="item">
+              <li v-for="item in menuItems.slice(0, 5)" :key="item">
                 <router-link
                   :to="item.path"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
@@ -72,7 +81,7 @@
           <ul
             class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-none md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-none dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
           >
-            <li v-for="item in menuItems" :key="item">
+            <li v-for="item in menuItems.slice(0, 5)" :key="item">
               <router-link
                 :to="item.path"
                 class="block py-2 pl-3 pr-4 text-gray-200 rounded md:bg-transparent"
@@ -121,6 +130,7 @@ export default {
 }
 .dropdown-content {
   display: none;
+  right: 0;
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
