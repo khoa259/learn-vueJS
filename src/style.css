@@ -11,7 +11,9 @@
   -webkit-text-size-adjust: 100%; */
   --cl-yellow: rgb(200, 169, 126);
   --cl-yellow2: rgb(214, 179, 130);
-  --cl-red: rgb(219 39 39)
+  --cl-red: rgb(219 39 39);
+  --cl-border-bottom-gray: #c5d0da;
+  --cl-text-gray: #73879c;
 }
 
 body {
@@ -21,6 +23,15 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.title_admin h1 {
+  font-weight: bold;
+  color: var(--cl-text-gray);
+  border-bottom: 2px solid var(--cl-border-bottom-gray);
+  text-transform: capitalize;
+  font-size: 29px;
+  margin-bottom: 10px;
 }
 
 .title-page {

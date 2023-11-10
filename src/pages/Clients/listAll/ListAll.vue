@@ -100,7 +100,7 @@
 
 <script>
 import { reactive } from "vue";
-import Sidebar from "@/components/sideBar/SideBar.vue";
+import Sidebar from "@/components/Clients/sideBar/SideBar.vue";
 export default {
   data() {
     return {

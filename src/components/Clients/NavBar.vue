@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { urlRouter } from "../utils/contants";
+import { urlRouter } from "@/utils/contants";
 export default {
   name: "NavBar",
   data() {

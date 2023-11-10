@@ -1,5 +1,5 @@
 <script>
-import ScrollToTop from "./components/ScrollToTop.vue";
+import ScrollToTop from "./components/Clients/ScrollToTop.vue";
 
 export default { components: { ScrollToTop } };
 </script>

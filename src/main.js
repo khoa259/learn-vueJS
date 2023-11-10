@@ -4,5 +4,6 @@ import "vue-toast-notification/dist/theme-bootstrap.css";
 import "./style.css";
 import App from "./App.vue";
 import router from "./router";
+import store from "./store/store";
 
-createApp(App).use(ToastPlugin).use(router).mount("#app");
+createApp(App).use(store).use(ToastPlugin).use(router).mount("#app");

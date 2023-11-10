@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import Banner from "@/components/Homepage/Banner.vue";
-import Weather from "@/components/Homepage/Weather.vue";
-import BoxItemCate from "@/components/Homepage/BoxItemCate.vue";
-import Search from "@/components/Homepage/Search.vue";
-import NewEatingArea from "@/components/Homepage/NewEatingArea.vue";
+import Banner from "@/components/Clients/Homepage/Banner.vue";
+import Weather from "@/components/Clients/Homepage/Weather.vue";
+import BoxItemCate from "@/components/Clients/Homepage/BoxItemCate.vue";
+import Search from "@/components/Clients/Homepage/Search.vue";
+import NewEatingArea from "@/components/Clients/Homepage/NewEatingArea.vue";
 export default {
   name: "HomePage",
   components: {

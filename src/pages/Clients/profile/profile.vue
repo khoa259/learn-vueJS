@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import Tabs from "@/components/Tabs/Tabs.vue";
-import profile from "@/components/Tabs/profile.vue";
-import SaveItems from "@/components/Tabs/SaveItems.vue";
+import Tabs from "@/components/Clients/Tabs/Tabs.vue";
+import profile from "@/components/Clients/Tabs/profile.vue";
+import SaveItems from "@/components/Clients/Tabs/SaveItems.vue";
 export default {
   components: {
     Tabs,

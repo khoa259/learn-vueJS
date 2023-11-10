@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import SideBar from "@/components/sideBar/SideBar.vue";
+import SideBar from "@/components/Clients/sideBar/SideBar.vue";
 export default {
   components: {
     SideBar,
