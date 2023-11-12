@@ -65,10 +65,13 @@
               v-model="posts.categoryId"
             >
               <option selected>--Chọn danh mục--</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+              <option
+                v-for="item in categoryList"
+                :key="item._id"
+                :value="item._id"
+              >
+                {{ item.nameCate }}
+              </option>
             </select>
             <div v-if="error.categoryId" class="text_error">
               {{ error.categoryId }}
@@ -85,7 +88,6 @@
                 :class="{ is_valid: error.timeopen }"
                 v-model="posts.timeopen"
                 type="time"
-                id="last_name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Doe"
               />
@@ -96,7 +98,6 @@
                 :class="{ is_valid: error.timeclose }"
                 v-model="posts.timeclose"
                 type="time"
-                id="last_name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Doe"
               />
@@ -105,6 +106,38 @@
               {{ error.timeclose }}
             </div>
           </div>
+        </div>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+          <div>
+            <label
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Khoảng giá</label
+            >
+            <div class="flex items-center space-x-3">
+              <input
+                @blur="validateForm()"
+                :class="{ is_valid: error.pricemin }"
+                v-model.number="posts.pricemin"
+                type="number"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="40.000"
+              />
+
+              <span>đến</span>
+              <input
+                @blur="validateForm()"
+                :class="{ is_valid: error.pricemax }"
+                v-model.number="posts.pricemax"
+                type="number"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="400.000"
+              />
+            </div>
+            <div v-if="error.pricemax" class="text_error">
+              {{ error.pricemax }}
+            </div>
+          </div>
+          <div></div>
         </div>
         <div class="mb-6">
           <label
@@ -214,6 +247,8 @@
 </template>
 
 <script>
+import API_CATEGORIES from "@/api/category.js";
+
 export default {
   data() {
     return {
@@ -229,16 +264,17 @@ export default {
         ward: "",
       },
       posts: {
-        title: "",
-        description: "",
+        title: "tile2",
+        description: "description",
         categoryId: "",
         timeopen: "",
         timeclose: "",
-        address: "",
-        province: "",
-        district: "",
-        ward: "",
+        address: "address",
+        province: "province",
+        district: "district",
+        ward: "ward",
       },
+      categoryList: [],
     };
   },
   methods: {
@@ -248,6 +284,8 @@ export default {
         title: "",
         description: "",
         categoryId: "",
+        pricemin: "",
+        pricemax: "",
         timeopen: "",
         timeclose: "",
         address: "",
@@ -280,6 +318,14 @@ export default {
         this.error.timeclose = isRequired;
         isValid = false;
       }
+      if (!this.posts.pricemin) {
+        this.error.pricemin = isRequired;
+        isValid = false;
+      }
+      if (!this.posts.pricemax) {
+        this.error.pricemax = isRequired;
+        isValid = false;
+      }
       if (!this.posts.address) {
         this.error.address = isRequired;
         isValid = false;
@@ -299,11 +345,17 @@ export default {
       return isValid;
     },
     handleSave() {
-      console.log("lỗi", this.error);
       if (this.validateForm()) {
         console.log("pass", this.posts);
       }
     },
+  },
+  created() {
+    API_CATEGORIES.getCategory()
+      .then((res) => {
+        this.categoryList = res.data.response;
+      })
+      .catch((err) => console.log("error", err));
   },
 };
 </script>

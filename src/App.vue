@@ -1,7 +1,5 @@
 <script>
-import ScrollToTop from "./components/Clients/ScrollToTop.vue";
-
-export default { components: { ScrollToTop } };
+export default {};
 </script>
 
 <template>
@@ -9,7 +7,6 @@ export default { components: { ScrollToTop } };
     <template #default>
       <div>
         <router-view />
-        <ScrollToTop />
       </div>
     </template>
     <template #fallback> loading... </template>

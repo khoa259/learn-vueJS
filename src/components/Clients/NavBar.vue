@@ -13,23 +13,42 @@
         </router-link>
 
         <div class="flex items-center md:order-2">
-          <div class="dropdown">
-            <button class="dropbtn text-gray-200">
-              <i class="fa-solid fa-user"></i>
-            </button>
-            <div class="dropdown-content">
-              <router-link to="/auth" v-if="local === null"
-                >đăng nhập</router-link
-              >
-              <router-link to="/profile" v-if="local !== null"
-                >Xin chào, {{ local.userName }}</router-link
-              >
-              <router-link to="/profile" v-if="local !== null"
-                >Thông tin cá nhân</router-link
-              >
-              <router-link to="/profile" v-if="local !== null"
-                >Đăng xuất</router-link
-              >
+          <div>
+            <router-link
+              class="text-white text-base font-normal pr-4"
+              to="/admin"
+              >Quản trị viên</router-link
+            >
+            <div class="dropdown">
+              <button class="dropbtn text-gray-200">
+                <i class="fa-solid fa-user"></i>
+              </button>
+              <div class="dropdown-content">
+                <router-link to="/auth" v-if="local === null"
+                  >đăng nhập</router-link
+                >
+                <div
+                  v-if="local !== null"
+                  class="block users_info border-b-2 border-slate-600"
+                >
+                  <p class="text-sm text-gray-900 dark:text-white" role="none">
+                    {{ local.userName }}
+                  </p>
+                  <p
+                    class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
+                    role="none"
+                  >
+                    {{ local.email }}
+                  </p>
+                </div>
+                <router-link to="/profile" v-if="local !== null"
+                  >Thông tin cá nhân</router-link
+                >
+
+                <router-link to="/profile" v-if="local !== null"
+                  >Đăng xuất</router-link
+                >
+              </div>
             </div>
           </div>
           <!-- Dropdown menu -->
@@ -133,15 +152,20 @@ export default {
   right: 0;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 160px;
+  min-width: 220px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
+  color: #6b6b6b;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 500;
   text-decoration: none;
   display: block;
+}
+.users_info {
+  padding: 8px 16px;
 }
 
 .dropdown-content a:hover {

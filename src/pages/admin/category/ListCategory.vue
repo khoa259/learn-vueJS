@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="relative">
+      <div class="relative overflow-x-auto">
         <table
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
         >
@@ -40,14 +40,30 @@
               <th scope="col" class="px-6 py-3">Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td class="px-6 py-4 text-base font-medium">1</td>
-              <td class="px-6 py-4 text-base font-medium">Silver</td>
-              <td class="px-6 py-4 text-base font-medium">Laptop</td>
-              <td class="px-6 py-4 text-base font-medium">$2999</td>
+          <tbody v-if="ItemCate">
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              v-for="(item, index) in ItemCate"
+              :key="index"
+            >
+              <td class="px-6 py-4 text-base font-medium">{{ index + 1 }}</td>
+              <td class="px-6 py-4 text-base font-medium">
+                <img :src="item.imageCate" :alt="item.nameCate" />
+              </td>
+              <td class="px-6 py-4 text-base font-medium">
+                {{ item.nameCate }} ({{ item.postId.length }} bài viết liên
+                quan)
+              </td>
+              <td class="px-6 py-4 text-base font-medium">
+                <button
+                  class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
+                >
+                  sửa
+                </button>
+              </td>
             </tr>
           </tbody>
+          <span v-else>Loading...</span>
         </table>
       </div>
     </div>
@@ -55,7 +71,21 @@
 </template>
 
 <script>
-export default {};
+import API_CATEGORIES from "@/api/category.js";
+export default {
+  data() {
+    return {
+      ItemCate: [],
+    };
+  },
+  created() {
+    API_CATEGORIES.getCategory()
+      .then((res) => {
+        this.ItemCate = res.data.response;
+      })
+      .catch((err) => console.log("error", err));
+  },
+};
 </script>
 
 <style></style>

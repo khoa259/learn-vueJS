@@ -43,19 +43,30 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td class="px-6 py-4 text-base font-medium w-10">1</td>
-              <td class="px-6 py-4 text-base font-medium">khoa</td>
-              <td class="px-6 py-4 text-base font-medium">khoa234@gmail.com</td>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              v-for="(item, index) in itemUser"
+              :key="index"
+            >
+              <td class="px-6 py-4 text-base font-medium w-10">
+                {{ index + 1 }}
+              </td>
+              <td class="px-6 py-4 text-base font-medium">
+                {{ item.userName }}
+              </td>
+              <td class="px-6 py-4 text-base font-medium">{{ item.email }}</td>
               <td class="px-6 py-4 text-base font-medium w-36">
                 <select
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option value="US">Admin</option>
-                  <option value="CA">User</option>
+                  <option value="US">{{ item.role }}</option>
+                  <option value="US">user</option>
+                  <option value="US">admin</option>
                 </select>
               </td>
-              <td class="px-6 py-4 text-base font-medium">20h</td>
+              <td class="px-6 py-4 text-base font-medium">
+                {{ getFormatDate(item.createdAt) }}
+              </td>
               <td class="px-6 py-4 w-36">
                 <button
                   class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
@@ -72,7 +83,27 @@
 </template>
 
 <script>
-export default {};
+import moment from "moment";
+import API_AUTH from "@/api/auth.js";
+export default {
+  data() {
+    return {
+      itemUser: [],
+    };
+  },
+  created() {
+    API_AUTH.getUser()
+      .then((res) => {
+        this.itemUser = res.data.response;
+      })
+      .catch((err) => console.log("error", err));
+  },
+  methods: {
+    getFormatDate(date) {
+      return moment(date).format("DD-MM-YYYY hh:mm:ss");
+    },
+  },
+};
 </script>
 
 <style></style>
