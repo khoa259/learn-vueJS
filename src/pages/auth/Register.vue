@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import Author from "../../api/auth";
+import Author from "@/api/auth";
 import { useToast } from "vue-toast-notification";
 const $toast = useToast();
 export default {

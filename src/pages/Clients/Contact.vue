@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="title-page">Contact Page</h1>
+  <div class="container">
+    <h1 class="title-page">Liên Hệ</h1>
     <div class="mt-8 flex lg:justify-between gap-8">
       <div class="form-contact w-full">
         <form>

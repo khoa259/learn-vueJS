@@ -9,4 +9,8 @@ export default {
     const url = "/signup";
     return instance.post(url, users);
   },
+  getUser() {
+    const url = "/getUser";
+    return instance.get(url);
+  },
 };

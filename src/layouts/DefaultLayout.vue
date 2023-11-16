@@ -1,17 +1,17 @@
 <template>
   <div class="layout_default">
     <Navbar />
-    <div class="container">
-      <router-view />
-    </div>
+    <router-view />
+    <ScrollToTop />
   </div>
 </template>
 
 <script>
-import Navbar from "../components/NavBar.vue";
+import Navbar from "@/components/Clients/NavBar.vue";
+import ScrollToTop from "../components/Clients/ScrollToTop.vue";
 export default {
   name: "DefaultLayout",
-  components: { Navbar },
+  components: { Navbar, ScrollToTop },
 };
 </script>
 

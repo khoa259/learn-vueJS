@@ -1,11 +1,15 @@
-<script setup></script>
+<script>
+export default {};
+</script>
 
 <template>
   <Suspense>
     <template #default>
-      <router-view />
+      <div>
+        <router-view />
+      </div>
     </template>
-    <template #fallback> Loading... </template>
+    <template #fallback> loading... </template>
   </Suspense>
 </template>
 

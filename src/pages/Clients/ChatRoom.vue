@@ -1,6 +1,6 @@
 <script>
-import FormChat from "../components/ChatBox/FormChat.vue";
-import MemBerChat from "../components/ChatBox/MemBerChat.vue";
+import FormChat from "@/components/Clients/ChatBox/FormChat.vue";
+import MemBerChat from "@/components/Clients/ChatBox/MemBerChat.vue";
 export default {
   name: "ChatRoom",
   components: {

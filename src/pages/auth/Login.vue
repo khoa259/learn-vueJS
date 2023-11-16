@@ -95,8 +95,7 @@
 </template>
 
 <script>
-import Author from "../../api/auth";
-import HomePageVue from "../HomePage.vue";
+import Author from "@/api/auth";
 export default {
   name: "Login",
   data() {
