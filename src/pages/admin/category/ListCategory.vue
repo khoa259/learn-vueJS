@@ -91,6 +91,9 @@
               required
             />
           </div>
+          <div id="preview">
+            <img v-if="urlImg" :src="urlImg" />
+          </div>
           <div class="mb-6">
             <label
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -98,7 +101,7 @@
             >
             <input
               type="text"
-              v-model="nameCate"
+              v-model="nameCates"
               placeholder="Tên danh mục..."
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
@@ -120,8 +123,9 @@ export default {
     return {
       ItemCate: [],
       isModalVisible: false,
-      nameCate: "",
+      nameCates: "",
       imageCate: null,
+      urlImg: null,
     };
   },
 
@@ -141,11 +145,13 @@ export default {
     },
     handleUploadFile(e) {
       this.imageCate = e.target.files[0];
+      this.urlImg = URL.createObjectURL(this.imageCate);
+      console.log(this.urlImg);
     },
     async onSubmit() {
       const formData = new FormData();
       formData.append("images", this.imageCate);
-      formData.append("nameCate", this.nameCate);
+      formData.append("nameCate", this.nameCates);
       await API_CATEGORIES.creatCategory(formData)
         .then((res) => {
           this.ItemCate.push = res.data;
@@ -154,6 +160,8 @@ export default {
             type: "success",
             position: "top-right",
           });
+          this.nameCates = "";
+          this.imageCate = null;
           API_CATEGORIES.getCategory()
             .then((res) => {
               this.ItemCate = res.data.response;
@@ -168,13 +176,22 @@ export default {
             position: "top-right",
           });
         });
-
+      this.url = URL.revokeObjectURL(this.imageCate);
       this.isModalVisible = false;
-      this.nameCate = "";
-      this.imageCate = null;
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+#preview {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#preview img {
+  max-width: 100%;
+  max-height: 160px;
+}
+</style>

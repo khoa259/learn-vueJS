@@ -5,4 +5,8 @@ export default {
     const url = "/getPosts";
     return instance.get(url);
   },
+  createPosts(payload) {
+    const url = "creatPosts";
+    return instance.post(url, payload);
+  },
 };

@@ -41,37 +41,49 @@
               <th scope="col" class="px-6 py-3">Danh mục bài viết</th>
               <th scope="col" class="px-6 py-3">Khoảng giá</th>
               <th scope="col" class="px-6 py-3">Giờ mở cửa</th>
-              <th scope="col" class="px-6 py-3">Quận</th>
+              <th scope="col" class="px-6 py-3">Địa chỉ</th>
               <th scope="col" class="px-6 py-3">Action</th>
             </tr>
           </thead>
-          <tbody v-if="ItemPosts">
+          <tbody v-if="ItemPosts.length">
             <tr
               v-for="(item, index) in ItemPosts"
               :key="index"
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
             >
-              <td class="px-6 py-4 text-base font-medium w-10">
+              <td class="px-6 py-4 text-base font-medium text-black w-10">
                 {{ index + 1 }}
               </td>
-              <td class="px-6 py-4 text-base font-medium">{{ item.tittle }}</td>
-              <td class="px-6 py-4 text-base font-medium">
+              <td class="px-6 py-4 text-base font-medium text-black w-auto">
+                {{ item.title }}
+              </td>
+              <td class="px-6 py-4 text-base font-medium text-black w-auto">
                 <img
-                  :src="item.image"
-                  :alt="item.categoryId.nameCate"
-                  class="w-16 h-28 object-cover"
+                  :src="item.imagePosts"
+                  class="w-28 h-full max-h-52 object-cover"
                 />
               </td>
-              <td class="px-6 py-4 text-base font-medium">
+              <td
+                v-if="item.categoryId"
+                class="px-6 py-4 text-base font-medium text-black"
+              >
                 {{ item.categoryId.nameCate }}
               </td>
-              <td class="px-6 py-4 text-base font-medium">120 - 394</td>
-              <td class="px-6 py-4 text-base font-medium">
+              <td class="px-6 py-4 text-base font-medium text-black">
+                {{ formatPrice(item.pricemin) }} -
+                {{ formatPrice(item.pricemax) }}
+              </td>
+              <td class="px-6 py-4 text-base font-medium text-black">
                 {{ item.timeopen }} - {{ item.timeclose }}
               </td>
-              <td class="px-6 py-4 text-base font-medium">
-                {{ item.location.district }}
+              <td
+                v-if="item.location.district"
+                class="px-6 py-4 text-base font-base w-60 text-black"
+              >
+                {{ item.location.address }}, {{ item.location.ward }},
+                {{ item.location.district }}, {{ item.location.province }}
               </td>
+              <td v-else>Cập nhật</td>
               <td class="px-6 py-4 w-24">
                 <button
                   class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
@@ -91,6 +103,7 @@
               </td>
             </tr>
           </tbody>
+          <div v-else>Loading...</div>
         </table>
       </div>
     </div>
@@ -99,16 +112,26 @@
 
 <script>
 import API_POSTS from "@/api/posts.js";
+import API_PROVINCE from "@/api/province.js";
 export default {
   data() {
     return {
-      ItemPosts: null,
+      ItemPosts: [],
     };
   },
   created() {
     API_POSTS.getPosts().then((res) => {
       this.ItemPosts = res.data.response.getAll;
     });
+  },
+  methods: {
+    findProvind(idProvine) {
+      API_PROVINCE.apiGetProvince(idProvine).then((res) => console.log(res));
+    },
+    formatPrice(value) {
+      let val = (value / 1).toFixed().replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
   },
 };
 </script>
