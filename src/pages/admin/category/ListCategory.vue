@@ -29,6 +29,10 @@
         </div>
       </div>
 
+      <p class="font-semibold mb-2">
+        Có tổng <span v-if="ItemCate">{{ ItemCate.length }}</span>
+        <span v-else>0</span> danh mục
+      </p>
       <div class="relative overflow-x-auto">
         <table
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -58,8 +62,9 @@
                 />
               </td>
               <td class="px-6 py-4 text-base font-medium">
-                {{ item.nameCate }} ({{ item.postId.length }} bài viết liên
-                quan)
+                {{ item.nameCate }}
+                <span v-if="item.postId"> ({{ item.postId.length }} </span>
+                bài viết liên quan)
               </td>
               <td class="px-6 py-4 text-base font-medium">
                 <button
@@ -114,29 +119,29 @@
 </template>
 
 <script>
-import API_CATEGORIES from "@/api/category.js";
+import { mapActions } from "vuex";
 import ModalComponent from "@/components/ModalComponent.vue";
 
 export default {
   components: { ModalComponent },
   data() {
     return {
-      ItemCate: [],
       isModalVisible: false,
       nameCates: "",
       imageCate: null,
       urlImg: null,
     };
   },
-
+  computed: {
+    ItemCate() {
+      return this.$store.state.categoryMod.itemCate;
+    },
+  },
   created() {
-    API_CATEGORIES.getCategory()
-      .then((res) => {
-        this.ItemCate = res.data.response;
-      })
-      .catch((err) => console.log("error", err));
+    this.getItemCate();
   },
   methods: {
+    ...mapActions(["getItemCate", "createCate"]),
     showModal() {
       this.isModalVisible = true;
     },
@@ -148,34 +153,36 @@ export default {
       this.urlImg = URL.createObjectURL(this.imageCate);
       console.log(this.urlImg);
     },
-    async onSubmit() {
+    onSubmit() {
       const formData = new FormData();
       formData.append("images", this.imageCate);
       formData.append("nameCate", this.nameCates);
-      await API_CATEGORIES.creatCategory(formData)
-        .then((res) => {
-          this.ItemCate.push = res.data;
-          this.$toast.open({
-            message: res.data.message,
-            type: "success",
-            position: "top-right",
-          });
-          this.nameCates = "";
-          this.imageCate = null;
-          API_CATEGORIES.getCategory()
-            .then((res) => {
-              this.ItemCate = res.data.response;
-            })
-            .catch((err) => console.log("error", err));
-        })
-        .catch((err) => {
-          console.log("err", err);
-          this.$toast.open({
-            message: err.response.data.message,
-            type: "error",
-            position: "top-right",
-          });
-        });
+      this.createCate(formData);
+
+      // await API_CATEGORIES.creatCategory(formData)
+      //   .then((res) => {
+      //     this.ItemCate.push = res.data;
+      //     this.$toast.open({
+      //       message: res.data.message,
+      //       type: "success",
+      //       position: "top-right",
+      //     });
+      //     this.nameCates = "";
+      //     this.imageCate = null;
+      //     API_CATEGORIES.getCategory()
+      //       .then((res) => {
+      //         this.ItemCate = res.data.response;
+      //       })
+      //       .catch((err) => console.log("error", err));
+      //   })
+      //   .catch((err) => {
+      //     console.log("err", err);
+      //     this.$toast.open({
+      //       message: err.response.data.message,
+      //       type: "error",
+      //       position: "top-right",
+      //     });
+      //   });
       this.url = URL.revokeObjectURL(this.imageCate);
       this.isModalVisible = false;
     },

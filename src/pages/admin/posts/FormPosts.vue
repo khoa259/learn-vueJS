@@ -244,9 +244,8 @@
 </template>
 
 <script>
-import API_CATEGORIES from "@/api/category.js";
-import API_POSTS from "@/api/posts.js";
 import API_PROVINCE from "@/api/province.js";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -286,20 +285,21 @@ export default {
         district: "",
         ward: "",
       },
-      test: "",
       categoryList: [],
     };
   },
+  computed: {
+    categoryList() {
+      return this.$store.state.categoryMod.itemCate;
+    },
+  },
   created() {
-    API_CATEGORIES.getCategory()
-      .then((res) => {
-        this.categoryList = res.data.response;
-      })
-      .catch((err) => console.log("error", err));
+    this.getItemCate();
     // api get province
     this.handleGetProvinceId();
   },
   methods: {
+    ...mapActions(["createPosts", "getItemCate"]),
     validateForm() {
       let isValid = true;
       this.error = {
@@ -364,28 +364,13 @@ export default {
       this.posts.imagePosts = e.target.files[0];
       this.url = URL.createObjectURL(this.posts.imagePosts);
     },
-    async handleSave() {
+    handleSave() {
       if (this.validateForm()) {
         const formData = new FormData();
         for (let key in this.posts) {
           formData.append(key, this.posts[key]);
         }
-        await API_POSTS.createPosts(formData)
-          .then((res) => {
-            this.$toast.open({
-              message: res.data.message,
-              type: "success",
-              position: "top-right",
-            });
-            this.$router.push("/admin/posts");
-          })
-          .catch((err) => {
-            this.$toast.open({
-              message: err.message,
-              type: "error",
-              position: "top-right",
-            });
-          });
+        this.createPosts(formData);
       }
     },
   },

@@ -26,7 +26,10 @@
           </button>
         </div>
       </div>
-
+      <p class="font-semibold mb-2">
+        Có tổng <span v-if="ItemPosts">{{ ItemPosts.length }}</span>
+        <span v-else>0</span> bài viết
+      </p>
       <div class="relative overflow-x-auto">
         <table
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -45,16 +48,16 @@
               <th scope="col" class="px-6 py-3">Action</th>
             </tr>
           </thead>
-          <tbody v-if="ItemPosts.length">
+          <tbody v-if="ItemPosts">
             <tr
               v-for="(item, index) in ItemPosts"
               :key="index"
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
             >
-              <td class="px-6 py-4 text-base font-medium text-black w-10">
+              <td class="px-6 py-4 text-base text-black w-10">
                 {{ index + 1 }}
               </td>
-              <td class="px-6 py-4 text-base font-medium text-black w-auto">
+              <td class="px-6 py-4 text-base text-black w-auto">
                 {{ item.title }}
               </td>
               <td class="px-6 py-4 text-base font-medium text-black w-auto">
@@ -77,7 +80,7 @@
                 {{ item.timeopen }} - {{ item.timeclose }}
               </td>
               <td
-                v-if="item.location.district"
+                v-if="item.location"
                 class="px-6 py-4 text-base font-base w-60 text-black"
               >
                 {{ item.location.address }}, {{ item.location.ward }},
@@ -111,20 +114,20 @@
 </template>
 
 <script>
-import API_POSTS from "@/api/posts.js";
+import { mapActions } from "vuex";
+
 import API_PROVINCE from "@/api/province.js";
 export default {
-  data() {
-    return {
-      ItemPosts: [],
-    };
+  computed: {
+    ItemPosts() {
+      return this.$store.state.postsMod.ItemPosts.getAll;
+    },
   },
   created() {
-    API_POSTS.getPosts().then((res) => {
-      this.ItemPosts = res.data.response.getAll;
-    });
+    this.getAllPosts();
   },
   methods: {
+    ...mapActions(["getAllPosts"]),
     findProvind(idProvine) {
       API_PROVINCE.apiGetProvince(idProvine).then((res) => console.log(res));
     },

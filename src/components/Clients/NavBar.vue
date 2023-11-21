@@ -15,6 +15,7 @@
         <div class="flex items-center md:order-2">
           <div>
             <router-link
+              v-if="local"
               class="text-white text-base font-normal pr-4"
               to="/admin"
               >Quản trị viên</router-link

@@ -1,16 +1,11 @@
 import { createStore } from "vuex";
-
+import categoriesModules from "./categoryModules/index";
+import postModules from "./postsModules";
 // Create a new store instance.
 const store = createStore({
-  state() {
-    return {
-      count: 0,
-    };
-  },
-  mutations: {
-    increment(state) {
-      state.count++;
-    },
+  modules: {
+    categoryMod: categoriesModules,
+    postsMod: postModules,
   },
 });
 export default store;
