@@ -4,19 +4,21 @@
   >
     <h2 class="capitalize text-xl font-semibold">có thể bạn thích</h2>
     <div
-      class="flex flex-col space-y-4 mt-2 overflow-auto relative max-h-[50vh]"
+      class="flex flex-col mt-3 overflow-auto relative max-h-[50vh]"
+      v-for="(item, index) in postRelated"
+      :key="index"
     >
-      <router-link to="@" class="flex space-x-2">
-        <img
-          src="http://localhost:5000/api/public/1700869023925.1695052719383.png"
-          class="max-h-24 w-20"
-          alt=""
-        />
+      <router-link
+        :to="`${item._id}`"
+        @click="next(item._id)"
+        class="flex space-x-2 pb-2 border-b-2"
+      >
+        <img :src="item.imagePosts" class="max-h-24 w-20" alt="" />
         <div class="flex flex-col justify-between">
           <h2 class="line-clamp-2 text-md font-semibold">
-            tieue ddeef bafi vieest
+            {{ item.title }}
           </h2>
-          <span class="text-[var(--cl-yellow)]">3 views</span>
+          <span class="text-[var(--cl-yellow)]">{{ item.review }} views</span>
         </div>
       </router-link>
     </div>
@@ -24,7 +26,19 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+export default {
+  props: ["postRelated"],
+  mounted() {
+    this.getPostsDetail(this.$router.params);
+  },
+  methods: {
+    ...mapActions(["getPostsDetail"]),
+    next(id) {
+      this.getPostsDetail({ id });
+    },
+  },
+};
 </script>
 
 <style scoped>

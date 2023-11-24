@@ -13,4 +13,8 @@ export default {
     const url = `/getById/${id}`;
     return instance.get(url);
   },
+  getPostsRelated(id) {
+    const url = `/posts_related/${id}`;
+    return instance.get(url);
+  },
 };

@@ -10,7 +10,7 @@
           <HeaderPosts :item="item" />
           <div class="flex space-x-3 mt-4">
             <DescriptionPosts :item="item" />
-            <RelatedPosts />
+            <RelatedPosts :postRelated="postRelated" />
           </div>
           <Comment />
         </div>
@@ -36,13 +36,16 @@ export default {
   },
   computed: mapState({
     detailPost: (state) => state.postsMod.ItemPosts,
+    postRelated: (state) => state.postsMod.ItemPostsRelated,
   }),
   created() {
-    this.getPostsDetail(this.$route.params);
+    const params = this.$route.params;
+    this.getPostsDetail(params);
+    this.getPostsRelated(params);
     console.log("this.store", this.$store.state.postsMod);
   },
   methods: {
-    ...mapActions(["getPostsDetail"]),
+    ...mapActions(["getPostsDetail", "getPostsRelated"]),
   },
 };
 </script>

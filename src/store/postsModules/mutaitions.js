@@ -8,5 +8,8 @@ const mutationsPost = {
   GetPostsDetail(state, ItemPosts) {
     state.ItemPosts = ItemPosts;
   },
+  GetPostsRelated(state, ItemPosts) {
+    state.ItemPostsRelated = ItemPosts;
+  },
 };
 export default mutationsPost;
