@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-base font-medium text-center pb-2">Khoảng giá</div>
+    <div class="text-xl font-medium pb-2">Khoảng giá</div>
     <select
       class="bg-gray-50 border border-[var(--cl-yellow)] text-gray-900 mb-6 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     >

@@ -153,36 +153,11 @@ export default {
       this.urlImg = URL.createObjectURL(this.imageCate);
       console.log(this.urlImg);
     },
-    onSubmit() {
+    async onSubmit() {
       const formData = new FormData();
       formData.append("images", this.imageCate);
       formData.append("nameCate", this.nameCates);
-      this.createCate(formData);
-
-      // await API_CATEGORIES.creatCategory(formData)
-      //   .then((res) => {
-      //     this.ItemCate.push = res.data;
-      //     this.$toast.open({
-      //       message: res.data.message,
-      //       type: "success",
-      //       position: "top-right",
-      //     });
-      //     this.nameCates = "";
-      //     this.imageCate = null;
-      //     API_CATEGORIES.getCategory()
-      //       .then((res) => {
-      //         this.ItemCate = res.data.response;
-      //       })
-      //       .catch((err) => console.log("error", err));
-      //   })
-      //   .catch((err) => {
-      //     console.log("err", err);
-      //     this.$toast.open({
-      //       message: err.response.data.message,
-      //       type: "error",
-      //       position: "top-right",
-      //     });
-      //   });
+      await this.createCate(formData);
       this.url = URL.revokeObjectURL(this.imageCate);
       this.isModalVisible = false;
     },

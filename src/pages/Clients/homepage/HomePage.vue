@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="container flex justify-center pt-8">
-      <BoxItemCate />
+      <BoxItemCate :itemsCategories="categories" />
     </div>
     <div class="container sub_banner pt-8">
       <img
@@ -20,12 +20,14 @@
       />
     </div>
     <div class="pt-8 static">
-      <NewEatingArea />
+      <NewEatingArea :itemsPosts="posts" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+
 import Banner from "@/components/Clients/Homepage/Banner.vue";
 import Weather from "@/components/Clients/Homepage/Weather.vue";
 import BoxItemCate from "@/components/Clients/Homepage/BoxItemCate.vue";
@@ -39,6 +41,18 @@ export default {
     BoxItemCate,
     Search,
     NewEatingArea,
+  },
+  computed: mapState({
+    categories: (state) => state.categoryMod.itemCate,
+    posts: (state) => state.postsMod.ItemPosts.getAll,
+  }),
+
+  created() {
+    this.getItemCate();
+    this.getAllPosts();
+  },
+  methods: {
+    ...mapActions(["getAllPosts", "getItemCate"]),
   },
 };
 </script>

@@ -23,7 +23,7 @@ export const urlRouter = [
   //
   { path: "/posts", component: Posts, label: "Thêm bài viết" },
   { path: "/profile", component: Profile, label: "Thông tin cá nhân" },
-  { path: "/detail", component: DetailPage, label: "Chi tiết bài viết" },
+  { path: "/:id", component: DetailPage, label: "Chi tiết bài viết" },
 ];
 
 export const urlRouterAdmin = [

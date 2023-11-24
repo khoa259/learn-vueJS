@@ -3,7 +3,9 @@ const mutationsPost = {
     state.ItemPosts = ItemPosts;
   },
   GetAllPosts(state, ItemPosts) {
-    console.log("items", ItemPosts);
+    state.ItemPosts = ItemPosts;
+  },
+  GetPostsDetail(state, ItemPosts) {
     state.ItemPosts = ItemPosts;
   },
 };

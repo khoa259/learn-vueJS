@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-1/4 max-h-[500px] border-[var(--cl-yellow)] border-2 rounded-lg shadow-md sticky px-2 py-3 top-2"
+    class="w-1/4 max-h-[500px] bg-white border-[var(--cl-yellow)] border-2 rounded-lg shadow-md sticky px-2 py-3 top-2"
   >
     <div class="text-[var(--cl-yellow)] uppercase font-semibold">
       <i class="fa-solid fa-filter"></i>

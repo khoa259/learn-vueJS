@@ -9,4 +9,8 @@ export default {
     const url = "creatPosts";
     return instance.post(url, payload);
   },
+  getPostsDetail(id) {
+    const url = `/getById/${id}`;
+    return instance.get(url);
+  },
 };

@@ -1,53 +1,48 @@
 <template>
-  <div class="container">
-    <div class="flex space-x-3 mt-7">
-      <div class="w-full border-2 border-gray-600 h-[1230px] bg-slate-600">
-        <div class="heading_posts">
-          <div class="title">
-            <h1 class="text-3xl font-bold text-black">Tên quán ăn 1213123</h1>
-          </div>
-          <div class="timestemp_upload">
-            <p class="text-slate-700 font-medium text-base">09h00 - 21h00</p>
-          </div>
-        </div>
-      </div>
-      <div class="w-2/5">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="flex space-x-3">
+      <div class="w-full h-[1230px]">
         <div
-          class="flex flex-col space-y-3 h-fit border-[var(--cl-yellow)] border-2 rounded-lg shadow-md sticky p-4 top-2"
+          class="container_posts"
+          v-for="(item, index) in detailPost"
+          :key="index"
         >
-          <div>
-            <h3 class="text-xl font-semibold capitalize">
-              Tên quán ăn hoặc cửa hàng
-            </h3>
+          <HeaderPosts :item="item" />
+          <div class="flex space-x-3 mt-4">
+            <DescriptionPosts :item="item" />
+            <RelatedPosts />
           </div>
-          <div class="flex space-x-2 items-start">
-            <i class="fa-solid fa-location-dot text-xl"></i>
-            <p class="text-slate-700 font-medium text-base">
-              Số 12 ngõ 103 đường bờ sông sét,thịnh liệt
-            </p>
-          </div>
-          <div class="flex space-x-2 items-center">
-            <i class="fa-solid fa-hand-holding-dollar text-xl"></i>
-            <p class="text-slate-700 font-medium text-base">
-              40.000 - 80.000 VNĐ
-            </p>
-          </div>
-          <div class="flex space-x-2 items-center">
-            <i class="fa-regular fa-clock text-xl"></i>
-            <p class="text-slate-700 font-medium text-base">09h00 - 21h00</p>
-          </div>
+          <Comment />
         </div>
       </div>
     </div>
-    <div class="h-[1230px] mt-32"></div>
   </div>
 </template>
 
 <script>
+import HeaderPosts from "@/components/Clients/detailPosts/HeaderPosts.vue";
+import DescriptionPosts from "@/components/Clients/detailPosts/DescriptionPosts.vue";
 import SideBar from "@/components/Clients/sideBar/SideBar.vue";
+import RelatedPosts from "@/components/Clients/detailPosts/RelatedPosts.vue";
+import { mapActions, mapState } from "vuex";
+import Comment from "../../../components/Clients/detailPosts/Comment.vue";
 export default {
   components: {
     SideBar,
+    DescriptionPosts,
+    HeaderPosts,
+    RelatedPosts,
+    Comment,
+  },
+  computed: mapState({
+    detailPost: (state) => state.postsMod.ItemPosts,
+  }),
+  created() {
+    this.getPostsDetail(this.$route.params);
+    console.log("this.store", this.$store.state.postsMod);
+  },
+  methods: {
+    ...mapActions(["getPostsDetail"]),
   },
 };
 </script>

@@ -18,5 +18,13 @@ const actionsPosts = {
       console.log(error);
     }
   },
+  async getPostsDetail({ commit }, { id }) {
+    try {
+      const { data } = await API_POSTS.getPostsDetail(id);
+      commit("GetPostsDetail", data.response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 export default actionsPosts;

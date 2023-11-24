@@ -1,19 +1,36 @@
 <template>
-  <div class="layout_default">
+  <div class="layout_default bg-slate-100">
     <Navbar />
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+    <Footer />
     <ScrollToTop />
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Clients/NavBar.vue";
-import ScrollToTop from "../components/Clients/ScrollToTop.vue";
+import ScrollToTop from "@/components/Clients/ScrollToTop.vue";
+import Footer from "@/components/Clients/Footer.vue";
 export default {
   name: "DefaultLayout",
-  components: { Navbar, ScrollToTop },
+  components: { Navbar, ScrollToTop, Footer },
 };
 </script>
 
-<style></style>
+<style>
+.v-enter-active,
+.v-leave-active {
+  animation-duration: 0.3s ease;
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
 g
