@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-300 shadow-md rounded-md w-2/4 min-h-40 p-5">
+  <div class="bg-blue-300 shadow-md rounded-md w-full min-h-40 p-5">
     <div class="count_posts">
       <div class="flex flex-col space-y-2">
         <h2 class="text-slate-700 font-medium">Bài viết mới</h2>

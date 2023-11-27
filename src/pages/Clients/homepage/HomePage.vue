@@ -6,9 +6,6 @@
         <Banner />
         <Weather />
       </div>
-      <div class="w-2/4 mx-auto mt-20">
-        <Search />
-      </div>
     </div>
     <div class="container flex justify-center pt-8">
       <BoxItemCate :itemsCategories="categories" />
@@ -31,7 +28,6 @@ import { mapActions, mapState } from "vuex";
 import Banner from "@/components/Clients/Homepage/Banner.vue";
 import Weather from "@/components/Clients/Homepage/Weather.vue";
 import BoxItemCate from "@/components/Clients/Homepage/BoxItemCate.vue";
-import Search from "@/components/Clients/Homepage/Search.vue";
 import NewEatingArea from "@/components/Clients/Homepage/NewEatingArea.vue";
 export default {
   name: "HomePage",
@@ -39,7 +35,6 @@ export default {
     Banner,
     Weather,
     BoxItemCate,
-    Search,
     NewEatingArea,
   },
   computed: mapState({

@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-[1200px] mx-auto">
+    <img src="./vietnam-flag-map-national-day-in.jpg" alt="" />
     <div class="flex space-x-3">
       <div class="w-full h-[1230px]">
         <div

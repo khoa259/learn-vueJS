@@ -19,7 +19,6 @@ export const urlRouter = [
   { path: "/list-all", component: ListAll, label: "Danh sách" },
   { path: "/about", component: About, label: "Giới thiệu" },
   { path: "/contact", component: Contact, label: "Liên hệ" },
-  { path: "/message", component: ChatRoom, label: "Chat" },
   //
   { path: "/posts", component: Posts, label: "Thêm bài viết" },
   { path: "/profile", component: Profile, label: "Thông tin cá nhân" },

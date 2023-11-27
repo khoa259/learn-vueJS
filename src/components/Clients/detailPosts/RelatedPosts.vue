@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-1/4 bg-slate-50 shadow-md rounded-lg mt-4 p-5 sticky top-2 max-h-[60vh]"
-  >
+  <div class="w-1/4 bg-slate-50 shadow-md rounded-lg p-5 max-h-[60vh]">
     <h2 class="capitalize text-xl font-semibold">có thể bạn thích</h2>
     <div
       class="flex flex-col mt-3 overflow-auto relative max-h-[50vh]"
@@ -29,9 +27,7 @@
 import { mapActions } from "vuex";
 export default {
   props: ["postRelated"],
-  mounted() {
-    this.getPostsDetail(this.$router.params);
-  },
+
   methods: {
     ...mapActions(["getPostsDetail"]),
     next(id) {

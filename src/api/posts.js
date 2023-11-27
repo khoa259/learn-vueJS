@@ -6,7 +6,7 @@ export default {
     return instance.get(url);
   },
   createPosts(payload) {
-    const url = "creatPosts";
+    const url = "/creatPosts";
     return instance.post(url, payload);
   },
   getPostsDetail(id) {
@@ -16,5 +16,9 @@ export default {
   getPostsRelated(id) {
     const url = `/posts_related/${id}`;
     return instance.get(url);
+  },
+  searchPosts(key) {
+    const url = `/search?search=${key}`;
+    return instance.post(url, key);
   },
 };

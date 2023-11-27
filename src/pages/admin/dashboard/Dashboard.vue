@@ -4,8 +4,8 @@
       <h1>Thống kê</h1>
     </div>
     <div class="flex space-x-5">
-      <div class="flex flex-wrap w-4/5">
-        <div class="flex w-full space-x-5">
+      <div class="w-4/5">
+        <div class="grid grid-cols-2 gap-6">
           <CountPosts />
           <CountCate />
         </div>
