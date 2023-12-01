@@ -11,5 +11,11 @@ const mutationsPost = {
   GetPostsRelated(state, ItemPosts) {
     state.ItemPostsRelated = ItemPosts;
   },
+  GetSearchPosts(state, ItemPosts) {
+    state.ItemPosts = ItemPosts;
+  },
+  GetPostsByCate(state, ItemPosts) {
+    state.ItemPosts = ItemPosts;
+  },
 };
 export default mutationsPost;

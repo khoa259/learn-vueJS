@@ -1,14 +1,12 @@
 <template>
   <Transition>
     <div
-      class="fixed top-0 left-0 bg-gray-900 w-full opacity-90 h-screen z-10 cursor-pointer"
+      class="fixed top-0 pt-5 bg-gray-900 w-full h-screen z-10 cursor-pointer"
     >
-      <button @click="closeModal" class="text-white float-right p-9">
+      <button @click="closeModal" class="text-white float-right px-5">
         <i class="fa-solid fa-x text-3xl"></i>
       </button>
-      <div
-        class="w-[700px] absolute top-1/4 left-2/4 -translate-x-2/4 -translate-y-2/3 mx-auto"
-      >
+      <div class="w-[700px] mx-auto">
         <div class="relative">
           <div
             class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
@@ -38,10 +36,10 @@
             placeholder="Tìm kiếm..."
           />
         </div>
-        <div v-if="dataSearch" class="absolute w-full">
+        <div class="w-auto" v-if="items">
           <ul
             class="bg-white rounded-lg"
-            v-for="(item, index) in dataSearch.slice(0, 6)"
+            v-for="(item, index) in items"
             :key="index"
           >
             <li
@@ -75,21 +73,40 @@
             </li>
           </ul>
         </div>
+        <div v-else class="text-white font-medium pt-2 text-center">
+          <span>Không tìm thấy từ khóa {{ keyword }}</span>
+        </div>
       </div>
     </div>
   </Transition>
 </template>
 
 <script>
-import API_POSTS from "@/api/posts.js";
+import debounce from "lodash.debounce";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       keyword: "",
-      dataSearch: [],
     };
   },
+  created() {
+    this.handleSearch = debounce((e) => {
+      if (e) {
+        return this.SearchPost(e);
+      } else {
+        this.getAllPosts();
+      }
+    }, 400);
+  },
+  computed: {
+    items() {
+      return this.$store.state.postsMod.ItemPosts;
+    },
+  },
   methods: {
+    ...mapActions(["SearchPost", "getAllPosts"]),
+
     formatPrice(value) {
       let val = (value / 1).toFixed().replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -97,17 +114,6 @@ export default {
     closeModal() {
       this.$emit("closeModal");
       this.keyword = "";
-    },
-    handleSearch(e) {
-      setTimeout(() => {
-        API_POSTS.searchPosts(e)
-          .then((res) => {
-            this.dataSearch = res.data.response;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }, 500);
     },
   },
 };

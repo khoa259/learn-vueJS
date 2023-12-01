@@ -120,7 +120,7 @@ import API_PROVINCE from "@/api/province.js";
 export default {
   computed: {
     ItemPosts() {
-      return this.$store.state.postsMod.ItemPosts.getAll;
+      return this.$store.state.postsMod.ItemPosts;
     },
   },
   created() {

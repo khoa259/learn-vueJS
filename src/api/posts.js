@@ -21,4 +21,8 @@ export default {
     const url = `/search?search=${key}`;
     return instance.post(url, key);
   },
+  getPostsByCategory(payload) {
+    const url = `/getPostByCategories?category=${payload}`;
+    return instance.post(url, payload);
+  },
 };

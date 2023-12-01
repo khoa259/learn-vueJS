@@ -26,7 +26,7 @@ import DescriptionPosts from "@/components/Clients/detailPosts/DescriptionPosts.
 import SideBar from "@/components/Clients/sideBar/SideBar.vue";
 import RelatedPosts from "@/components/Clients/detailPosts/RelatedPosts.vue";
 import { mapActions, mapState } from "vuex";
-import Comment from "../../../components/Clients/detailPosts/Comment.vue";
+import Comment from "@/components/Clients/detailPosts/Comment.vue";
 export default {
   components: {
     SideBar,

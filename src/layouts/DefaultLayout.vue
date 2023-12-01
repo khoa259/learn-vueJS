@@ -5,9 +5,9 @@
       <transition name="fade" mode="out-in">
         <component :is="Component" />
       </transition>
+      <ScrollToTop />
     </router-view>
     <Footer />
-    <ScrollToTop />
   </div>
 </template>
 
