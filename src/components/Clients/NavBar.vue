@@ -13,18 +13,22 @@
         </router-link>
 
         <div class="flex items-center md:order-2">
-          <div>
+          <div class="flex space-x-7">
             <router-link
+              v-if="local"
               class="text-white text-base font-normal pr-4"
               to="/admin"
               >Quản trị viên</router-link
             >
+            <button @click="showModal">
+              <i class="fa-solid fa-magnifying-glass text-gray-200"></i>
+            </button>
             <div class="dropdown">
               <button class="dropbtn text-gray-200">
                 <i class="fa-solid fa-user"></i>
               </button>
               <div class="dropdown-content">
-                <router-link to="/auth" v-if="local === null"
+                <router-link to="/auth" v-if="local === null" @click="logout"
                   >đăng nhập</router-link
                 >
                 <div
@@ -45,7 +49,7 @@
                   >Thông tin cá nhân</router-link
                 >
 
-                <router-link to="/profile" v-if="local !== null"
+                <router-link to="/profile" v-if="local !== null" @click="logout"
                   >Đăng xuất</router-link
                 >
               </div>
@@ -57,7 +61,7 @@
             id="user-dropdown"
           >
             <ul class="py-2" aria-labelledby="user-menu-button">
-              <li v-for="item in menuItems.slice(0, 5)" :key="item">
+              <li v-for="item in menuItems.slice(0, 4)" :key="item">
                 <router-link
                   :to="item.path"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
@@ -100,7 +104,7 @@
           <ul
             class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-none md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-none dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
           >
-            <li v-for="item in menuItems.slice(0, 5)" :key="item">
+            <li v-for="item in menuItems.slice(0, 4)" :key="item">
               <router-link
                 :to="item.path"
                 class="block py-2 pl-3 pr-4 text-gray-200 rounded md:bg-transparent"
@@ -112,11 +116,13 @@
         </div>
       </div>
     </nav>
+    <SearchItem v-show="isOpen" @closeModal="showModal" />
   </div>
 </template>
 
 <script>
 import { urlRouter } from "@/utils/contants";
+import SearchItem from "./search/SearchItem.vue";
 export default {
   name: "NavBar",
   data() {
@@ -130,7 +136,17 @@ export default {
     toggleMenu() {
       this.isOpen = !this.isOpen;
     },
+    showModal() {
+      this.isOpen = !this.isOpen;
+    },
+    logout() {
+      if (this.local) {
+        localStorage.clear();
+        this.$router.push("/auth");
+      }
+    },
   },
+  components: { SearchItem },
 };
 </script>
 

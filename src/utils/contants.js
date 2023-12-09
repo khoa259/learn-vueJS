@@ -19,11 +19,11 @@ export const urlRouter = [
   { path: "/list-all", component: ListAll, label: "Danh sách" },
   { path: "/about", component: About, label: "Giới thiệu" },
   { path: "/contact", component: Contact, label: "Liên hệ" },
-  { path: "/message", component: ChatRoom, label: "Chat" },
   //
   { path: "/posts", component: Posts, label: "Thêm bài viết" },
   { path: "/profile", component: Profile, label: "Thông tin cá nhân" },
-  { path: "/detail", component: DetailPage, label: "Chi tiết bài viết" },
+  { path: "/:id", component: DetailPage, label: "Chi tiết bài viết" },
+  { path: "/list-all/:id", component: ListAll, label: "Chi tiết bài viết" },
 ];
 
 export const urlRouterAdmin = [

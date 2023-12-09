@@ -6,4 +6,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store/store";
 
-createApp(App).use(store).use(ToastPlugin).use(router).mount("#app");
+const app = createApp(App);
+app.use(store);
+app.use(ToastPlugin);
+app.use(router);
+app.mount("#app");

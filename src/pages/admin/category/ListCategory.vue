@@ -29,6 +29,10 @@
         </div>
       </div>
 
+      <p class="font-semibold mb-2">
+        Có tổng <span v-if="ItemCate">{{ ItemCate.length }}</span>
+        <span v-else>0</span> danh mục
+      </p>
       <div class="relative overflow-x-auto">
         <table
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -58,8 +62,9 @@
                 />
               </td>
               <td class="px-6 py-4 text-base font-medium">
-                {{ item.nameCate }} ({{ item.postId.length }} bài viết liên
-                quan)
+                {{ item.nameCate }}
+                <span v-if="item.postId"> ({{ item.postId.length }} </span>
+                bài viết liên quan)
               </td>
               <td class="px-6 py-4 text-base font-medium">
                 <button
@@ -91,6 +96,9 @@
               required
             />
           </div>
+          <div id="preview">
+            <img v-if="urlImg" :src="urlImg" />
+          </div>
           <div class="mb-6">
             <label
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -98,7 +106,7 @@
             >
             <input
               type="text"
-              v-model="nameCate"
+              v-model="nameCates"
               placeholder="Tên danh mục..."
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
@@ -111,28 +119,29 @@
 </template>
 
 <script>
-import API_CATEGORIES from "@/api/category.js";
+import { mapActions } from "vuex";
 import ModalComponent from "@/components/ModalComponent.vue";
 
 export default {
   components: { ModalComponent },
   data() {
     return {
-      ItemCate: [],
       isModalVisible: false,
-      nameCate: "",
+      nameCates: "",
       imageCate: null,
+      urlImg: null,
     };
   },
-
+  computed: {
+    ItemCate() {
+      return this.$store.state.categoryMod.itemCate;
+    },
+  },
   created() {
-    API_CATEGORIES.getCategory()
-      .then((res) => {
-        this.ItemCate = res.data.response;
-      })
-      .catch((err) => console.log("error", err));
+    this.getItemCate();
   },
   methods: {
+    ...mapActions(["getItemCate", "createCate"]),
     showModal() {
       this.isModalVisible = true;
     },
@@ -141,40 +150,30 @@ export default {
     },
     handleUploadFile(e) {
       this.imageCate = e.target.files[0];
+      this.urlImg = URL.createObjectURL(this.imageCate);
+      console.log(this.urlImg);
     },
     async onSubmit() {
       const formData = new FormData();
       formData.append("images", this.imageCate);
-      formData.append("nameCate", this.nameCate);
-      await API_CATEGORIES.creatCategory(formData)
-        .then((res) => {
-          this.ItemCate.push = res.data;
-          this.$toast.open({
-            message: res.data.message,
-            type: "success",
-            position: "top-right",
-          });
-          API_CATEGORIES.getCategory()
-            .then((res) => {
-              this.ItemCate = res.data.response;
-            })
-            .catch((err) => console.log("error", err));
-        })
-        .catch((err) => {
-          console.log("err", err);
-          this.$toast.open({
-            message: err.response.data.message,
-            type: "error",
-            position: "top-right",
-          });
-        });
-
+      formData.append("nameCate", this.nameCates);
+      await this.createCate(formData);
+      this.url = URL.revokeObjectURL(this.imageCate);
       this.isModalVisible = false;
-      this.nameCate = "";
-      this.imageCate = null;
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+#preview {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#preview img {
+  max-width: 100%;
+  max-height: 160px;
+}
+</style>

@@ -5,38 +5,18 @@
     </div>
     <div>
       <form @submit.prevent="handleSave">
-        <div class="mb-6 flex items-center justify-center w-full">
-          <label
-            for="dropzone-file"
-            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-          >
-            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-              <svg
-                class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 16"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                />
-              </svg>
-              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span class="font-semibold">Click to upload</span> or drag and
-                drop
-              </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
-                SVG, PNG, JPG or GIF (MAX. 800x400px)
-              </p>
-            </div>
-            <input id="dropzone-file" type="file" class="hidden" />
-          </label>
+        <div id="preview">
+          <img v-if="url" :src="url" />
         </div>
+        <div class="mb-6 flex items-center justify-start w-full">
+          <input
+            id="dropzone-file"
+            type="file"
+            @change="handleUpload"
+            class=""
+          />
+        </div>
+
         <div class="w-full mb-6">
           <label
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -164,13 +144,17 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @blur="validateForm()"
               :class="{ is_valid: error.province }"
-              v-model="posts.province"
+              v-model="getProvinceId.province"
+              @change="handleGetProvinceId"
             >
               <option selected>--Chọn Thành phố/Tỉnh--</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+              <option
+                v-for="item in api.province"
+                :key="item.province_id"
+                :value="item.province_id"
+              >
+                {{ item.province_name }}
+              </option>
             </select>
             <div v-if="error.province" class="text_error">
               {{ error.province }}
@@ -185,13 +169,18 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @blur="validateForm()"
               :class="{ is_valid: error.district }"
-              v-model="posts.district"
+              v-model="getProvinceId.district"
+              @change="handleGetDistrictId"
+              :disabled="!getProvinceId.province"
             >
               <option selected>--Chọn Quận/Huyện--</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+              <option
+                v-for="item in api.district"
+                :key="item.district_id"
+                :value="item.district_id"
+              >
+                {{ item.district_name }}
+              </option>
             </select>
             <div v-if="error.district" class="text_error">
               {{ error.district }}
@@ -206,13 +195,18 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @blur="validateForm()"
               :class="{ is_valid: error.ward }"
-              v-model="posts.ward"
+              v-model="getProvinceId.ward"
+              @change="handleGetWardId"
+              :disabled="!getProvinceId.district"
             >
               <option selected>--Chọn Phường/Xã--</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+              <option
+                v-for="item in api.ward"
+                :key="item.ward_id"
+                :value="item.ward_id"
+              >
+                {{ item.ward_name }}
+              </option>
             </select>
             <div v-if="error.ward" class="text_error">{{ error.ward }}</div>
           </div>
@@ -243,15 +237,27 @@
         </button>
       </form>
     </div>
+    <!-- test: {{ posts.province }},{{ posts.district }},{{ posts.ward }} -->
   </div>
 </template>
 
 <script>
-import API_CATEGORIES from "@/api/category.js";
-
+import API_PROVINCE from "@/api/province.js";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      url: null,
+      getProvinceId: {
+        province: null,
+        district: null,
+        ward: null,
+      },
+      api: {
+        province: [],
+        district: [],
+        ward: [],
+      },
       error: {
         title: "",
         description: "",
@@ -264,20 +270,34 @@ export default {
         ward: "",
       },
       posts: {
-        title: "tile2",
-        description: "description",
+        imagePosts: null,
+        title: "",
+        description: "",
         categoryId: "",
         timeopen: "",
         timeclose: "",
-        address: "address",
-        province: "province",
-        district: "district",
-        ward: "ward",
+        pricemin: "",
+        pricemax: "",
+        address: "",
+        province: "",
+        district: "",
+        ward: "",
       },
       categoryList: [],
     };
   },
+  computed: {
+    categoryList() {
+      return this.$store.state.categoryMod.itemCate;
+    },
+  },
+  created() {
+    this.getItemCate();
+    // api get province
+    this.handleGetProvinceId();
+  },
   methods: {
+    ...mapActions(["createPosts", "getItemCate"]),
     validateForm() {
       let isValid = true;
       this.error = {
@@ -294,68 +314,63 @@ export default {
         ward: "",
       };
       const isRequired = "Không được bỏ trống trường này";
-      if (!this.posts.title) {
-        this.error.title = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.description) {
-        this.error.description = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.categoryId) {
-        this.error.categoryId = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.timeopen) {
-        this.error.timeopen = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.timeclose) {
-        this.error.timeclose = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.timeclose) {
-        this.error.timeclose = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.pricemin) {
-        this.error.pricemin = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.pricemax) {
-        this.error.pricemax = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.address) {
-        this.error.address = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.province) {
-        this.error.province = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.district) {
-        this.error.district = isRequired;
-        isValid = false;
-      }
-      if (!this.posts.ward) {
-        this.error.ward = isRequired;
-        isValid = false;
+      for (let key in this.posts) {
+        if (!this.posts[key]) {
+          this.error[key] = isRequired;
+          isValid = false;
+        }
       }
       return isValid;
     },
+    // get province
+    handleGetProvinceId() {
+      API_PROVINCE.apiGetProvince().then((res) => {
+        this.api.province = res.data.results;
+      });
+    },
+    handleGetDistrictId() {
+      API_PROVINCE.apiGetDistricts(this.getProvinceId.province).then((res) => {
+        this.api.district = res.data.results;
+        this.posts.province = this.findProvinceNameById(
+          this.getProvinceId.province
+        );
+      });
+    },
+    handleGetWardId() {
+      API_PROVINCE.apiGetWard(this.getProvinceId.district).then((res) => {
+        this.api.ward = res.data.results;
+        this.posts.district = this.findDistrictNameById(
+          this.getProvinceId.district
+        );
+        this.posts.ward = this.findWardNameById(this.getProvinceId.ward);
+      });
+    },
+    findProvinceNameById(id) {
+      const val = this.api.province.find((item) => item.province_id === id);
+      return val ? val.province_name : null;
+    },
+    findDistrictNameById(id) {
+      const val = this.api.district.find((item) => item.district_id === id);
+      return val ? val.district_name : null;
+    },
+    findWardNameById(id) {
+      const val = this.api.ward.find((item) => item.ward_id === id);
+      return val ? val.ward_name : null;
+    },
+    // upload images
+    handleUpload(e) {
+      this.posts.imagePosts = e.target.files[0];
+      this.url = URL.createObjectURL(this.posts.imagePosts);
+    },
     handleSave() {
       if (this.validateForm()) {
-        console.log("pass", this.posts);
+        const formData = new FormData();
+        for (let key in this.posts) {
+          formData.append(key, this.posts[key]);
+        }
+        this.createPosts(formData);
       }
     },
-  },
-  created() {
-    API_CATEGORIES.getCategory()
-      .then((res) => {
-        this.categoryList = res.data.response;
-      })
-      .catch((err) => console.log("error", err));
   },
 };
 </script>
@@ -369,5 +384,16 @@ export default {
   padding-top: 3px;
   font-size: 14px;
   font-weight: 500;
+}
+#preview {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+#preview img {
+  max-width: 100%;
+  max-height: 260px;
 }
 </style>

@@ -85,6 +85,7 @@
 <script>
 import moment from "moment";
 import API_AUTH from "@/api/auth.js";
+import SelectLocation from "@/components/Admin/SelectLocation.vue";
 export default {
   data() {
     return {
@@ -103,6 +104,7 @@ export default {
       return moment(date).format("DD-MM-YYYY hh:mm:ss");
     },
   },
+  components: { SelectLocation },
 };
 </script>
 

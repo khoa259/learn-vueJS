@@ -6,12 +6,9 @@
         <Banner />
         <Weather />
       </div>
-      <div class="w-2/4 mx-auto mt-20">
-        <Search />
-      </div>
     </div>
     <div class="container flex justify-center pt-8">
-      <BoxItemCate />
+      <BoxItemCate :itemsCategories="categories" />
     </div>
     <div class="container sub_banner pt-8">
       <img
@@ -20,16 +17,17 @@
       />
     </div>
     <div class="pt-8 static">
-      <NewEatingArea />
+      <NewEatingArea :itemsPosts="posts" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+
 import Banner from "@/components/Clients/Homepage/Banner.vue";
 import Weather from "@/components/Clients/Homepage/Weather.vue";
 import BoxItemCate from "@/components/Clients/Homepage/BoxItemCate.vue";
-import Search from "@/components/Clients/Homepage/Search.vue";
 import NewEatingArea from "@/components/Clients/Homepage/NewEatingArea.vue";
 export default {
   name: "HomePage",
@@ -37,8 +35,19 @@ export default {
     Banner,
     Weather,
     BoxItemCate,
-    Search,
     NewEatingArea,
+  },
+  computed: mapState({
+    categories: (state) => state.categoryMod.itemCate,
+    posts: (state) => state.postsMod.ItemPosts,
+  }),
+
+  created() {
+    this.getItemCate();
+    this.getAllPosts();
+  },
+  methods: {
+    ...mapActions(["getAllPosts", "getItemCate"]),
   },
 };
 </script>

@@ -2,24 +2,24 @@
   <div class="w-full">
     <h2 class="titleCate">lựa chọn nhanh chóng</h2>
     <div
-      class="grid lg:grid-cols-5 lg:gap-2 md:mt-6 md:grid-cols-3 md:gap-3 sm:grid-cols-2 sm:gap-4"
+      class="grid lg:grid-cols-5 gap-3 sm:grid-cols-2 grid-flow-col auto-cols-[25%] overflow-x-auto mt-6"
     >
       <figure
-        class="relative max-w-sm overflow-hidden"
-        v-for="(item, index) in items.slice(0, 5)"
+        class="snap-center flex flex-col space-y-3 max-w-sm overflow-hidden bg-[var(--cl-yellow)] px-3 py-8 rounded-md"
+        v-for="(item, index) in itemsCategories"
         :key="index"
       >
-        <router-link :to="item.title">
+        <figcaption
+          class="text-center font-bold uppercase px-4 text-lg text-slate-700"
+        >
+          <p>{{ item.nameCate }}</p>
+        </figcaption>
+        <router-link :to="item._id">
           <img
-            class="rounded-lg transition-all duration-300 cursor-pointer hover:scale-105"
-            :src="item.img"
+            class="rounded-lg"
+            :src="item.imageCate"
             alt="image description"
           />
-          <figcaption
-            class="absolute font-bold uppercase px-4 text-lg text-white top-1/2 right-1/2"
-          >
-            <p>{{ item.title }}</p>
-          </figcaption>
         </router-link>
       </figure>
     </div>
@@ -27,25 +27,13 @@
 </template>
 
 <script>
-import { reactive } from "vue";
 export default {
-  setup() {
-    const myObject = reactive({
-      title: "đồ ăn",
-      publishedAt: "2016-04-10",
-      img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png",
-    });
-    const items = Array.from({ length: 5 }, (_, index) => {
-      return {
-        title: `${myObject.title} - Item ${index + 1}`,
-        img: myObject.img,
-        publishedAt: myObject.publishedAt,
-      };
-    });
-    return {
-      items,
-    };
-  },
+  props: ["itemsCategories"],
+  // computed: {
+  //   items() {
+  //     return this.$store.getters.ItemCate;
+  //   },
+  // },
 };
 </script>
 
