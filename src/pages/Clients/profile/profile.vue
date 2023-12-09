@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-gray-100 h-screen">
-    <div class="w-2/4 container bg-white">
+  <div class="bg-gray-50 min-h-screen">
+    <div class="container bg-white">
       <Tabs :tabs="tabs">
         <template v-slot="{ activeTab }">
           <div v-if="tabs[activeTab]">

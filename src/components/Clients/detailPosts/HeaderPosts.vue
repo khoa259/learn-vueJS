@@ -25,7 +25,7 @@
         >
         <div v-if="item.categoryId">
           <router-link
-            :to="item.categoryId._id"
+            :to="`/list-all/${item.categoryId._id}`"
             class="text-[var(--cl-yellow)] bg-white rounded-md text-sm font-semibold border-2 border-[var(--cl-yellow)] px-2 py-1 hover:bg-[var(--cl-yellow)] hover:text-white duration-200"
           >
             {{ item.categoryId ? item.categoryId.nameCate : "" }}
@@ -64,8 +64,9 @@
       <div class="block">
         <button
           class="w-full border-[var(--cl-yellow)] text-[var(--cl-yellow)] border-2 py-1 rounded-lg focus:bg-[var(--cl-yellow)] focus:text-white"
+          @click="handleSave(item._id)"
         >
-          Yêu thích
+          {{ isSave ? "Chán rồi !" : "Yêu thích" }}
         </button>
       </div>
     </div>
@@ -74,10 +75,19 @@
 
 <script>
 import moment from "moment";
+import { mapActions } from "vuex";
 
 export default {
   props: ["item"],
+  data() {
+    return {
+      idSave: null,
+      isSave: false,
+      local: JSON.parse(localStorage.getItem("user")),
+    };
+  },
   methods: {
+    ...mapActions(["addWishList", "removeWishList"]),
     formatDate(value) {
       if (value) {
         return moment(String(value)).format("DD/MM/YYYY HH:SS");
@@ -86,6 +96,29 @@ export default {
     formatPrice(value) {
       let val = (value / 1).toFixed().replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    handleSave(id) {
+      if (this.local === null) {
+        return alert("Bạn cần đăng nhập");
+      } else {
+        this.isSave = !this.isSave;
+        const payload = {
+          email: this.local.email,
+          postsId: id,
+        };
+        if (this.isSave) {
+          this.addWishList(payload);
+          this.$toast.open({
+            message: "Thêm vào danh sách yêu thích",
+            type: "success",
+            position: "top-right",
+          });
+          console.log("id va isSave", id, this.isSave);
+        } else {
+          console.log("item remove", id);
+          this.removeWishList(payload);
+        }
+      }
     },
   },
 };

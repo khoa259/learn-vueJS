@@ -76,12 +76,11 @@
               />
             </svg>
           </router-link>
-          <button @click="handleSave(item._id)">
-            <i
-              class="fa-regular fa-xl text-[var(--cl-yellow)] fa-heart"
-              :class="[isSave ? 'text-[var(--cl-red)] fa-solid' : 'bg-inherit']"
-            ></i>
-          </button>
+          <router-link
+            :to="item._id"
+            class="text-sm font-medium underline underline-offset-4 decoration-solid decoration-2 text-[var(--cl-yellow)] decoration-[var(--cl-yellow)]"
+            >{{ item.categoryId.nameCate }}</router-link
+          >
         </div>
       </div>
     </div>
@@ -104,19 +103,6 @@ export default {
     formatDate(value) {
       if (value) {
         return moment(String(value)).format("hh:mm");
-      }
-    },
-    handleSave(id) {
-      this.isSave = !this.isSave;
-      if (this.isSave) {
-        this.$toast.open({
-          message: "Thêm vào danh sách yêu thích",
-          type: "success",
-          position: "top-right",
-        });
-        console.log("id va isSave", id, this.isSave);
-      } else {
-        console.log("item remove", id);
       }
     },
   },

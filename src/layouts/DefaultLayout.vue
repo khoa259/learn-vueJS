@@ -1,12 +1,14 @@
 <template>
-  <div class="layout_default bg-slate-100">
+  <div class="layout_default bg-slate-50">
     <Navbar />
-    <router-view v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" />
-      </transition>
-      <ScrollToTop />
-    </router-view>
+    <div class="min-h-screen">
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+        <ScrollToTop />
+      </router-view>
+    </div>
     <Footer />
   </div>
 </template>

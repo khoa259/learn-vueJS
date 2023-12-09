@@ -79,7 +79,6 @@
         </table>
       </div>
     </div>
-    <SelectLocation />
   </div>
 </template>
 

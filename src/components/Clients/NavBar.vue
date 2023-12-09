@@ -28,7 +28,7 @@
                 <i class="fa-solid fa-user"></i>
               </button>
               <div class="dropdown-content">
-                <router-link to="/auth" v-if="local === null"
+                <router-link to="/auth" v-if="local === null" @click="logout"
                   >đăng nhập</router-link
                 >
                 <div
@@ -49,7 +49,7 @@
                   >Thông tin cá nhân</router-link
                 >
 
-                <router-link to="/profile" v-if="local !== null"
+                <router-link to="/profile" v-if="local !== null" @click="logout"
                   >Đăng xuất</router-link
                 >
               </div>
@@ -138,6 +138,12 @@ export default {
     },
     showModal() {
       this.isOpen = !this.isOpen;
+    },
+    logout() {
+      if (this.local) {
+        localStorage.clear();
+        this.$router.push("/auth");
+      }
     },
   },
   components: { SearchItem },

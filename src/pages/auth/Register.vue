@@ -74,7 +74,6 @@
 <script>
 import Author from "@/api/auth";
 import { useToast } from "vue-toast-notification";
-const $toast = useToast();
 export default {
   name: "Register",
   data() {
@@ -96,7 +95,7 @@ export default {
         .then((res) => {
           console.log(res);
           alert(
-            `đăng ký thành công, bạn vui lòng vào email ${res?.data?.newUser?.email} để xác thực tài khoản `
+            `Đăng ký thành công, bạn vui lòng vào email ${res?.data?.newUser?.email} để xác thực tài khoản `
           );
         })
         .catch((err) => {
