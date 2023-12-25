@@ -68,6 +68,12 @@
               </td>
               <td class="px-6 py-4 text-base font-medium">
                 <button
+                  @click="
+                    () => {
+                      showModal();
+                      getIdUpdate(item._id);
+                    }
+                  "
                   class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
                 >
                   sửa
@@ -84,7 +90,9 @@
       @closeModal="hidenModal"
       @submitModal="onSubmit"
     >
-      <template v-slot:title>Tạo danh mục mới</template>
+      <template v-slot:title>{{
+        IdUpdate ? "Cập nhật danh mục" : "Tạo danh mục"
+      }}</template>
       <template v-slot:body>
         <form @submit.prevent="onSubmit">
           <div class="mb-6">
@@ -130,19 +138,24 @@ export default {
       nameCates: "",
       imageCate: null,
       urlImg: null,
+      IdUpdate: "",
     };
   },
   computed: {
     ItemCate() {
       return this.$store.state.categoryMod.itemCate;
     },
+    DetailCate() {
+      return this.$store.state.categoryMod.itemCateDetail;
+    },
   },
   created() {
     this.getItemCate();
   },
   methods: {
-    ...mapActions(["getItemCate", "createCate"]),
+    ...mapActions(["getItemCate", "updateCate", "getDetailCate"]),
     showModal() {
+      this.IdUpdate = "";
       this.isModalVisible = true;
     },
     hidenModal() {
@@ -153,11 +166,21 @@ export default {
       this.urlImg = URL.createObjectURL(this.imageCate);
       console.log(this.urlImg);
     },
+    getIdUpdate(e) {
+      this.IdUpdate = e;
+      this.getDetailCate({ id: e });
+      this.nameCates = this.DetailCate.nameCate;
+      this.urlImg = this.DetailCate.imageCate;
+    },
     async onSubmit() {
       const formData = new FormData();
       formData.append("images", this.imageCate);
       formData.append("nameCate", this.nameCates);
-      await this.createCate(formData);
+      if (this.IdUpdate) {
+        await this.updateCate({ id: this.IdUpdate, payload: formData });
+      } else {
+        await this.createCate(formData);
+      }
       this.url = URL.revokeObjectURL(this.imageCate);
       this.isModalVisible = false;
     },

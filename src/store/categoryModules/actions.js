@@ -18,5 +18,22 @@ const ActionCategories = {
       console.log(error);
     }
   },
+  async getDetailCate({ commit, dispatch }, { id }) {
+    try {
+      const { data } = await API_CATEORIES.getCategoryDetail(id);
+      commit("GetDetailCate", data.response);
+      dispatch("getItemCate");
+    } catch (error) {}
+  },
+  async updateCate({ commit, dispatch }, { id, payload }) {
+    try {
+      const { data } = await API_CATEORIES.updateCategory(id, payload);
+      console.log("payload gửi lên", data);
+      commit("UpdateCate", data);
+      dispatch("getItemCate");
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 export default ActionCategories;

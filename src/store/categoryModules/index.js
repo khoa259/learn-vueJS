@@ -5,6 +5,7 @@ const categoriesModules = {
   namespace: true,
   state: {
     itemCate: [],
+    itemCateDetail: "",
   },
   getters: GetterCategories,
   actions: ActionCategories,

@@ -9,4 +9,12 @@ export default {
     const url = "/creatCategory";
     return instance.post(url, payload);
   },
+  getCategoryDetail(id) {
+    const url = `/getCategory/${id}`;
+    return instance.get(url);
+  },
+  updateCategory(id, payload) {
+    const url = `/updateCategory/${id}`;
+    return instance.put(url, payload);
+  },
 };
