@@ -43,7 +43,6 @@ export default {
     const params = this.$route.params;
     this.getPostsDetail(params);
     this.getPostsRelated(params);
-    console.log("this.store", this.$store.state.postsMod);
   },
   methods: {
     ...mapActions(["getPostsDetail", "getPostsRelated"]),

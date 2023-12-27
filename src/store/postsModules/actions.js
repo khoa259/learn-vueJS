@@ -26,6 +26,15 @@ const actionsPosts = {
       console.log(error);
     }
   },
+  async getPostsById({ commit }, { id }) {
+    try {
+      const { data } = await API_POSTS.getPostsById(id);
+      commit("GetPostsById", data.response);
+      console.log("data action", data.response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
   async getPostsRelated({ commit }, { id }) {
     try {
       const { data } = await API_POSTS.getPostsRelated(id);

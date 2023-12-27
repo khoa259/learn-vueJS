@@ -5,6 +5,7 @@ import mutationsPost from "./mutaitions";
 const postModules = {
   state: {
     ItemPosts: [],
+    ItemPostsDetail: [],
     ItemPostsRelated: [],
   },
   getters: gettersPosts,

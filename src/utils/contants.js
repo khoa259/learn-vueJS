@@ -57,6 +57,13 @@ export const urlRouterAdmin = [
     component: FormPosts,
     label: "Tạo bài viết",
   },
+  //
+  {
+    path: "posts/:id/:key",
+    icon: "fa-solid fa-book",
+    component: FormPosts,
+    label: "Tạo bài viết",
+  },
 ];
 
 export const urlRouterAuth = [

@@ -2,7 +2,7 @@ import instance from "./instance";
 
 export default {
   getPosts() {
-    const url = "/getPosts";
+    const url = `/getPosts`;
     return instance.get(url);
   },
   createPosts(payload) {
@@ -11,6 +11,10 @@ export default {
   },
   getPostsDetail(id) {
     const url = `/getById/${id}`;
+    return instance.get(url);
+  },
+  getPostsById(id) {
+    const url = `/readById/${id}`;
     return instance.get(url);
   },
   getPostsRelated(id) {

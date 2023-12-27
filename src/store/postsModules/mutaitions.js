@@ -8,6 +8,10 @@ const mutationsPost = {
   GetPostsDetail(state, ItemPosts) {
     state.ItemPosts = ItemPosts;
   },
+  GetPostsById(state, ItemPosts) {
+    console.log("posts mutation", ItemPosts);
+    state.ItemPostsDetail = ItemPosts;
+  },
   GetPostsRelated(state, ItemPosts) {
     state.ItemPostsRelated = ItemPosts;
   },

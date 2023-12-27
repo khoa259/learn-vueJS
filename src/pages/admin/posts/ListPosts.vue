@@ -22,6 +22,13 @@
             class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
           >
             <i class="fa-solid fa-file-excel"></i>
+            Tạo 5 bài viết ngẫu nhiên
+          </button>
+          <button
+            type="button"
+            class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
+          >
+            <i class="fa-solid fa-file-excel"></i>
             Xuất file Excel
           </button>
         </div>
@@ -80,26 +87,29 @@
                 {{ item.timeopen }} - {{ item.timeclose }}
               </td>
               <td
-                v-if="item.location"
+                v-if="item"
                 class="px-6 py-4 text-base font-base w-60 text-black"
               >
-                {{ item.location.address }}, {{ item.location.ward }},
-                {{ item.location.district }}, {{ item.location.province }}
+                {{ item.address }}, {{ item.ward }}, {{ item.district }},
+                {{ item.province }}
               </td>
               <td v-else>Cập nhật</td>
               <td class="px-6 py-4 w-24">
-                <button
+                <router-link
+                  :to="`posts/${item._id}/view`"
                   class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
                 >
                   xem
-                </button>
-                <button
+                </router-link>
+                <router-link
+                  :to="`posts/${item._id}/edit`"
                   class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
                 >
                   sửa
-                </button>
+                </router-link>
                 <button
                   class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
+                  @click="handleDeletePosts(item._id)"
                 >
                   xóa
                 </button>
@@ -134,6 +144,12 @@ export default {
     formatPrice(value) {
       let val = (value / 1).toFixed().replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    handleDeletePosts(e) {
+      const alert = window.confirm("Bạn có muốn xóa bài viết này không");
+      if (alert) {
+        console.log("delete item", e);
+      }
     },
   },
 };

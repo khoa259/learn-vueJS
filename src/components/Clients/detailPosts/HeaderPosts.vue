@@ -10,10 +10,10 @@
       <div class="flex space-x-2 items-start border-t-2 py-3">
         <i class="fa-solid fa-location-dot text-xl text-red-600"></i>
         <p class="text-slate-700 font-medium text-base capitalize">
-          {{ item.location ? item.location.address : "" }},
-          {{ item.location ? item.location.ward : "" }},
-          {{ item.location ? item.location.district : "" }},
-          {{ item.location ? item.location.province : "" }}
+          {{ item.address ? item.address : "" }},
+          {{ item.ward ? item.ward : "" }},
+          {{ item.district ? item.district : "" }},
+          {{ item.province ? item.province : "" }}
           <!-- Số 12 ngõ 103 đường bờ sông sét,thịnh liệt -->
         </p>
       </div>
