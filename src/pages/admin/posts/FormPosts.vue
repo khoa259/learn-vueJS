@@ -1,19 +1,31 @@
 <template>
   <div>
     <div class="title_admin">
-      <h1>Tạo bài viết mới</h1>
+      <h1 v-if="keyLocation === null">Tạo bài viết mới</h1>
+      <h1 v-else-if="keyLocation === 'edit'">Cập nhật bài viết</h1>
+      <h1 v-else-if="keyLocation === 'view'">Chi tiết bài viết</h1>
     </div>
     <div>
       <form @submit.prevent="handleSave">
-        <div id="preview">
-          <img v-if="url" :src="url" />
+        <div id="preview" class="relative" v-if="url">
+          <img :src="url" class="relative" />
+          <button
+            type="button"
+            v-if="keyLocation === 'edit'"
+            :disabled="keyLocation === 'view'"
+            class="bg-red-500 text-white absolute p-2 top-0 left-0"
+            @click="removeImage"
+          >
+            X
+          </button>
         </div>
         <div class="mb-6 flex items-center justify-start w-full">
           <input
+            :disabled="keyLocation === 'view'"
             id="dropzone-file"
             type="file"
             @change="handleUpload"
-            class=""
+            v-if="keyLocation !== 'view'"
           />
         </div>
 
@@ -23,6 +35,7 @@
             >Tiêu đề bài viết</label
           >
           <input
+            :disabled="keyLocation === 'view'"
             v-model="posts.title"
             type="text"
             @blur="validateForm()"
@@ -43,6 +56,7 @@
               @blur="validateForm()"
               :class="{ is_valid: error.categoryId }"
               v-model="posts.categoryId"
+              :disabled="keyLocation === 'view'"
             >
               <option selected>--Chọn danh mục--</option>
               <option
@@ -64,6 +78,7 @@
             >
             <div class="flex items-center space-x-3">
               <input
+                :disabled="keyLocation === 'view'"
                 @blur="validateForm()"
                 :class="{ is_valid: error.timeopen }"
                 v-model="posts.timeopen"
@@ -74,6 +89,7 @@
 
               <span>đến</span>
               <input
+                :disabled="keyLocation === 'view'"
                 @blur="validateForm()"
                 :class="{ is_valid: error.timeclose }"
                 v-model="posts.timeclose"
@@ -95,6 +111,7 @@
             >
             <div class="flex items-center space-x-3">
               <input
+                :disabled="keyLocation === 'view'"
                 @blur="validateForm()"
                 :class="{ is_valid: error.pricemin }"
                 v-model.number="posts.pricemin"
@@ -105,6 +122,7 @@
 
               <span>đến</span>
               <input
+                :disabled="keyLocation === 'view'"
                 @blur="validateForm()"
                 :class="{ is_valid: error.pricemax }"
                 v-model.number="posts.pricemax"
@@ -125,6 +143,7 @@
             >Số nhà cửa hàng</label
           >
           <input
+            :disabled="keyLocation === 'view'"
             @blur="validateForm()"
             :class="{ is_valid: error.address }"
             v-model="posts.address"
@@ -146,6 +165,7 @@
               :class="{ is_valid: error.province }"
               v-model="getProvinceId.province"
               @change="handleGetProvinceId"
+              :disabled="keyLocation === 'view'"
             >
               <option selected>--Chọn Thành phố/Tỉnh--</option>
               <option
@@ -171,7 +191,7 @@
               :class="{ is_valid: error.district }"
               v-model="getProvinceId.district"
               @change="handleGetDistrictId"
-              :disabled="!getProvinceId.province"
+              :disabled="!getProvinceId.province || keyLocation === 'view'"
             >
               <option selected>--Chọn Quận/Huyện--</option>
               <option
@@ -197,7 +217,7 @@
               :class="{ is_valid: error.ward }"
               v-model="getProvinceId.ward"
               @change="handleGetWardId"
-              :disabled="!getProvinceId.district"
+              :disabled="!getProvinceId.district || keyLocation === 'view'"
             >
               <option selected>--Chọn Phường/Xã--</option>
               <option
@@ -232,21 +252,24 @@
         <button
           type="submit"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          :disabled="keyLocation === 'view'"
         >
-          Lưu
+          {{ keyLocation === "edit" ? "Cập nhật" : "Lưu" }}
         </button>
       </form>
     </div>
-    <!-- test: {{ posts.province }},{{ posts.district }},{{ posts.ward }} -->
   </div>
 </template>
 
 <script>
 import API_PROVINCE from "@/api/province.js";
-import { mapActions } from "vuex";
+import API_POSTS from "@/api/posts.js";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
+      keyLocation: "",
+      idParams: null,
       url: null,
       getProvinceId: {
         province: null,
@@ -283,21 +306,34 @@ export default {
         district: "",
         ward: "",
       },
-      categoryList: [],
     };
   },
-  computed: {
-    categoryList() {
-      return this.$store.state.categoryMod.itemCate;
-    },
-  },
+  computed: mapState({
+    categoryList: (state) => state.categoryMod.itemCate,
+  }),
+
   created() {
+    this.keyLocation = this.$route.params.key;
     this.getItemCate();
     // api get province
     this.handleGetProvinceId();
+    if (this.keyLocation === "edit" || this.keyLocation === "view") {
+      this.idParams = this.$route.params.id;
+      API_POSTS.getPostsById(this.idParams).then((res) => {
+        this.posts = res.data.response;
+        this.url = res.data.response.imagePosts;
+        // this.posts.categoryId = res.data.response.categoryId._id;
+      });
+    }
+    console.log(this.posts.timeclose);
   },
   methods: {
-    ...mapActions(["createPosts", "getItemCate"]),
+    ...mapActions([
+      "createPosts",
+      "getItemCate",
+      "getPostsById",
+      "updatePosts",
+    ]),
     validateForm() {
       let isValid = true;
       this.error = {
@@ -362,13 +398,58 @@ export default {
       this.posts.imagePosts = e.target.files[0];
       this.url = URL.createObjectURL(this.posts.imagePosts);
     },
+    removeImage() {
+      API_POSTS.rmImage({ image_rm: this.url }).then((res) => {
+        log;
+        this.url = res;
+      });
+    },
     handleSave() {
-      if (this.validateForm()) {
+      // thêm mới
+      if (this.keyLocation === null) {
+        if (this.validateForm()) {
+          const formData = new FormData();
+          for (let key in this.posts) {
+            formData.append(key, this.posts[key]);
+          }
+          this.createPosts(formData)
+            .then((res) => {
+              this.$toast.open({
+                message: "Tạo bài viết thành công",
+                type: "success",
+                position: "top-right",
+              });
+            })
+            .catch((er) => {
+              this.$toast.open({
+                message: "Tạo bài viết thất bại",
+                type: "error",
+                position: "top-right",
+              });
+            });
+        }
+      }
+      // cập nhật
+      if (this.keyLocation === "edit") {
         const formData = new FormData();
         for (let key in this.posts) {
           formData.append(key, this.posts[key]);
         }
-        this.createPosts(formData);
+        this.updatePosts({ id: this.idParams, payload: formData })
+          .then((res) => {
+            this.$toast.open({
+              message: "Cập nhật bài viết thành công",
+              type: "success",
+              position: "top-right",
+            });
+          })
+          .catch((er) => {
+            this.$toast.open({
+              message: "Cập nhật bài viết thất bại",
+              type: "error",
+              position: "top-right",
+            });
+          });
       }
     },
   },

@@ -61,57 +61,55 @@
               :key="index"
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
             >
-              <td class="px-6 py-4 text-base text-black w-10">
+              <td class="px-6 py-4 text-sm font-medium text-slate-700 w-10">
                 {{ index + 1 }}
               </td>
-              <td class="px-6 py-4 text-base text-black w-auto">
+              <td class="px-6 py-4 text-sm text-slate-700 w-auto">
                 {{ item.title }}
               </td>
-              <td class="px-6 py-4 text-base font-medium text-black w-auto">
+              <td class="px-6 py-4 text-sm font-medium text-slate-700 w-auto">
                 <img
                   :src="item.imagePosts"
-                  class="w-28 h-full max-h-52 object-cover"
+                  class="w-28 h-full max-h-36 object-cover"
                 />
               </td>
               <td
                 v-if="item.categoryId"
-                class="px-6 py-4 text-base font-medium text-black"
+                class="px-6 py-4 text-sm font-medium text-slate-700"
               >
                 {{ item.categoryId.nameCate }}
               </td>
-              <td class="px-6 py-4 text-base font-medium text-black">
+              <td class="px-6 py-4 text-sm font-medium text-slate-700">
                 {{ formatPrice(item.pricemin) }} -
                 {{ formatPrice(item.pricemax) }}
               </td>
-              <td class="px-6 py-4 text-base font-medium text-black">
+              <td class="px-6 py-4 text-sm font-medium text-slate-700">
                 {{ item.timeopen }} - {{ item.timeclose }}
               </td>
               <td
                 v-if="item"
-                class="px-6 py-4 text-base font-base w-60 text-black"
+                class="px-6 py-4 text-sm font-medium font-base w-60 text-slate-700"
               >
                 {{ item.address }}, {{ item.ward }}, {{ item.district }},
                 {{ item.province }}
               </td>
               <td v-else>Cập nhật</td>
-              <td class="px-6 py-4 w-24">
+              <td class="space-x-1 space-y-1">
                 <router-link
                   :to="`posts/${item._id}/view`"
-                  class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
-                >
-                  xem
-                </router-link>
+                  class="bg-green-400 px-3 py-1 rounded-md text-white hover:bg-green-500 duration-150"
+                  ><i class="fa-regular fa-eye fa-xs"></i
+                ></router-link>
                 <router-link
                   :to="`posts/${item._id}/edit`"
-                  class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
-                >
-                  sửa
-                </router-link>
+                  class="bg-yellow-400 px-3 py-1 rounded-md text-white hover:bg-yellow-500 duration-150"
+                  ><i class="fa-solid fa-gear fa-xs"></i
+                ></router-link>
                 <button
-                  class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
                   @click="handleDeletePosts(item._id)"
+                  class="bg-red-500 px-3 py-1 rounded-md text-white hover:bg-red-600 duration-150"
                 >
-                  xóa
+                  <i class="fa-solid fa-trash fa-xs"></i>
                 </button>
               </td>
             </tr>

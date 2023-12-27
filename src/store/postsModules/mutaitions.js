@@ -9,7 +9,6 @@ const mutationsPost = {
     state.ItemPosts = ItemPosts;
   },
   GetPostsById(state, ItemPosts) {
-    console.log("posts mutation", ItemPosts);
     state.ItemPostsDetail = ItemPosts;
   },
   GetPostsRelated(state, ItemPosts) {
@@ -19,6 +18,9 @@ const mutationsPost = {
     state.ItemPosts = ItemPosts;
   },
   GetPostsByCate(state, ItemPosts) {
+    state.ItemPosts = ItemPosts;
+  },
+  UpdatePosts(state, ItemPosts) {
     state.ItemPosts = ItemPosts;
   },
 };

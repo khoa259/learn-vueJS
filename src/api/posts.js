@@ -29,4 +29,13 @@ export default {
     const url = `/getPostByCategories?category=${payload}`;
     return instance.post(url, payload);
   },
+  editPosts(id, payload) {
+    const url = `/updatePosts/${id}`;
+    console.log("adpi", id);
+    return instance.put(url, payload);
+  },
+  rmImage(payload) {
+    const url = "/deleteImage";
+    return instance.post(url, payload);
+  },
 };

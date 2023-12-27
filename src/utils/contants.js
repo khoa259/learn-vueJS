@@ -51,13 +51,13 @@ export const urlRouterAdmin = [
     label: "Người dùng",
     icon: "fa-solid fa-user",
   },
+  //
   {
     path: "create_posts",
     icon: "fa-solid fa-book",
     component: FormPosts,
     label: "Tạo bài viết",
   },
-  //
   {
     path: "posts/:id/:key",
     icon: "fa-solid fa-book",

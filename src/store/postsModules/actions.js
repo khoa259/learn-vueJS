@@ -1,10 +1,10 @@
 import API_POSTS from "@/api/posts.js";
 const actionsPosts = {
-  async createPosts({ commit, dispatch }, payload) {
+  async createPosts({ commit }, payload) {
     try {
       const { data } = await API_POSTS.createPosts(payload);
       commit("CreatePosts", data);
-      dispatch("GetAllPosts");
+      // dispatch("GetAllPosts");
     } catch (error) {
       console.log("Error");
     }
@@ -30,7 +30,6 @@ const actionsPosts = {
     try {
       const { data } = await API_POSTS.getPostsById(id);
       commit("GetPostsById", data.response);
-      console.log("data action", data.response);
     } catch (error) {
       console.log(error);
     }
@@ -55,6 +54,14 @@ const actionsPosts = {
     try {
       const { data } = await API_POSTS.getPostsByCategory(categoryId);
       commit("GetPostsByCate", data.response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async updatePosts({ commit }, { id, payload }) {
+    try {
+      const { data } = await API_POSTS.editPosts(id, payload);
+      commit("UpdatePosts", data.response);
     } catch (error) {
       console.log(error);
     }
