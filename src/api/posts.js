@@ -9,6 +9,10 @@ export default {
     const url = "/creatPosts";
     return instance.post(url, payload);
   },
+  createRandomPosts() {
+    const url = "/creatRandomPosts";
+    return instance.post(url);
+  },
   getPostsDetail(id) {
     const url = `/getById/${id}`;
     return instance.get(url);
@@ -37,5 +41,9 @@ export default {
   rmImage(payload) {
     const url = "/deleteImage";
     return instance.post(url, payload);
+  },
+  removePosts(id) {
+    const url = `/removePosts/${id}`;
+    return instance.delete(url);
   },
 };

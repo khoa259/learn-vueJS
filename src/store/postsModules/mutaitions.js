@@ -2,6 +2,9 @@ const mutationsPost = {
   CreatePosts(state, ItemPosts) {
     state.ItemPosts = ItemPosts;
   },
+  CreateRandomPosts(state, ItemPosts) {
+    state.ItemPosts = ItemPosts;
+  },
   GetAllPosts(state, ItemPosts) {
     state.ItemPosts = ItemPosts;
   },
@@ -21,6 +24,9 @@ const mutationsPost = {
     state.ItemPosts = ItemPosts;
   },
   UpdatePosts(state, ItemPosts) {
+    state.ItemPosts = ItemPosts;
+  },
+  DeletePosts(state, ItemPosts) {
     state.ItemPosts = ItemPosts;
   },
 };

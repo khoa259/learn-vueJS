@@ -9,6 +9,14 @@ const actionsPosts = {
       console.log("Error");
     }
   },
+  async createRandomPosts({ commit }) {
+    try {
+      const { data } = await API_POSTS.createRandomPosts();
+      commit("CreateRandomPosts", data);
+    } catch (error) {
+      console.log("Error");
+    }
+  },
 
   async getAllPosts({ commit }) {
     try {
@@ -62,6 +70,15 @@ const actionsPosts = {
     try {
       const { data } = await API_POSTS.editPosts(id, payload);
       commit("UpdatePosts", data.response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async deletePosts({ commit, dispatch }, { id }) {
+    try {
+      const { data } = await API_POSTS.removePosts(id);
+      commit("DeletePosts", data.response);
+      dispatch("getAllPosts");
     } catch (error) {
       console.log(error);
     }
