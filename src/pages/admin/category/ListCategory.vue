@@ -162,7 +162,7 @@ export default {
     this.getItemCate();
   },
   methods: {
-    ...mapActions(["getItemCate", "updateCate", "getDetailCate"]),
+    ...mapActions(["getItemCate", "updateCate", "getDetailCate", "createCate"]),
     showModal() {
       this.IdUpdate = "";
       this.isModalVisible = true;

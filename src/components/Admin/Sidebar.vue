@@ -33,7 +33,7 @@
       >
         <div class="sidebar">
           <ul class="space-y-2 font-medium">
-            <li v-for="(item, index) in MenuItem.slice(0, 4)" :key="index">
+            <li v-for="(item, index) in MenuItem.slice(0, 5)" :key="index">
               <router-link
                 :to="`/admin/${item.path}`"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 focus:bg-gray-200 dark:hover:bg-gray-700 group"

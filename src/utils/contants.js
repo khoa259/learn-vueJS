@@ -3,7 +3,6 @@ import ListAll from "@/pages/Clients/listAll/ListAll.vue";
 import Contact from "@/pages/Clients/Contact.vue";
 import About from "@/pages/Clients/About.vue";
 import Posts from "@/pages/Clients/Posts.vue";
-import ChatRoom from "@/pages/Clients/ChatRoom.vue";
 import Login from "@/pages/auth/Login.vue";
 import Register from "@/pages/auth/Register.vue";
 import Profile from "@/pages/Clients/profile/profile.vue";
@@ -12,8 +11,10 @@ import DetailPage from "@/pages/Clients/detailpage/DetailPage.vue";
 import ListCategory from "@/pages/admin/category/ListCategory.vue";
 import Dashboard from "@/pages/admin/dashboard/Dashboard.vue";
 import ListPosts from "@/pages/admin/posts/ListPosts.vue";
-import FormPosts from "../pages/admin/posts/FormPosts.vue";
+import FormPosts from "@/pages/admin/posts/FormPosts.vue";
 import ListUser from "@/pages/admin/users/listUser.vue";
+
+import ProvinceTest from "@/pages/admin/ProvinceTest.vue";
 export const urlRouter = [
   { path: "/", component: HomePage, label: "Trang chủ" },
   { path: "/list-all", component: ListAll, label: "Danh sách" },
@@ -51,15 +52,21 @@ export const urlRouterAdmin = [
     label: "Người dùng",
     icon: "fa-solid fa-user",
   },
+  {
+    path: "test",
+    component: ProvinceTest,
+    label: "Test",
+    icon: "fa-solid fa-user",
+  },
   //
   {
-    path: "create_posts",
+    path: "posts/:id/:key",
     icon: "fa-solid fa-book",
     component: FormPosts,
     label: "Tạo bài viết",
   },
   {
-    path: "posts/:id/:key",
+    path: "posts/:key",
     icon: "fa-solid fa-book",
     component: FormPosts,
     label: "Tạo bài viết",

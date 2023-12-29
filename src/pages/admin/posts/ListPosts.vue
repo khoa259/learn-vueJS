@@ -10,7 +10,7 @@
         </div>
         <div class="btn_action">
           <router-link
-            to="create_posts"
+            to="posts/create"
             type="button"
             class="text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
           >
@@ -90,8 +90,7 @@
                 v-if="item"
                 class="px-6 py-4 text-sm font-medium font-base w-60 text-slate-700"
               >
-                {{ item.address }}, {{ item.ward }}, {{ item.district }},
-                {{ item.province }}
+                {{ item.fullAdress }}
               </td>
               <td v-else>Cập nhật</td>
               <td class="space-x-1 space-y-1">

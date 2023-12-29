@@ -163,7 +163,7 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @blur="validateForm()"
               :class="{ is_valid: error.province }"
-              v-model="getProvinceId.province"
+              v-model="posts.province"
               @change="handleGetProvinceId"
               :disabled="keyLocation === 'view'"
             >
@@ -189,9 +189,9 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @blur="validateForm()"
               :class="{ is_valid: error.district }"
-              v-model="getProvinceId.district"
-              @change="handleGetDistrictId"
-              :disabled="!getProvinceId.province || keyLocation === 'view'"
+              v-model="posts.district"
+              @change="handleGetDistrictId(posts.province)"
+              :disabled="!posts.province || keyLocation === 'view'"
             >
               <option selected>--Chọn Quận/Huyện--</option>
               <option
@@ -215,9 +215,9 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @blur="validateForm()"
               :class="{ is_valid: error.ward }"
-              v-model="getProvinceId.ward"
-              @change="handleGetWardId"
-              :disabled="!getProvinceId.district || keyLocation === 'view'"
+              v-model="posts.ward"
+              @change="handleGetWardId(posts.district)"
+              :disabled="!posts.district || keyLocation === 'view'"
             >
               <option selected>--Chọn Phường/Xã--</option>
               <option
@@ -230,6 +230,14 @@
             </select>
             <div v-if="error.ward" class="text_error">{{ error.ward }}</div>
           </div>
+        </div>
+        <div class="w-full mb-6">
+          <input
+            disabled
+            :placeholder="getFullAdress"
+            type="text"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
         </div>
         <div class="mb-6">
           <label
@@ -271,11 +279,6 @@ export default {
       keyLocation: "",
       idParams: null,
       url: null,
-      getProvinceId: {
-        province: null,
-        district: null,
-        ward: null,
-      },
       api: {
         province: [],
         district: [],
@@ -305,15 +308,62 @@ export default {
         province: "",
         district: "",
         ward: "",
+        fullAdress: this.getFullAdress,
       },
     };
   },
-  computed: mapState({
-    categoryList: (state) => state.categoryMod.itemCate,
-  }),
+  computed: {
+    ...mapState({
+      categoryList: (state) => state.categoryMod.itemCate,
+    }),
+    getProvince() {
+      const get = this.api.province.find(
+        (item) => item.province_id === this.posts.province
+      );
+      return get ? get.province_name : "";
+    },
+    getDistricts() {
+      const getdistrict = this.api.district.find(
+        (item) => item.district_id === this.posts.district
+      );
+      return getdistrict ? getdistrict.district_name : "";
+    },
+    getWard() {
+      const getward = this.api.ward.find(
+        (item) => item.ward_id === this.posts.ward
+      );
+      return getward ? getward.ward_name : "";
+    },
+    getFullAdress() {
+      const get = `${this.posts.address}, ${this.getWard}, ${this.getDistricts}, ${this.getProvince}`;
+      return get;
+    },
+  },
+  watch: {
+    "posts.province": {
+      immediate: true,
+      handler(idProvince) {
+        if (idProvince) {
+          this.handleGetDistrictId(idProvince);
+          if (this.keyLocation === "create") {
+            this.posts.district = "";
+            this.posts.ward = "";
+          }
+        }
+      },
+    },
+    "posts.district": {
+      handler(idDistrict) {
+        if (idDistrict) {
+          this.handleGetWardId(idDistrict);
+        }
+      },
+    },
+  },
 
   created() {
     this.keyLocation = this.$route.params.key;
+    console.log(this.keyLocation === null);
     this.getItemCate();
     // api get province
     this.handleGetProvinceId();
@@ -322,10 +372,8 @@ export default {
       API_POSTS.getPostsById(this.idParams).then((res) => {
         this.posts = res.data.response;
         this.url = res.data.response.imagePosts;
-        // this.posts.categoryId = res.data.response.categoryId._id;
       });
     }
-    console.log(this.posts.timeclose);
   },
   methods: {
     ...mapActions([
@@ -358,41 +406,24 @@ export default {
       }
       return isValid;
     },
+
     // get province
     handleGetProvinceId() {
       API_PROVINCE.apiGetProvince().then((res) => {
         this.api.province = res.data.results;
       });
     },
-    handleGetDistrictId() {
-      API_PROVINCE.apiGetDistricts(this.getProvinceId.province).then((res) => {
+    handleGetDistrictId(e) {
+      API_PROVINCE.apiGetDistricts(e).then((res) => {
         this.api.district = res.data.results;
-        this.posts.province = this.findProvinceNameById(
-          this.getProvinceId.province
-        );
       });
     },
-    handleGetWardId() {
-      API_PROVINCE.apiGetWard(this.getProvinceId.district).then((res) => {
+    handleGetWardId(e) {
+      API_PROVINCE.apiGetWard(e).then((res) => {
         this.api.ward = res.data.results;
-        this.posts.district = this.findDistrictNameById(
-          this.getProvinceId.district
-        );
-        this.posts.ward = this.findWardNameById(this.getProvinceId.ward);
       });
     },
-    findProvinceNameById(id) {
-      const val = this.api.province.find((item) => item.province_id === id);
-      return val ? val.province_name : null;
-    },
-    findDistrictNameById(id) {
-      const val = this.api.district.find((item) => item.district_id === id);
-      return val ? val.district_name : null;
-    },
-    findWardNameById(id) {
-      const val = this.api.ward.find((item) => item.ward_id === id);
-      return val ? val.ward_name : null;
-    },
+
     // upload images
     handleUpload(e) {
       this.posts.imagePosts = e.target.files[0];
@@ -406,51 +437,21 @@ export default {
     },
     handleSave() {
       // thêm mới
-      if (this.keyLocation === null) {
+      if ((this.keyLocation = "create")) {
         if (this.validateForm()) {
           const formData = new FormData();
           for (let key in this.posts) {
             formData.append(key, this.posts[key]);
           }
-          this.createPosts(formData)
-            .then((res) => {
-              this.$toast.open({
-                message: "Tạo bài viết thành công",
-                type: "success",
-                position: "top-right",
-              });
-            })
-            .catch((er) => {
-              this.$toast.open({
-                message: "Tạo bài viết thất bại",
-                type: "error",
-                position: "top-right",
-              });
-            });
+          this.createPosts(formData);
         }
       }
       // cập nhật
-      if (this.keyLocation === "edit") {
-        const formData = new FormData();
-        for (let key in this.posts) {
-          formData.append(key, this.posts[key]);
-        }
-        this.updatePosts({ id: this.idParams, payload: formData })
-          .then((res) => {
-            this.$toast.open({
-              message: "Cập nhật bài viết thành công",
-              type: "success",
-              position: "top-right",
-            });
-          })
-          .catch((er) => {
-            this.$toast.open({
-              message: "Cập nhật bài viết thất bại",
-              type: "error",
-              position: "top-right",
-            });
-          });
+      const formData = new FormData();
+      for (let key in this.posts) {
+        formData.append(key, this.posts[key]);
       }
+      this.updatePosts({ id: this.idParams, payload: formData });
     },
   },
 };
