@@ -9,7 +9,7 @@ export default {
     const url = "/creatPosts";
     return instance.post(url, payload);
   },
-  createRandomPosts() {
+  createRandomPost() {
     const url = "/creatRandomPosts";
     return instance.post(url);
   },

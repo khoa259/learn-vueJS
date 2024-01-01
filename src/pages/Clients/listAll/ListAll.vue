@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     items() {
-      return this.$store.state.postsMod.ItemPosts;
+      return this.$store.state.postsMod.ItemPosts.getAll;
     },
   },
 

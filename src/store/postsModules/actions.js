@@ -1,27 +1,32 @@
 import API_POSTS from "@/api/posts.js";
+import { data } from "autoprefixer";
 const actionsPosts = {
   async createPosts({ commit }, payload) {
     try {
       const { data } = await API_POSTS.createPosts(payload);
       commit("CreatePosts", data);
-      // dispatch("GetAllPosts");
     } catch (error) {
       console.log("Error");
     }
   },
   async createRandomPosts({ commit }) {
     try {
-      const { data } = await API_POSTS.createRandomPosts();
+      const { data } = await API_POSTS.createRandomPost();
       commit("CreateRandomPosts", data);
     } catch (error) {
       console.log("Error");
+      // this.$toast.open({
+      //   message: data.message,
+      //   type: "error",
+      //   position: "top-right",
+      // });
     }
   },
 
   async getAllPosts({ commit }) {
     try {
       const { data } = await API_POSTS.getPosts();
-      commit("GetAllPosts", data.response.getAll);
+      commit("GetAllPosts", data.response);
     } catch (error) {
       console.log(error);
     }

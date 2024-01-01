@@ -34,8 +34,8 @@
           </button>
         </div>
       </div>
-      <p class="font-semibold mb-2">
-        Có tổng <span v-if="ItemPosts">{{ ItemPosts.length }}</span>
+      <p class="font-medium text-sm my-2">
+        Có tổng <span v-if="ItemPosts" class="text-base">{{ getLength }}</span>
         <span v-else>0</span> bài viết
       </p>
       <div class="relative overflow-x-auto">
@@ -122,14 +122,15 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 import API_PROVINCE from "@/api/province.js";
 export default {
   computed: {
-    ItemPosts() {
-      return this.$store.state.postsMod.ItemPosts;
-    },
+    ...mapState({
+      ItemPosts: (state) => state.postsMod.ItemPosts.getAll,
+      getLength: (state) => state.postsMod.ItemPosts.getLength,
+    }),
   },
   created() {
     this.getAllPosts();

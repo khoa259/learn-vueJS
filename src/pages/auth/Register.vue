@@ -73,7 +73,6 @@
 
 <script>
 import Author from "@/api/auth";
-import { useToast } from "vue-toast-notification";
 export default {
   name: "Register",
   data() {
