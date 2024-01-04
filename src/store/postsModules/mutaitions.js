@@ -6,7 +6,8 @@ const mutationsPost = {
     state.ItemPosts = ItemPosts;
   },
   GetAllPosts(state, ItemPosts) {
-    state.ItemPosts = ItemPosts;
+    state.ItemPosts = ItemPosts.getAll;
+    state.NumberItemPosts = ItemPosts.getLength;
   },
   GetPostsDetail(state, ItemPosts) {
     state.ItemPosts = ItemPosts;

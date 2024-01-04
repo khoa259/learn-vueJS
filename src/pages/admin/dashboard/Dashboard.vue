@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import CountCate from "@/components/Admin/dashboard/CountCate.vue";
 import CountPosts from "@/components/Admin/dashboard/CountPosts.vue";
 import CountView from "@/components/Admin/dashboard/CoutView.vue";
@@ -28,6 +29,12 @@ import Chart from "@/components/Admin/dashboard/Chart.vue";
 
 export default {
   components: { CountPosts, CountCate, CountView, Comment, Chart },
+  created() {
+    this.getPostsTopTrend();
+  },
+  methods: {
+    ...mapActions(["getPostsTopTrend"]),
+  },
 };
 </script>
 

@@ -1,3 +1,5 @@
+import { POSITION } from "vue-toastification";
+
 import HomePage from "@/pages/Clients/homepage/HomePage.vue";
 import ListAll from "@/pages/Clients/listAll/ListAll.vue";
 import Contact from "@/pages/Clients/Contact.vue";
@@ -85,3 +87,18 @@ export const urlRouterAuth = [
     label: "Đăng ký",
   },
 ];
+
+export const OptionsToast = {
+  position: POSITION.TOP_CENTER,
+  transition: "Vue-Toastification__bounce",
+  timeout: 2000,
+  closeOnClick: true,
+  pauseOnFocusLoss: true,
+  pauseOnHover: true,
+  draggable: true,
+  showCloseButtonOnHover: false,
+  hideProgressBar: true,
+  closeButton: "button",
+  icon: true,
+  // rtl: false,
+};

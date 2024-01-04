@@ -39,7 +39,7 @@ export default {
   },
   computed: mapState({
     categories: (state) => state.categoryMod.itemCate,
-    posts: (state) => state.postsMod.ItemPosts.getAll,
+    posts: (state) => state.postsMod.ItemPosts,
   }),
 
   created() {

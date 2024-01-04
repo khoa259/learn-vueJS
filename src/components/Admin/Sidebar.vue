@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-white">
     <button
       data-drawer-target="default-sidebar"
       data-drawer-toggle="default-sidebar"
@@ -29,7 +29,7 @@
       aria-label="Sidebar"
     >
       <div
-        class="flex justify-between flex-col h-full px-3 py-4 overflow-y-auto bg-gray-100 dark:bg-gray-800"
+        class="flex justify-between flex-col h-full px-3 py-4 overflow-y-auto bg-white dark:bg-gray-800"
       >
         <div class="sidebar">
           <ul class="space-y-2 font-medium">

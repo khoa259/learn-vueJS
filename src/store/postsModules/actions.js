@@ -1,5 +1,7 @@
+import { useToast } from "vue-toastification";
 import API_POSTS from "@/api/posts.js";
-import { data } from "autoprefixer";
+
+const toast = useToast();
 const actionsPosts = {
   async createPosts({ commit }, payload) {
     try {
@@ -9,17 +11,17 @@ const actionsPosts = {
       console.log("Error");
     }
   },
-  async createRandomPosts({ commit }) {
+  async createRandomPosts({ commit, dispatch }) {
     try {
       const { data } = await API_POSTS.createRandomPost();
+      console.log(data);
       commit("CreateRandomPosts", data);
+      dispatch("getAllPosts");
+      toast.success(data.message);
     } catch (error) {
-      console.log("Error");
-      // this.$toast.open({
-      //   message: data.message,
-      //   type: "error",
-      //   position: "top-right",
-      // });
+      toast.error(error.response.data.message);
+
+      console.log("Error", error);
     }
   },
 
@@ -28,6 +30,7 @@ const actionsPosts = {
       const { data } = await API_POSTS.getPosts();
       commit("GetAllPosts", data.response);
     } catch (error) {
+      toast.error(data.message);
       console.log(error);
     }
   },
@@ -75,6 +78,7 @@ const actionsPosts = {
     try {
       const { data } = await API_POSTS.editPosts(id, payload);
       commit("UpdatePosts", data.response);
+      toast.success(data.message);
     } catch (error) {
       console.log(error);
     }
@@ -84,6 +88,7 @@ const actionsPosts = {
       const { data } = await API_POSTS.removePosts(id);
       commit("DeletePosts", data.response);
       dispatch("getAllPosts");
+      toast.success(data.message);
     } catch (error) {
       console.log(error);
     }

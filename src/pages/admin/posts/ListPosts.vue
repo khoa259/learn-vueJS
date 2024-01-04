@@ -40,20 +40,20 @@
       </p>
       <div class="relative overflow-x-auto">
         <table
-          class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+          class="w-full rounded-md text-sm text-left text-gray-500 dark:text-gray-400"
         >
           <thead
-            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            class="text-xs bg-white uppercase border-b-2 dark:bg-gray-700 dark:text-gray-400"
           >
             <tr>
-              <th scope="col" class="px-6 py-3">STT</th>
-              <th scope="col" class="px-6 py-3">Tiêu đề bài viết</th>
-              <th scope="col" class="px-6 py-3">Ảnh bài viết</th>
-              <th scope="col" class="px-6 py-3">Danh mục bài viết</th>
-              <th scope="col" class="px-6 py-3">Khoảng giá</th>
-              <th scope="col" class="px-6 py-3">Giờ mở cửa</th>
-              <th scope="col" class="px-6 py-3">Địa chỉ</th>
-              <th scope="col" class="px-6 py-3">Action</th>
+              <th scope="col" class="px-6 text-xs py-3">STT</th>
+              <th scope="col" class="px-6 text-xs py-3">Tiêu đề bài viết</th>
+              <th scope="col" class="px-6 text-xs py-3">Ảnh bài viết</th>
+              <th scope="col" class="px-6 text-xs py-3">Danh mục bài viết</th>
+              <th scope="col" class="px-6 text-xs py-3">Khoảng giá</th>
+              <th scope="col" class="px-6 text-xs py-3">Giờ mở cửa</th>
+              <th scope="col" class="px-6 text-xs py-3">Địa chỉ</th>
+              <th scope="col" class="px-6 text-xs py-3">Action</th>
             </tr>
           </thead>
           <tbody v-if="ItemPosts">
@@ -62,7 +62,9 @@
               :key="index"
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
             >
-              <td class="px-6 py-4 text-sm font-medium text-slate-700 w-10">
+              <td
+                class="px-6 py-4 text-sm text-center font-medium text-slate-700 w-10"
+              >
                 {{ index + 1 }}
               </td>
               <td class="px-6 py-4 text-sm text-slate-700 w-auto">
@@ -128,13 +130,14 @@ import API_PROVINCE from "@/api/province.js";
 export default {
   computed: {
     ...mapState({
-      ItemPosts: (state) => state.postsMod.ItemPosts.getAll,
-      getLength: (state) => state.postsMod.ItemPosts.getLength,
+      ItemPosts: (state) => state.postsMod.ItemPosts,
+      getLength: (state) => state.postsMod.NumberItemPosts,
     }),
   },
   created() {
     this.getAllPosts();
   },
+
   methods: {
     ...mapActions(["getAllPosts", "deletePosts", "createRandomPosts"]),
     findProvind(idProvine) {
