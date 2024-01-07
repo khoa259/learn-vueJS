@@ -10,11 +10,7 @@
       <div class="flex space-x-2 items-start border-t-2 py-3">
         <i class="fa-solid fa-location-dot text-xl text-red-600"></i>
         <p class="text-slate-700 font-medium text-base capitalize">
-          {{ item.address ? item.address : "" }},
-          {{ item.ward ? item.ward : "" }},
-          {{ item.district ? item.district : "" }},
-          {{ item.province ? item.province : "" }}
-          <!-- Số 12 ngõ 103 đường bờ sông sét,thịnh liệt -->
+          {{ item.fullAdress ? item.fullAdress : "đang cập nhật địa chỉ" }},
         </p>
       </div>
       <div class="flex space-x-1 justify-start items-center">
@@ -108,11 +104,6 @@ export default {
         };
         if (this.isSave) {
           this.addWishList(payload);
-          this.$toast.open({
-            message: "Thêm vào danh sách yêu thích",
-            type: "success",
-            position: "top-right",
-          });
           console.log("id va isSave", id, this.isSave);
         } else {
           console.log("item remove", id);

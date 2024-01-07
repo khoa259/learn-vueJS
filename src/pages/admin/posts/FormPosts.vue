@@ -25,6 +25,8 @@
             id="dropzone-file"
             type="file"
             @change="handleUpload"
+            @blur="validateForm()"
+            :class="{ is_valid: error.imagePosts }"
             v-if="keyLocation !== 'view'"
           />
         </div>
@@ -187,9 +189,9 @@
             >
             <select
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              @blur="validateForm()"
               :class="{ is_valid: error.district }"
               v-model="posts.district"
+              @blur="validateForm()"
               @change="handleGetDistrictId(posts.province)"
               :disabled="!posts.province || keyLocation === 'view'"
             >
@@ -233,7 +235,8 @@
         </div>
         <div class="w-full mb-6">
           <input
-            disabled
+            readonly
+            v-model="fullAdress"
             :placeholder="getFullAdress"
             type="text"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -285,17 +288,6 @@ export default {
         ward: [],
       },
       error: {
-        title: "",
-        description: "",
-        categoryId: "",
-        timeopen: "",
-        timeclose: "",
-        address: "",
-        province: "",
-        district: "",
-        ward: "",
-      },
-      posts: {
         imagePosts: null,
         title: "",
         description: "",
@@ -308,10 +300,27 @@ export default {
         province: "",
         district: "",
         ward: "",
-        fullAdress: this.getFullAdress,
+        fullAdress: "",
       },
+      posts: {
+        imagePosts: null,
+        title: "tesst1",
+        description: "dis,fmie",
+        categoryId: "",
+        timeopen: "09:20",
+        timeclose: "22:20",
+        pricemin: "20000",
+        pricemax: "40000",
+        address: "so 136",
+        province: "",
+        district: "",
+        ward: "",
+        fullAdress: "",
+      },
+      fullAdress: "",
     };
   },
+
   computed: {
     ...mapState({
       categoryList: (state) => state.categoryMod.itemCate,
@@ -339,6 +348,7 @@ export default {
       return get;
     },
   },
+
   watch: {
     "posts.province": {
       immediate: true,
@@ -363,7 +373,6 @@ export default {
 
   created() {
     this.keyLocation = this.$route.params.key;
-    console.log(this.keyLocation === null);
     this.getItemCate();
     // api get province
     this.handleGetProvinceId();
@@ -398,7 +407,7 @@ export default {
         ward: "",
       };
       const isRequired = "Không được bỏ trống trường này";
-      for (let key in this.posts) {
+      for (let key in this.error) {
         if (!this.posts[key]) {
           this.error[key] = isRequired;
           isValid = false;
@@ -436,9 +445,12 @@ export default {
       });
     },
     handleSave() {
-      // thêm mới
-      if ((this.keyLocation = "create")) {
+      console.log("handle submit", this.keyLocation === "create");
+      if (this.keyLocation === "create") {
+        // thêm mới
+        console.log("handle", this.posts.fullAdress);
         if (this.validateForm()) {
+          this.posts.fullAdress = this.getFullAdress;
           const formData = new FormData();
           for (let key in this.posts) {
             formData.append(key, this.posts[key]);
@@ -447,11 +459,14 @@ export default {
         }
       }
       // cập nhật
-      const formData = new FormData();
-      for (let key in this.posts) {
-        formData.append(key, this.posts[key]);
+      else if (this.keyLocation === "edit") {
+        this.posts.fullAdress = this.getFullAdress;
+        const formData = new FormData();
+        for (let key in this.posts) {
+          formData.append(key, this.posts[key]);
+        }
+        this.updatePosts({ id: this.idParams, payload: formData });
       }
-      this.updatePosts({ id: this.idParams, payload: formData });
     },
   },
 };

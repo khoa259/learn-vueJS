@@ -13,7 +13,7 @@
       </div>
       <div class="flex flex-col h-[60vh] w-2/5">
         <CountView />
-        <Comment />
+        <TopTrending />
       </div>
     </div>
   </div>
@@ -24,11 +24,18 @@ import { mapActions } from "vuex";
 import CountCate from "@/components/Admin/dashboard/CountCate.vue";
 import CountPosts from "@/components/Admin/dashboard/CountPosts.vue";
 import CountView from "@/components/Admin/dashboard/CoutView.vue";
-import Comment from "@/components/Admin/dashboard/Comment.vue";
+import TopTrending from "@/components/Admin/dashboard/TopTrending.vue";
 import Chart from "@/components/Admin/dashboard/Chart.vue";
 
 export default {
-  components: { CountPosts, CountCate, CountView, Comment, Chart },
+  components: {
+    CountPosts,
+    CountCate,
+    CountView,
+    TopTrending,
+    Chart,
+    TopTrending,
+  },
   created() {
     this.getPostsTopTrend();
   },

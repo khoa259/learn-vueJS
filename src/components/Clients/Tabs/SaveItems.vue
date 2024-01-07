@@ -2,7 +2,7 @@
   <div v-if="items">
     <div v-for="(itemWishlist, index) in items" :key="index">
       <div
-        v-if="itemWishlist.wishlist.length"
+        v-if="itemWishlist.wishlist"
         class="grid lg:grid-cols-5 lg:gap-4 md:grid-cols-4 md:gap-3 sm:grid-cols-2 sm:gap-3"
       >
         <div
