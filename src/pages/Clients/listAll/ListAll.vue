@@ -8,6 +8,16 @@
       />
     </div>
     <h2 class="title-page">Bài viết</h2>
+    <div class="flex justify-end mb-2">
+      <div>
+        <select name="" id="" class="py-1 rounded-md border-[var(--cl-yellow)]">
+          <option class="text-[var(--cl-yellow)]" selected>tất cả</option>
+          <option value="">xem nhiều nhất</option>
+          <option value="">xem ít nhất</option>
+          <option value="">bài viết mới</option>
+        </select>
+      </div>
+    </div>
     <div class="flex gap-5 bg-white rounded-md">
       <Sidebar />
       <div class="w-4/5">

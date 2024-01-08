@@ -18,7 +18,7 @@
                 <div class="max-w-[150px]">
                   <img
                     class="max-h-28 object-cover rounded-md"
-                    src="https://www.datanami.com/wp-content/uploads/2021/10/tonic_ai_real_fake_data.png"
+                    :src="item.imagePosts"
                     alt=""
                     loading="lazy"
                   />

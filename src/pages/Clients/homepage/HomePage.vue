@@ -17,6 +17,9 @@
       />
     </div>
     <div class="pt-8 static">
+      <PostsTopView :itemsPostsTopView="postsTopView" />
+    </div>
+    <div class="pt-8 static">
       <NewEatingArea :itemsPosts="posts" />
     </div>
   </div>
@@ -29,6 +32,7 @@ import Banner from "@/components/Clients/Homepage/Banner.vue";
 import Weather from "@/components/Clients/Homepage/Weather.vue";
 import BoxItemCate from "@/components/Clients/Homepage/BoxItemCate.vue";
 import NewEatingArea from "@/components/Clients/Homepage/NewEatingArea.vue";
+import PostsTopView from "../../../components/Clients/Homepage/PostsTopView.vue";
 export default {
   name: "HomePage",
   components: {
@@ -36,10 +40,12 @@ export default {
     Weather,
     BoxItemCate,
     NewEatingArea,
+    PostsTopView,
   },
   computed: mapState({
     categories: (state) => state.categoryMod.itemCate,
     posts: (state) => state.postsMod.ItemPosts,
+    postsTopView: (state) => state.postsMod.ItemPostsTopView,
   }),
 
   created() {

@@ -10,7 +10,7 @@
       <div class="flex space-x-2 items-start border-t-2 py-3">
         <i class="fa-solid fa-location-dot text-xl text-red-600"></i>
         <p class="text-slate-700 font-medium text-base capitalize">
-          {{ item.fullAdress ? item.fullAdress : "đang cập nhật địa chỉ" }},
+          {{ item.fullAdress ? item.fullAdress : "đang cập nhật địa chỉ" }}
         </p>
       </div>
       <div class="flex space-x-1 justify-start items-center">
