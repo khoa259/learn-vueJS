@@ -41,6 +41,9 @@
 <script>
 import moment from "moment";
 import { mapActions } from "vuex";
+
+import { formatPrice, formatDateFull } from "@/utils/contants";
+
 export default {
   data() {
     return {
@@ -59,13 +62,10 @@ export default {
   methods: {
     ...mapActions(["wishLists", "removeWishList"]),
     formatDate(value) {
-      if (value) {
-        return moment(String(value)).format("DD/MM/YYYY HH:SS");
-      }
+      return formatDateFull(value);
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed().replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return formatPrice(value);
     },
     async handleRemove(e) {
       console.log(e);

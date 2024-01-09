@@ -23,7 +23,7 @@
                     loading="lazy"
                   />
                 </div>
-                <div class="posts_content my-2 flex flex-col">
+                <div class="posts_content my-2 flex flex-col space-y-1">
                   <div class="posts_title">
                     <h3
                       class="font-medium truncate tracking-tight text-base w-44 text-slate-800"
@@ -34,7 +34,9 @@
                   <div class="posts_view w-full">
                     <div class="text-sm">
                       Lượt xem:
-                      <span class="font-medium">{{ item.review }}</span>
+                      <span class="font-medium">{{
+                        formatNumberViews(item.review)
+                      }}</span>
                     </div>
                     <div class="text-sm font-medium">
                       {{
@@ -43,6 +45,9 @@
                           : "danh mục trống"
                       }}
                     </div>
+                  </div>
+                  <div class="font-normal text-xs text-[var(--cl-yellow)]">
+                    {{ formatDates(item.createdAt) }}
                   </div>
                 </div>
               </div>
@@ -55,12 +60,21 @@
 </template>
 
 <script>
+import { formatDate, formatNumberView } from "@/utils/contants";
 import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
       topTrend: (state) => state.dashboardMod.PostsTrending,
     }),
+  },
+  methods: {
+    formatNumberViews(e) {
+      return formatNumberView(e);
+    },
+    formatDates(e) {
+      return formatDate(e);
+    },
   },
 };
 </script>

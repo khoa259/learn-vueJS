@@ -1,4 +1,5 @@
 import { POSITION } from "vue-toastification";
+import moment from "moment";
 
 import HomePage from "@/pages/Clients/homepage/HomePage.vue";
 import ListAll from "@/pages/Clients/listAll/ListAll.vue";
@@ -28,6 +29,49 @@ export const urlRouter = [
   { path: "/:id", component: DetailPage, label: "Chi tiết bài viết" },
   { path: "/list-all/:id", component: ListAll, label: "Chi tiết bài viết" },
 ];
+
+// 1 phút trước, 1 giờ trước,...
+const formatDate = (value) => {
+  // let startDate = new Date().getHours();
+  let calcDate =
+    new Date().getTime() - new Date("2024-01-09T09:05:01.330+00:00").getTime();
+  // let Dake = new Date(calcDate).getHours();
+  console.log("time", Date(calcDate).getHours());
+
+  let calcDates = new Intl.RelativeTimeFormat("vn-VN", { style: "short" });
+  console.log("timeformat", calcDates.format(-calcDate, "hour"));
+  // console.log(getTime.format(Dake, "hours"));
+  // if (getTime >= 1440) {
+  //   return `${getTime} ngày`;
+  // } else if (getTime >= 60) {
+  //   return getTime.format(-1, "hours");
+  // } else if (getTime > 0) {
+  //   return getTime.format(-1, "minutes");
+  // } else if ((getTime = 0)) {
+  //   return `bây giờ`;
+  // }
+};
+
+// 1,2K, 1,2M,...
+const formatNumberView = (value) => {
+  const formatter = Intl.NumberFormat("en", { notation: "compact" });
+  return formatter.format(value);
+};
+
+// 09/01/2024, 14:22
+const formatDateFull = (value) => {
+  if (value) {
+    return moment(String(value)).format("DD/MM/YYYY HH:SS");
+  }
+};
+
+// 1,000,000
+const formatPrice = (value) => {
+  let val = (value / 1).toFixed().replace(".", ",");
+  return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
+
+export { formatDate, formatNumberView, formatDateFull, formatPrice };
 
 export const urlRouterAdmin = [
   {

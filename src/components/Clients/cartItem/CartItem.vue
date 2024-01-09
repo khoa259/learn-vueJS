@@ -24,18 +24,9 @@
       </div>
       <div class="info align-bottom">
         <div class="flex justify-between h-8 items-center">
-          <span class="timestamp text-gray-400 flex gap-1 items-center"
-            ><svg
-              class="w-[14px] h-[14px] text-gray-400 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"
-              /></svg
-            >{{ formatDate(item.createdAt) }}</span
+          <span
+            class="timestamp text-[var(--cl-yellow)] font-normal text-sm flex gap-1 items-center"
+            >{{ formatDates(item.createdAt) }}</span
           >
           <span class="rating">
             <div class="flex items-center">
@@ -48,8 +39,8 @@
               ></span>
               <a
                 href="#"
-                class="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white"
-                >{{ item.review }} views</a
+                class="text-sm font-md text-gray-900 no-underline dark:text-white"
+                >{{ formatNumberView(item.review) }} views</a
               >
             </div>
           </span>
@@ -89,7 +80,7 @@
 </template>
 
 <script>
-import moment from "moment";
+import { formatDate, formatNumberView } from "@/utils/contants";
 
 export default {
   data() {
@@ -101,10 +92,11 @@ export default {
   props: ["item"],
 
   methods: {
-    formatDate(value) {
-      if (value) {
-        return moment(String(value)).format("hh:mm");
-      }
+    formatNumberView(e) {
+      return formatNumberView(e);
+    },
+    formatDates(e) {
+      return formatDate(e);
     },
   },
 };

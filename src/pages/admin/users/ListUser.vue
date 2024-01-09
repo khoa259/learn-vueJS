@@ -85,6 +85,8 @@
 <script>
 import moment from "moment";
 import API_AUTH from "@/api/auth.js";
+
+import { formatDateFull } from "@/utils/contants";
 import SelectLocation from "@/components/Admin/SelectLocation.vue";
 export default {
   data() {
@@ -101,7 +103,7 @@ export default {
   },
   methods: {
     getFormatDate(date) {
-      return moment(date).format("DD-MM-YYYY hh:mm:ss");
+      return formatDateFull(date);
     },
   },
   components: { SelectLocation },

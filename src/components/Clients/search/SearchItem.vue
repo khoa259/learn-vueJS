@@ -84,6 +84,8 @@
 <script>
 import debounce from "lodash.debounce";
 import { mapActions } from "vuex";
+
+import { formatPrice } from "@/utils/contants";
 export default {
   data() {
     return {
@@ -108,8 +110,7 @@ export default {
     ...mapActions(["SearchPost", "getAllPosts"]),
 
     formatPrice(value) {
-      let val = (value / 1).toFixed().replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return formatPrice(value);
     },
     closeModal() {
       this.$emit("closeModal");

@@ -43,7 +43,7 @@
           class="w-full rounded-md text-sm text-left text-gray-500 dark:text-gray-400"
         >
           <thead
-            class="text-xs bg-white uppercase border-b-2 dark:bg-gray-700 dark:text-gray-400"
+            class="text-xs bg-white uppercase border-b-2 dark:bg-gray-700 dark:text-gray-400 sticky top-0 relative"
           >
             <tr>
               <th scope="col" class="px-6 text-xs py-3">STT</th>
@@ -60,7 +60,7 @@
             <tr
               v-for="(item, index) in ItemPosts"
               :key="index"
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50"
             >
               <td
                 class="px-6 py-4 text-sm text-center font-medium text-slate-700 w-10"
@@ -74,6 +74,7 @@
                 <img
                   :src="item.imagePosts"
                   class="w-28 h-full max-h-36 object-cover"
+                  loading="lazy"
                 />
               </td>
               <td
@@ -126,6 +127,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 
+import { formatPrice } from "@/utils/contants";
 import API_PROVINCE from "@/api/province.js";
 export default {
   computed: {
@@ -144,8 +146,7 @@ export default {
       API_PROVINCE.apiGetProvince(idProvine).then((res) => console.log(res));
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed().replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return formatPrice(value);
     },
     handleCreateRandomPosts() {
       this.createRandomPosts();
