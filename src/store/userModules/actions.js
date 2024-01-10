@@ -1,4 +1,4 @@
-import API_USERS from "../../api/user.js";
+import API_USERS from "@/api/user.js";
 export const actions = {
   async addWishList({ commit }, payload) {
     const { data } = await API_USERS.addWishlist(payload);

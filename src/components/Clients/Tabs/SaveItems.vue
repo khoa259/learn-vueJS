@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import moment from "moment";
 import { mapActions } from "vuex";
 
 import { formatPrice, formatDateFull } from "@/utils/contants";

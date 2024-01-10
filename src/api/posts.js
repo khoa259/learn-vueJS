@@ -1,8 +1,8 @@
 import instance from "./instance";
 
 export default {
-  getPosts() {
-    const url = `/getPosts`;
+  getPosts(page) {
+    const url = `/getPosts?page=${page || 1}`;
     return instance.get(url);
   },
   createPosts(payload) {

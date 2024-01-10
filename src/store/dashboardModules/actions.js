@@ -1,4 +1,4 @@
-import API_DASHBOARD from "../../api/dashboard";
+import API_DASHBOARD from "@/api/dashboard";
 
 const actionsDashBoard = {
   async getPostsTopTrend({ commit }) {

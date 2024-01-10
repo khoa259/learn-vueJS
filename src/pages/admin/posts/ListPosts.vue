@@ -6,7 +6,12 @@
     <div class="main pt-2">
       <div class="flex justify-between items-center py-4">
         <div>
-          <input type="text" placeholder="Tìm kiếm..." />
+          <input
+            v-model="keySearch"
+            type="text"
+            placeholder="Tìm kiếm..."
+            @input="filterSearchPosts(keySearch)"
+          />
         </div>
         <div class="btn_action">
           <router-link
@@ -119,6 +124,7 @@
           </tbody>
           <div v-else>Loading...</div>
         </table>
+        <Pagination />
       </div>
     </div>
   </div>
@@ -126,10 +132,17 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import debounce from "lodash.debounce";
 
 import { formatPrice } from "@/utils/contants";
 import API_PROVINCE from "@/api/province.js";
+import Pagination from "@/components/Pagination.vue";
 export default {
+  data() {
+    return {
+      keySearch: "",
+    };
+  },
   computed: {
     ...mapState({
       ItemPosts: (state) => state.postsMod.ItemPosts,
@@ -138,10 +151,21 @@ export default {
   },
   created() {
     this.getAllPosts();
+    this.filterSearchPosts = debounce((e) => {
+      if (e) {
+        return this.SearchPost(e);
+      } else {
+        this.getAllPosts();
+      }
+    }, 600);
   },
-
   methods: {
-    ...mapActions(["getAllPosts", "deletePosts", "createRandomPosts"]),
+    ...mapActions([
+      "getAllPosts",
+      "deletePosts",
+      "createRandomPosts",
+      "SearchPost",
+    ]),
     findProvind(idProvine) {
       API_PROVINCE.apiGetProvince(idProvine).then((res) => console.log(res));
     },
@@ -161,6 +185,7 @@ export default {
       }
     },
   },
+  components: { Pagination },
 };
 </script>
 

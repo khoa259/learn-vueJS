@@ -9,6 +9,7 @@ const mutationsPost = {
     state.ItemPosts = ItemPosts.getAll;
     state.ItemPostsTopView = ItemPosts.topView;
     state.NumberItemPosts = ItemPosts.getLength;
+    state.limitItem = ItemPosts.limitItem;
   },
   GetPostsDetail(state, ItemPosts) {
     state.ItemPosts = ItemPosts;

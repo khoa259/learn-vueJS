@@ -3,7 +3,7 @@
     <div class="count_cate">
       <div class="flex flex-col space-y-2">
         <h2 class="text-slate-700 text-xl font-medium">Bài viết thịnh hành</h2>
-        <div class="flex flex-col h-[470px] space-y-2 overflow-y-auto">
+        <div class="flex flex-col max-h-[400px] space-y-2 overflow-y-auto">
           <div class="posts" v-for="(item, index) in topTrend" :key="index">
             <router-link
               to=""

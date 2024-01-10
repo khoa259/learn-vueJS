@@ -16,40 +16,28 @@ import Dashboard from "@/pages/admin/dashboard/Dashboard.vue";
 import ListPosts from "@/pages/admin/posts/ListPosts.vue";
 import FormPosts from "@/pages/admin/posts/FormPosts.vue";
 import ListUser from "@/pages/admin/users/listUser.vue";
-
 import ProvinceTest from "@/pages/admin/ProvinceTest.vue";
-export const urlRouter = [
-  { path: "/", component: HomePage, label: "Trang chủ" },
-  { path: "/list-all", component: ListAll, label: "Danh sách" },
-  { path: "/about", component: About, label: "Giới thiệu" },
-  { path: "/contact", component: Contact, label: "Liên hệ" },
-  //
-  { path: "/posts", component: Posts, label: "Thêm bài viết" },
-  { path: "/profile", component: Profile, label: "Thông tin cá nhân" },
-  { path: "/:id", component: DetailPage, label: "Chi tiết bài viết" },
-  { path: "/list-all/:id", component: ListAll, label: "Chi tiết bài viết" },
-];
 
 // 1 phút trước, 1 giờ trước,...
 const formatDate = (value) => {
-  // let startDate = new Date().getHours();
-  let calcDate =
-    new Date().getTime() - new Date("2024-01-09T09:05:01.330+00:00").getTime();
-  // let Dake = new Date(calcDate).getHours();
-  console.log("time", Date(calcDate).getHours());
-
-  let calcDates = new Intl.RelativeTimeFormat("vn-VN", { style: "short" });
-  console.log("timeformat", calcDates.format(-calcDate, "hour"));
-  // console.log(getTime.format(Dake, "hours"));
-  // if (getTime >= 1440) {
-  //   return `${getTime} ngày`;
-  // } else if (getTime >= 60) {
-  //   return getTime.format(-1, "hours");
-  // } else if (getTime > 0) {
-  //   return getTime.format(-1, "minutes");
-  // } else if ((getTime = 0)) {
-  //   return `bây giờ`;
-  // }
+  const date = value instanceof Date ? value : new Date(value);
+  const formatter = new Intl.RelativeTimeFormat("vn-VN");
+  const ranges = {
+    years: 3600 * 24 * 365,
+    months: 3600 * 24 * 30,
+    weeks: 3600 * 24 * 7,
+    days: 3600 * 24,
+    hours: 3600,
+    minutes: 60,
+    seconds: 1,
+  };
+  const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+  for (let key in ranges) {
+    if (ranges[key] < Math.abs(secondsElapsed)) {
+      const delta = secondsElapsed / ranges[key];
+      return formatter.format(Math.round(delta), key);
+    }
+  }
 };
 
 // 1,2K, 1,2M,...
@@ -72,6 +60,18 @@ const formatPrice = (value) => {
 };
 
 export { formatDate, formatNumberView, formatDateFull, formatPrice };
+//router
+export const urlRouter = [
+  { path: "/", component: HomePage, label: "Trang chủ" },
+  { path: "/list-all", component: ListAll, label: "Danh sách" },
+  { path: "/about", component: About, label: "Giới thiệu" },
+  { path: "/contact", component: Contact, label: "Liên hệ" },
+  //
+  { path: "/posts", component: Posts, label: "Thêm bài viết" },
+  { path: "/profile", component: Profile, label: "Thông tin cá nhân" },
+  { path: "/:id", component: DetailPage, label: "Chi tiết bài viết" },
+  { path: "/list-all/:id", component: ListAll, label: "Chi tiết bài viết" },
+];
 
 export const urlRouterAdmin = [
   {

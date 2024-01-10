@@ -6,6 +6,7 @@ const postModules = {
   state: {
     ItemPosts: [],
     ItemPostsTopView: [],
+    limitItem: 0,
     NumberItemPosts: 0,
     ItemPostsDetail: [],
     ItemPostsRelated: [],

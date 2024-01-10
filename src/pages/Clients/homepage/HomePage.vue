@@ -32,7 +32,7 @@ import Banner from "@/components/Clients/Homepage/Banner.vue";
 import Weather from "@/components/Clients/Homepage/Weather.vue";
 import BoxItemCate from "@/components/Clients/Homepage/BoxItemCate.vue";
 import NewEatingArea from "@/components/Clients/Homepage/NewEatingArea.vue";
-import PostsTopView from "../../../components/Clients/Homepage/PostsTopView.vue";
+import PostsTopView from "@/components/Clients/Homepage/PostsTopView.vue";
 export default {
   name: "HomePage",
   components: {

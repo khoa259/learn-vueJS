@@ -25,9 +25,9 @@ const actionsPosts = {
     }
   },
 
-  async getAllPosts({ commit }) {
+  async getAllPosts({ commit }, page) {
     try {
-      const { data } = await API_POSTS.getPosts();
+      const { data } = await API_POSTS.getPosts(page);
       commit("GetAllPosts", data.response);
     } catch (error) {
       toast.error(data.message);
