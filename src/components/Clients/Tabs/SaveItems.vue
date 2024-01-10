@@ -22,7 +22,7 @@
             <div class="absolute top-1 right-2">
               <button class="bg-none" @click="handleRemove(item._id)">
                 <i
-                  class="fa-solid fa-circle-xmark text-red-500 text-2xl hover:text-red-700 duration-100"
+                  class="fa-solid fa-circle-xmark text-indigo-900 text-2xl hover:text-red-600 duration-100"
                 ></i>
               </button>
             </div>

@@ -59,10 +59,15 @@
       </div>
       <div class="block">
         <button
-          class="w-full border-[var(--cl-yellow)] text-[var(--cl-yellow)] border-2 py-1 rounded-lg focus:bg-[var(--cl-yellow)] focus:text-white"
+          class="w-full border-[var(--cl-yellow)] text-[var(--cl-yellow)] border-2 py-1 rounded-lg"
           @click="handleSave(item._id)"
+          :class="[
+            isSave
+              ? 'bg-blue-700 text-white border-none'
+              : 'text-[var(--cl-yellow)]',
+          ]"
         >
-          {{ isSave ? "Chán rồi !" : "Yêu thích" }}
+          {{ isSave ? "Bỏ thích !" : "Yêu thích" }}
         </button>
       </div>
     </div>
@@ -70,7 +75,6 @@
 </template>
 
 <script>
-import moment from "moment";
 import { mapActions } from "vuex";
 
 import { formatPrice, formatDateFull } from "@/utils/contants";
@@ -78,8 +82,7 @@ export default {
   props: ["item"],
   data() {
     return {
-      idSave: null,
-      isSave: false,
+      isSave: Boolean,
       local: JSON.parse(localStorage.getItem("user")),
     };
   },
@@ -95,16 +98,14 @@ export default {
       if (this.local === null) {
         return alert("Bạn cần đăng nhập");
       } else {
-        this.isSave = !this.isSave;
+        this.item.statusSave = this.isSave = !this.isSave;
         const payload = {
           email: this.local.email,
           postsId: id,
         };
         if (this.isSave) {
           this.addWishList(payload);
-          console.log("id va isSave", id, this.isSave);
         } else {
-          console.log("item remove", id);
           this.removeWishList(payload);
         }
       }

@@ -3,14 +3,10 @@
     <img src="./vietnam-flag-map-national-day-in.jpg" alt="" />
     <div class="flex space-x-3">
       <div class="w-full h-[1230px]">
-        <div
-          class="container_posts"
-          v-for="(item, index) in detailPost"
-          :key="index"
-        >
-          <HeaderPosts :item="item" />
+        <div class="container_posts">
+          <HeaderPosts :item="detailPosts" />
           <div class="flex space-x-3 mt-4">
-            <DescriptionPosts :item="item" />
+            <DescriptionPosts :item="detailPosts" />
             <RelatedPosts :postRelated="postRelated" />
           </div>
           <Comment />
@@ -36,7 +32,7 @@ export default {
     Comment,
   },
   computed: mapState({
-    detailPost: (state) => state.postsMod.ItemPosts,
+    detailPosts: (state) => state.postsMod.ItemPostsDetail,
     postRelated: (state) => state.postsMod.ItemPostsRelated,
   }),
   created() {

@@ -11,10 +11,10 @@ const mutationsPost = {
     state.NumberItemPosts = ItemPosts.getLength;
     state.limitItem = ItemPosts.limitItem;
   },
-  GetPostsDetail(state, ItemPosts) {
+  GetPostsById(state, ItemPosts) {
     state.ItemPosts = ItemPosts;
   },
-  GetPostsById(state, ItemPosts) {
+  GetPostsDetail(state, ItemPosts) {
     state.ItemPostsDetail = ItemPosts;
   },
   GetPostsRelated(state, ItemPosts) {

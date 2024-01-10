@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       tabs: [
-        { label: "Địa điểm yêu thích", component: "SaveItems" },
+        { label: "Bài viết yêu thích", component: "SaveItems" },
         { label: "Thông tin cá nhân", component: "profile" },
       ],
     };
