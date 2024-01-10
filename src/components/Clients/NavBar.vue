@@ -15,7 +15,7 @@
         <div class="flex items-center md:order-2">
           <div class="flex space-x-7">
             <router-link
-              v-if="local"
+              v-if="roleAdmin === 1"
               class="text-white text-base font-normal pr-4"
               to="/admin"
               >Quản trị viên</router-link
@@ -130,6 +130,7 @@ export default {
       isOpen: false,
       menuItems: urlRouter,
       local: JSON.parse(localStorage.getItem("user")),
+      roleAdmin: JSON.parse(localStorage.getItem("role")),
     };
   },
   methods: {
