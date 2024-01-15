@@ -54,7 +54,7 @@
           class="text-[var(--cl-yellow)] bg-white rounded-md text-sm font-semibold border-2 border-[var(--cl-yellow)] px-2 py-1"
         >
           <i class="fa-solid fa-eye pr-2 text-blue-500"></i>
-          {{ item.review }}</span
+          {{ formatNumberView(item.review) }}</span
         >
       </div>
       <div class="block">
@@ -77,7 +77,11 @@
 <script>
 import { mapActions } from "vuex";
 
-import { formatPrice, formatDateFull } from "@/utils/contants";
+import {
+  formatPrice,
+  formatDateFull,
+  formatNumberView,
+} from "@/utils/contants";
 export default {
   props: ["item"],
   data() {
@@ -93,6 +97,9 @@ export default {
     },
     formatPrice(value) {
       return formatPrice(value);
+    },
+    formatNumberView(value) {
+      return formatNumberView(value);
     },
     handleSave(id) {
       if (this.local === null) {
