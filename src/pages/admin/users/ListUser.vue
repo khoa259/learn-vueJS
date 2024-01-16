@@ -65,7 +65,7 @@
                 </select>
               </td>
               <td class="px-6 py-4 text-base font-medium">
-                {{ getFormatDate(item.createdAt) }}
+                {{ item.createdAt }}
               </td>
               <td class="px-6 py-4 w-36">
                 <button
@@ -85,7 +85,7 @@
 <script>
 import API_AUTH from "@/api/auth.js";
 
-import { formatDateFull } from "../../../utils/contants.js";
+// import { formatDateFull } from "@/utils/contants.js";
 import SelectLocation from "@/components/Admin/SelectLocation.vue";
 export default {
   data() {
@@ -102,9 +102,9 @@ export default {
       .catch((err) => console.log("error", err));
   },
   methods: {
-    getFormatDate(date) {
-      return formatDateFull(date);
-    },
+    // getFormatDate(date) {
+    //   return formatDateFull(date);
+    // },
   },
   components: { SelectLocation },
 };
