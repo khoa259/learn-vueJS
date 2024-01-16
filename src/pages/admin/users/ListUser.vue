@@ -100,11 +100,6 @@ export default {
       })
       .catch((err) => console.log("error", err));
   },
-  // methods: {
-  //   getFormatDate(date) {
-  //     return formatDateFull(date);
-  //   },
-  // },
   components: { SelectLocation },
 };
 </script>
