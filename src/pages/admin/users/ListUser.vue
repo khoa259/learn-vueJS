@@ -85,7 +85,7 @@
 <script>
 import API_AUTH from "@/api/auth.js";
 
-import { formatDateFull } from "@/src/utils/contants.js";
+import { formatDateFull } from "../../../utils/contants.js";
 import SelectLocation from "@/components/Admin/SelectLocation.vue";
 export default {
   data() {
