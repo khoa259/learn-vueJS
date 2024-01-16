@@ -85,6 +85,7 @@
 <script>
 import API_AUTH from "@/api/auth.js";
 
+import { formatDateFull } from "/src/utils/contants.js";
 import SelectLocation from "@/components/Admin/SelectLocation.vue";
 export default {
   data() {
@@ -101,9 +102,9 @@ export default {
       .catch((err) => console.log("error", err));
   },
   methods: {
-    // getFormatDate(date) {
-    //   return formatDateFull(date);
-    // },
+    getFormatDate(date) {
+      return formatDateFull(date);
+    },
   },
   components: { SelectLocation },
 };
