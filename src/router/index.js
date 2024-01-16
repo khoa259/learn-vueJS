@@ -16,6 +16,13 @@ const routes = [
     redirect: "/admin/dashboard",
     component: AdminLayout,
     children: urlRouterAdmin,
+    beforeEnter: (to, from, next) => {
+      const local = JSON.parse(localStorage.getItem("role"));
+      if (local != 1) {
+        return next({ path: "/auth" });
+      }
+      next();
+    },
   },
   {
     path: "/auth",

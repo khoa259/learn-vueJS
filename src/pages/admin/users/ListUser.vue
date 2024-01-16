@@ -31,7 +31,7 @@
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
         >
           <thead
-            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            class="text-xs bg-white border-b-2 uppercas dark:bg-gray-700 dark:text-gray-400"
           >
             <tr>
               <th scope="col" class="px-6 py-3">STT</th>
@@ -56,12 +56,12 @@
               </td>
               <td class="px-6 py-4 text-base font-medium">{{ item.email }}</td>
               <td class="px-6 py-4 text-base font-medium w-36">
-                <select
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option value="US">{{ item.role }}</option>
-                  <option value="US">user</option>
-                  <option value="US">admin</option>
+                <select v-model="updateRole">
+                  <option value="" disabled selected>
+                    {{ item.role ? "admin" : "user" }}
+                  </option>
+                  <option value="0">user</option>
+                  <option value="1">admin</option>
                 </select>
               </td>
               <td class="px-6 py-4 text-base font-medium">
@@ -83,13 +83,15 @@
 </template>
 
 <script>
-import moment from "moment";
 import API_AUTH from "@/api/auth.js";
+
+import { formatDateFull } from "@/utils/contants";
 import SelectLocation from "@/components/Admin/SelectLocation.vue";
 export default {
   data() {
     return {
       itemUser: [],
+      updateRole: 0,
     };
   },
   created() {
@@ -101,7 +103,7 @@ export default {
   },
   methods: {
     getFormatDate(date) {
-      return moment(date).format("DD-MM-YYYY hh:mm:ss");
+      return formatDateFull(date);
     },
   },
   components: { SelectLocation },

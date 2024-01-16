@@ -7,7 +7,7 @@
       <div
         class="hidden lg:block lg:w-1/2 bg-cover"
         style="
-          background-image: url('https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80');
+          background-image: url(&quot;https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80&quot;);
         "
       ></div>
       <div class="w-full p-8 lg:w-1/2">
@@ -115,6 +115,7 @@ export default {
         .then((res) => {
           localStorage.setItem("token", res?.data?.token);
           localStorage.setItem("user", JSON.stringify(res?.data?.user));
+          localStorage.setItem("role", JSON.stringify(res?.data?.user.role));
           this.$router.push("/");
         })
         .catch((err) => {

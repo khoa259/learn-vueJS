@@ -8,6 +8,16 @@
       />
     </div>
     <h2 class="title-page">Bài viết</h2>
+    <div class="flex justify-end mb-2">
+      <div>
+        <select name="" id="" class="py-1 rounded-md border-[var(--cl-yellow)]">
+          <option class="text-[var(--cl-yellow)]" selected>tất cả</option>
+          <option value="">xem nhiều nhất</option>
+          <option value="">xem ít nhất</option>
+          <option value="">bài viết mới</option>
+        </select>
+      </div>
+    </div>
     <div class="flex gap-5 bg-white rounded-md">
       <Sidebar />
       <div class="w-4/5">
@@ -22,20 +32,7 @@
             <CartItem :item="item" />
           </div>
         </div>
-        <div class="flex justify-center my-6">
-          <router-link
-            to="#"
-            class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            <i class="fa-solid fa-backward"></i>
-          </router-link>
-          <router-link
-            to=""
-            class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            <i class="fa-solid fa-forward"></i>
-          </router-link>
-        </div>
+        <Pagination />
       </div>
     </div>
   </div>
@@ -46,14 +43,24 @@ import { mapActions } from "vuex";
 
 import CartItem from "@/components/Clients/cartItem/CartItem.vue";
 import Sidebar from "@/components/Clients/sideBar/SideBar.vue";
+import Pagination from "@/components/Pagination.vue";
 export default {
   components: {
     CartItem,
     Sidebar,
+    Pagination,
+  },
+  data() {
+    return {
+      page: 0,
+    };
   },
   computed: {
     items() {
       return this.$store.state.postsMod.ItemPosts;
+    },
+    countPage() {
+      return this.$store.state.postsMod.NumberItemPosts;
     },
   },
 

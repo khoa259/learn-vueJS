@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-xl font-medium text-start pb-2">Món ngon</div>
+    <div class="text-base font-medium text-start pb-2">Món ngon</div>
     <div class="flex flex-wrap gap-1">
       <button
         v-for="(item, index) in ItemCate"

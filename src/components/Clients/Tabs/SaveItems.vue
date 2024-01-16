@@ -2,7 +2,7 @@
   <div v-if="items">
     <div v-for="(itemWishlist, index) in items" :key="index">
       <div
-        v-if="itemWishlist.wishlist.length"
+        v-if="itemWishlist.wishlist"
         class="grid lg:grid-cols-5 lg:gap-4 md:grid-cols-4 md:gap-3 sm:grid-cols-2 sm:gap-3"
       >
         <div
@@ -22,7 +22,7 @@
             <div class="absolute top-1 right-2">
               <button class="bg-none" @click="handleRemove(item._id)">
                 <i
-                  class="fa-solid fa-circle-xmark text-red-500 text-2xl hover:text-red-700 duration-100"
+                  class="fa-solid fa-circle-xmark text-indigo-900 text-2xl hover:text-red-600 duration-100"
                 ></i>
               </button>
             </div>
@@ -39,8 +39,10 @@
 </template>
 
 <script>
-import moment from "moment";
 import { mapActions } from "vuex";
+
+import { formatPrice, formatDateFull } from "@/utils/contants";
+
 export default {
   data() {
     return {
@@ -59,13 +61,10 @@ export default {
   methods: {
     ...mapActions(["wishLists", "removeWishList"]),
     formatDate(value) {
-      if (value) {
-        return moment(String(value)).format("DD/MM/YYYY HH:SS");
-      }
+      return formatDateFull(value);
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed().replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return formatPrice(value);
     },
     async handleRemove(e) {
       console.log(e);

@@ -10,11 +10,7 @@
       <div class="flex space-x-2 items-start border-t-2 py-3">
         <i class="fa-solid fa-location-dot text-xl text-red-600"></i>
         <p class="text-slate-700 font-medium text-base capitalize">
-          {{ item.location ? item.location.address : "" }},
-          {{ item.location ? item.location.ward : "" }},
-          {{ item.location ? item.location.district : "" }},
-          {{ item.location ? item.location.province : "" }}
-          <!-- Số 12 ngõ 103 đường bờ sông sét,thịnh liệt -->
+          {{ item.fullAdress ? item.fullAdress : "đang cập nhật địa chỉ" }}
         </p>
       </div>
       <div class="flex space-x-1 justify-start items-center">
@@ -58,15 +54,20 @@
           class="text-[var(--cl-yellow)] bg-white rounded-md text-sm font-semibold border-2 border-[var(--cl-yellow)] px-2 py-1"
         >
           <i class="fa-solid fa-eye pr-2 text-blue-500"></i>
-          {{ item.review }}</span
+          {{ formatNumberView(item.review) }}</span
         >
       </div>
       <div class="block">
         <button
-          class="w-full border-[var(--cl-yellow)] text-[var(--cl-yellow)] border-2 py-1 rounded-lg focus:bg-[var(--cl-yellow)] focus:text-white"
+          class="w-full border-[var(--cl-yellow)] text-[var(--cl-yellow)] border-2 py-1 rounded-lg"
           @click="handleSave(item._id)"
+          :class="[
+            isSave
+              ? 'bg-blue-700 text-white border-none'
+              : 'text-[var(--cl-yellow)]',
+          ]"
         >
-          {{ isSave ? "Chán rồi !" : "Yêu thích" }}
+          {{ isSave ? "Bỏ thích !" : "Yêu thích" }}
         </button>
       </div>
     </div>
@@ -74,48 +75,44 @@
 </template>
 
 <script>
-import moment from "moment";
 import { mapActions } from "vuex";
 
+import {
+  formatPrice,
+  formatDateFull,
+  formatNumberView,
+} from "@/utils/contants";
 export default {
   props: ["item"],
   data() {
     return {
-      idSave: null,
-      isSave: false,
+      isSave: Boolean,
       local: JSON.parse(localStorage.getItem("user")),
     };
   },
   methods: {
     ...mapActions(["addWishList", "removeWishList"]),
     formatDate(value) {
-      if (value) {
-        return moment(String(value)).format("DD/MM/YYYY HH:SS");
-      }
+      return formatDateFull(value);
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed().replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return formatPrice(value);
+    },
+    formatNumberView(value) {
+      return formatNumberView(value);
     },
     handleSave(id) {
       if (this.local === null) {
         return alert("Bạn cần đăng nhập");
       } else {
-        this.isSave = !this.isSave;
+        this.item.statusSave = this.isSave = !this.isSave;
         const payload = {
           email: this.local.email,
           postsId: id,
         };
         if (this.isSave) {
           this.addWishList(payload);
-          this.$toast.open({
-            message: "Thêm vào danh sách yêu thích",
-            type: "success",
-            position: "top-right",
-          });
-          console.log("id va isSave", id, this.isSave);
         } else {
-          console.log("item remove", id);
           this.removeWishList(payload);
         }
       }

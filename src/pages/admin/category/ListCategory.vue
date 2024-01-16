@@ -38,7 +38,7 @@
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
         >
           <thead
-            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            class="text-xs bg-white uppercase border-b-2 dark:bg-gray-700 dark:text-gray-400"
           >
             <tr>
               <th scope="col" class="px-6 py-3">STT</th>
@@ -68,6 +68,12 @@
               </td>
               <td class="px-6 py-4 text-base font-medium">
                 <button
+                  @click="
+                    () => {
+                      showModal();
+                      getIdUpdate(item._id);
+                    }
+                  "
                   class="text-[var(--cl-yellow)] text-base font-semibold capitalize"
                 >
                   sửa
@@ -84,7 +90,9 @@
       @closeModal="hidenModal"
       @submitModal="onSubmit"
     >
-      <template v-slot:title>Tạo danh mục mới</template>
+      <template v-slot:title>{{
+        IdUpdate ? "Cập nhật danh mục" : "Tạo danh mục"
+      }}</template>
       <template v-slot:body>
         <form @submit.prevent="onSubmit">
           <div class="mb-6">
@@ -92,12 +100,19 @@
               type="file"
               @change="handleUploadFile"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@flowbite.com"
               required
             />
           </div>
-          <div id="preview">
-            <img v-if="urlImg" :src="urlImg" />
+          <div id="preview" class="relative" v-if="urlImg">
+            <img :src="urlImg" class="relative" />
+            <button
+              v-if="urlImg"
+              type="button"
+              class="bg-red-500 text-white absolute p-2 top-0 left-0"
+              @click="removeImage"
+            >
+              X
+            </button>
           </div>
           <div class="mb-6">
             <label
@@ -121,6 +136,8 @@
 <script>
 import { mapActions } from "vuex";
 import ModalComponent from "@/components/ModalComponent.vue";
+import API_CATEORIES from "@/api/category";
+import API_POSTS from "@/api/posts.js";
 
 export default {
   components: { ModalComponent },
@@ -130,34 +147,59 @@ export default {
       nameCates: "",
       imageCate: null,
       urlImg: null,
+      IdUpdate: "",
     };
   },
   computed: {
     ItemCate() {
       return this.$store.state.categoryMod.itemCate;
     },
+    DetailCate() {
+      return this.$store.state.categoryMod.itemCateDetail;
+    },
   },
   created() {
     this.getItemCate();
   },
   methods: {
-    ...mapActions(["getItemCate", "createCate"]),
+    ...mapActions(["getItemCate", "updateCate", "getDetailCate", "createCate"]),
     showModal() {
+      this.IdUpdate = "";
       this.isModalVisible = true;
     },
     hidenModal() {
       this.isModalVisible = false;
     },
+
     handleUploadFile(e) {
       this.imageCate = e.target.files[0];
       this.urlImg = URL.createObjectURL(this.imageCate);
       console.log(this.urlImg);
     },
+    removeImage() {
+      API_POSTS.rmImage({ image_rm: this.urlImg }).then((res) => {
+        this.urlImg = res;
+      });
+    },
+    getIdUpdate(e) {
+      this.IdUpdate = e;
+      API_CATEORIES.getCategoryDetail(this.IdUpdate).then((res) => {
+        console.log(res);
+        this.urlImg = res.data.response.imageCate;
+        this.nameCates = res.data.response.nameCate;
+      });
+    },
     async onSubmit() {
       const formData = new FormData();
       formData.append("images", this.imageCate);
       formData.append("nameCate", this.nameCates);
-      await this.createCate(formData);
+      if (this.IdUpdate) {
+        await this.updateCate({ id: this.IdUpdate, payload: formData });
+        this.nameCates = "";
+        this.imageCate = null;
+      } else {
+        await this.createCate(formData);
+      }
       this.url = URL.revokeObjectURL(this.imageCate);
       this.isModalVisible = false;
     },
