@@ -29,7 +29,7 @@
         <img
           loading="lazy"
           class="rounded w-36 h-36"
-          src="/docs/images/people/profile-picture-5.jpg"
+          src="./image_user.png"
           alt="Extra large avatar"
         />
       </div>
