@@ -1,12 +1,16 @@
-<script setup>
-import Navbar from "./components/navbar.vue";
+<script>
+export default {};
 </script>
 
 <template>
-  <div>
-    <Navbar />
-    <RouterView />
-  </div>
+  <Suspense>
+    <template #default>
+      <div>
+        <router-view />
+      </div>
+    </template>
+    <template #fallback> loading... </template>
+  </Suspense>
 </template>
 
 <style scoped></style>
