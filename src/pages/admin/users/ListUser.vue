@@ -57,11 +57,11 @@
               <td class="px-6 py-4 text-base font-medium">{{ item.email }}</td>
               <td class="px-6 py-4 text-base font-medium w-36">
                 <select v-model="updateRole">
-                  <option value="" disabled selected>
+                  <option value="" selected>
                     {{ item.role ? "admin" : "user" }}
                   </option>
-                  <option value="0">user</option>
-                  <option value="1">admin</option>
+                  <option value="0">admin</option>
+                  <option value="1">user</option>
                 </select>
               </td>
               <td class="px-6 py-4 text-base font-medium">
