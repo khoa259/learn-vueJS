@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
-    <router-view />
-  </div>
+    <div class="container">
+        <router-view />
+    </div>
 </template>
 
 <script>
 export default {
-  name: "AuthLayout",
-};
+    name: 'AuthLayout',
+}
 </script>
 
 <style></style>

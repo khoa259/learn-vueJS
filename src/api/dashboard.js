@@ -1,8 +1,8 @@
-import instance from "./instance";
+import instance from './instance'
 
 export default {
-  getPostsTrending() {
-    const url = "/dashboard";
-    return instance.get(url);
-  },
-};
+    getPostsTrending() {
+        const url = '/dashboard'
+        return instance.get(url)
+    },
+}
