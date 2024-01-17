@@ -28,7 +28,7 @@
             <Sidebar />
             <div class="w-4/5">
                 <div
-                    class="grid lg:grid-cols-3 lg:px-0 lg:gap-4 md:grid-cols-2 md:gap-3 md:px-5 sm:grid-cols-2 sm:gap-3 sm:px-5 container"
+                    class="grid lg:grid-cols-3 lg:px-0 lg:gap-4 md:grid-cols-2 md:gap-3 md:px-5 sm:grid-cols-2 sm:gap-3 sm:px-4 container"
                 >
                     <div
                         v-for="(item, index) in items"

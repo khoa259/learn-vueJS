@@ -8,14 +8,16 @@
                 alt=""
             />
         </router-link>
-        <div class="p-5 flex flex-col space-y-5">
+        <div
+            class="lg:p-5 md:p-4 sm:p-3 flex flex-col lg:space-y-5 sm:space-y-2"
+        >
             <router-link
                 :to="item._id"
-                class="mb-2 text-xl font-bold truncate tracking-tight text-gray-900 dark:text-white"
+                class="text-xl font-bold truncate tracking-tight text-gray-900 dark:text-white"
             >
                 {{ item.title }}
             </router-link>
-            <div class="h-8">
+            <div class="h-8 lg:block sm:hidden">
                 <p
                     class="mb-3 font-normal line-clamp-2 text-gray-500 dark:text-gray-400"
                 >
@@ -23,12 +25,14 @@
                 </p>
             </div>
             <div class="info align-bottom">
-                <div class="flex justify-between h-8 items-center">
+                <div
+                    class="lg:flex lg:flex-row lg:justify-between lg:h-8 lg:items-center md:h-12 md:flex-col md:space-y-1 md:mb-2 sm:flex sm:flex-col sm:space-y-3 sm:items-start"
+                >
                     <span
                         class="timestamp text-[var(--cl-yellow)] font-normal text-sm flex gap-1 items-center"
                         >{{ formatDates(item.createdAt) }}</span
                     >
-                    <span class="rating">
+                    <span class="rating mt-0">
                         <div class="flex items-center">
                             <i class="fa-solid fa-star text-yellow-300"></i>
                             <p
@@ -47,7 +51,9 @@
                         </div>
                     </span>
                 </div>
-                <div class="flex justify-between items-center">
+                <div
+                    class="lg:flex md:flex justify-between items-center sm:hidden"
+                >
                     <router-link
                         :to="item._id"
                         class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[var(--cl-yellow)] rounded-lg hover:bg-[var(--cl-yellow2)]"

@@ -6,7 +6,7 @@
             class="homepage_image relative"
         />
         <div
-            class="sm: hidden absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/3"
+            class="lg:block md:hidden sm:hidden absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/3"
         >
             <div class="lg:flex lg:gap-2 max-h-[380px] mt-6 container">
                 <Banner />
@@ -22,10 +22,10 @@
                 alt=""
             />
         </div>
-        <div class="pt-8 static">
+        <div class="pt-8 static lg:px-0 md:px-5 sm:px-4">
             <PostsTopView :itemsPostsTopView="postsTopView" />
         </div>
-        <div class="pt-8 static">
+        <div class="pt-8 static lg:px-0 md:px-5 sm:px-4">
             <NewEatingArea :itemsPosts="posts" />
         </div>
     </div>

@@ -1,12 +1,16 @@
 <template>
     <Transition>
         <div
-            class="fixed top-0 pt-5 bg-gray-900 w-full h-screen z-10 cursor-pointer"
+            class="fixed top-0 pt-5 bg-gray-900 w-full h-screen z-10 cursor-pointer sm:px-4"
         >
-            <button @click="closeModal" class="text-white float-right px-5">
-                <i class="fa-solid fa-x text-3xl"></i>
+            <button
+                @click="closeModal"
+                class="text-white float-right px-5 z-20"
+            >
+                <i class="fa-solid fa-x text-3xl sm:text-2xl"></i>
             </button>
-            <div class="w-[700px] mx-auto">
+            <br />
+            <div class="lg:w-[700px] sm:w-full sm:mt-5 mx-auto">
                 <div class="relative">
                     <div
                         class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
@@ -36,10 +40,10 @@
                         placeholder="Tìm kiếm..."
                     />
                 </div>
-                <div class="w-auto" v-if="items">
+                <div class="w-auto mt-2" v-if="items">
                     <ul
-                        class="bg-white rounded-lg"
-                        v-for="(item, index) in items"
+                        class="bg-white rounded-lg mt-1"
+                        v-for="(item, index) in items.slice(0, 4)"
                         :key="index"
                     >
                         <li
@@ -53,11 +57,11 @@
                                     <div class="item_posts w-full">
                                         <div class="flex justify-between">
                                             <span
-                                                class="font-medium text-[var(--cl-yellow)]"
+                                                class="font-medium text-base sm:text-sm text-[var(--cl-yellow)]"
                                                 >{{ item.title }}</span
                                             >
                                             <span
-                                                class="font-medium text-[var(--cl-yellow)]"
+                                                class="font-medium text-base sm:text-sm text-[var(--cl-yellow)]"
                                                 >{{
                                                     formatPrice(item.pricemin)
                                                 }}k -

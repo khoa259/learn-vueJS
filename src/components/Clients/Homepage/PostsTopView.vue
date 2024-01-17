@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <div class="new_eating_area w-4/5 lg:px-0 md:px-5 sm:px-5">
+        <div class="new_eating_area w-4/5">
             <h2 class="titleCate">top các bài viết</h2>
         </div>
         <div
-            class="pt-6 grid lg:grid-cols-4 lg:px-0 lg:gap-4 md:grid-cols-3 md:gap-3 md:px-5 sm:grid-cols-2 sm:gap-3 sm:px-5 container"
+            class="pt-6 grid lg:grid-cols-4 lg:px-0 lg:gap-4 md:grid-cols-3 md:gap-3 sm:grid-cols-2 sm:gap-2 lg:container"
             v-if="itemsPostsTopView"
         >
             <div
