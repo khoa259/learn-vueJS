@@ -106,7 +106,8 @@
                 </ul>
             </div>
         </div>
-        <SearchItem v-show="isOpenModal" @closeModal="showSearch" />
+        <!-- <SearchItem v-show="isOpenModal" @closeModal="showSearch" /> -->
+        <SearchKey v-show="isOpenModal" @closeModal="showSearch" />
     </nav>
 </template>
 
@@ -114,7 +115,7 @@
 import axios from 'axios'
 
 import { urlRouter } from '@/utils/contants'
-import SearchItem from '/search/SearchItem.vue'
+import SearchKey from './SearchKey/SearchKey.vue'
 // import WeatherIcon from '@/components/Clients/WeatherIcon.vue'
 export default {
     name: 'NavBar',
@@ -158,7 +159,7 @@ export default {
             }
         },
     },
-    components: { SearchItem, WeatherIcon },
+    components: { SearchKey },
 }
 </script>
 
