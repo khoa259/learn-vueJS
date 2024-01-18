@@ -1,5 +1,8 @@
 <template>
-    <div class="w-1/4 max-h-[500px] bg-white sticky px-2 py-3 top-2">
+    <div
+        v-if="isModalVisible"
+        class="lg:w-1/4 max-h-[500px] bg-white lg:sticky md:sticky px-2 py-3 top-2"
+    >
         <div class="text-[var(--cl-yellow)] uppercase font-semibold">
             <i class="fa-solid fa-filter"></i>
             danh mục và địa điểm
@@ -20,6 +23,18 @@ import SortByPrice from './SortByPrice.vue'
 export default {
     name: 'SideBar',
     components: { InputSearch, ListAllCategory, SortByPrice },
+    props: ['isModalVisible'],
+    data() {
+        return {
+            isVisible: true,
+        }
+    },
+    computed: {
+        showModal() {
+            this.isModalVisible
+            console.log('iteim', this.isModalVisible)
+        },
+    },
 }
 </script>
 

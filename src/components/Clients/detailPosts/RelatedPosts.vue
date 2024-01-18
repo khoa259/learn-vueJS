@@ -1,7 +1,11 @@
 <template>
-    <div class="w-1/4 bg-slate-50 shadow-md rounded-lg p-5 max-h-[60vh]">
+    <div
+        class="w-full lg:w-1/4 bg-slate-50 shadow-md rounded-lg p-5 max-h-[60vh]"
+    >
         <h2 class="capitalize text-xl font-semibold">có thể bạn thích</h2>
-        <div class="mt-3 overflow-y-auto h-[90%] relative">
+        <div
+            class="mt-3 flex lg:flex-col lg:overflow-y-auto lg:space-y-2 lg:space-x-0 md:space-y-2 md:overflow-y-auto sm:space-x-2 sm:overflow-x-auto h-[90%] relative"
+        >
             <div
                 class="flex flex-col"
                 v-for="(item, index) in postRelated"
@@ -10,10 +14,14 @@
                 <router-link
                     :to="`${item._id}`"
                     @click="next(item._id)"
-                    class="flex space-x-2 pb-2 border-b-2"
+                    class="flex lg:flex-row md:flex-row sm:flex-col sm:space-x-2 pb-2 border-b-2 lg:w-full lg:h-full sm:w-40 sm:h-60"
                 >
-                    <img :src="item.imagePosts" class="max-h-24 w-20" alt="" />
-                    <div class="flex flex-col justify-between">
+                    <img
+                        :src="item.imagePosts"
+                        class="lg:max-h-24 rounded lg:w-20 md:max-h-24 md:w-20 sm:w-full sm:min-h-60"
+                        alt=""
+                    />
+                    <div class="flex flex-col justify-between sm:mt-2">
                         <h2 class="line-clamp-2 text-md font-semibold">
                             {{ item.title }}
                         </h2>

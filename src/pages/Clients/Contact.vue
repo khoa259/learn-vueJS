@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <h1 class="title-page">Liên Hệ</h1>
-        <div class="mt-8 flex gap-8 lg:justify-between">
+        <div
+            class="mt-8 flex gap-8 lg:justify-between sm:grid sm:grid-cols-1 sm:px-4"
+        >
             <div class="form-contact w-full">
                 <form>
                     <div class="group relative z-0 mb-6 w-full">
@@ -68,7 +70,7 @@
                         type="submit"
                         class="my-5 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
                     >
-                        Submit
+                        Gửi
                     </button>
                 </form>
             </div>

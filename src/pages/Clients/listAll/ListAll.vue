@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="mt-5">
+        <div class="lg:mt-5 md:mt-3 sm:pt-0">
             <img
                 class="w-full rounded-md shadow-md max-h-72"
                 src="./vietnam-flag-map-national-day-in.jpg"
@@ -8,7 +8,15 @@
             />
         </div>
         <h2 class="title-page">Bài viết</h2>
-        <div class="flex justify-end mb-2">
+        <div class="flex lg:justify-end sm:justify-between sm:px-4 mb-2">
+            <div>
+                <button
+                    class="lg:hidden md:hidden sm:block border-2 rounded-md border-[var(--cl-yellow)] px-2 py-1"
+                    @click="showModal"
+                >
+                    <i class="fa-solid fa-bars text-[var(--cl-yellow)]"></i>
+                </button>
+            </div>
             <div>
                 <select
                     name=""
@@ -24,11 +32,13 @@
                 </select>
             </div>
         </div>
-        <div class="flex gap-5 bg-white rounded-md">
-            <Sidebar />
-            <div class="w-4/5">
+        <div
+            class="lg:flex lg:gap-5 lg:px-0 sm:blocks sm:px-4 bg-white rounded-md"
+        >
+            <Sidebar :isModalVisible="isShow" />
+            <div class="lg:w-4/5 md:w-4/5 sm:w-full">
                 <div
-                    class="grid lg:grid-cols-3 lg:px-0 lg:gap-4 md:grid-cols-2 md:gap-3 md:px-5 sm:grid-cols-2 sm:gap-3 sm:px-4 container"
+                    class="grid lg:grid-cols-3 lg:px-0 lg:gap-4 md:grid-cols-2 md:gap-3 md:px-5 sm:grid-cols-2 sm:gap-3 container"
                 >
                     <div
                         v-for="(item, index) in items"
@@ -59,6 +69,7 @@ export default {
     data() {
         return {
             page: 0,
+            isShow: true,
         }
     },
     computed: {
@@ -75,6 +86,9 @@ export default {
     },
     methods: {
         ...mapActions(['getAllPosts']),
+        showModal() {
+            this.isShow = !this.isShow
+        },
     },
 }
 </script>

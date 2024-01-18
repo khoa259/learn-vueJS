@@ -65,21 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Dropdown menu -->
-                <div
-                    class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded-lg bg-none text-base shadow dark:divide-gray-600 dark:bg-gray-700"
-                    id="user-dropdown"
-                >
-                    <ul class="py-2" aria-labelledby="user-menu-button">
-                        <li v-for="item in menuItems.slice(0, 4)" :key="item">
-                            <router-link
-                                :to="item.path"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                >{{ item.label }}</router-link
-                            >
-                        </li>
-                    </ul>
-                </div>
+
                 <button
                     type="button"
                     class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 dark:text-gray-400 dark:hover:bg-gray-700 md:hidden"
@@ -96,7 +82,11 @@
                 <ul
                     class="flex flex-col rounded-lg bg-none p-4 font-medium md:mt-0 md:flex-row md:space-x-8"
                 >
-                    <li v-for="item in menuItems.slice(0, 4)" :key="item">
+                    <li
+                        v-for="item in menuItems.slice(0, 4)"
+                        :key="item"
+                        @click="toggleMenu"
+                    >
                         <router-link
                             :to="item.path"
                             class="sm:block rounded py-2 pl-3 pr-4 text-white md:bg-transparent"
@@ -121,7 +111,7 @@
 
 <script>
 import { urlRouter } from '@/utils/contants'
-import SearchItem from './search/SearchItem.vue'
+import SearchItem from './search/searchitem.vue'
 export default {
     name: 'NavBar',
     data() {
@@ -155,6 +145,16 @@ export default {
 </script>
 
 <style scoped>
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
 .open {
     display: block;
 }

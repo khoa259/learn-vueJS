@@ -6,7 +6,7 @@
                 placeholder="Tìm kiếm...."
                 v-model="key"
                 @input="filterSearchPosts(this.key)"
-                class="rounded-md w-full border-[var(--cl-yellow)] focus:border-[var(--cl-yellow)]"
+                class="rounded-md w-full border-[var(--cl-yellow)] border-2 p-2 focus:border-[var(--cl-yellow)]"
             />
         </form>
     </div>
