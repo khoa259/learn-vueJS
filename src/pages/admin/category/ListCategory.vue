@@ -5,7 +5,9 @@
         </div>
 
         <div class="main pt-2">
-            <div class="flex justify-between items-center py-4">
+            <div
+                class="flex lg:justify-between lg:flex-row md:justify-between md:flex-row sm:flex-col sm:items-start items-center py-4"
+            >
                 <div>
                     <input type="text" placeholder="Tìm kiếm..." />
                 </div>
@@ -35,16 +37,24 @@
             </p>
             <div class="relative overflow-x-auto">
                 <table
-                    class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+                    class="w-full min-w-[50rem] text-sm text-left text-gray-500 dark:text-gray-400"
                 >
                     <thead
                         class="text-xs bg-white uppercase border-b-2 dark:bg-gray-700 dark:text-gray-400"
                     >
                         <tr>
-                            <th scope="col" class="px-6 py-3">STT</th>
-                            <th scope="col" class="px-6 py-3">Ảnh danh mục</th>
-                            <th scope="col" class="px-6 py-3">Tên danh mục</th>
-                            <th scope="col" class="px-6 py-3">Action</th>
+                            <th scope="col" class="px-6 min-w-[80px] py-3">
+                                STT
+                            </th>
+                            <th scope="col" class="px-6 min-w-[80px] py-3">
+                                Ảnh danh mục
+                            </th>
+                            <th scope="col" class="px-6 min-w-[80px] py-3">
+                                Tên danh mục
+                            </th>
+                            <th scope="col" class="px-6 min-w-[80px] py-3">
+                                Action
+                            </th>
                         </tr>
                     </thead>
                     <tbody v-if="ItemCate.length">

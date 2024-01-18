@@ -9,6 +9,7 @@
                     class="mr-3 h-8"
                     alt="Flowbite Logo"
                 />
+                <WeatherIcon />
             </router-link>
 
             <div class="flex items-center md:order-2">
@@ -112,6 +113,7 @@
 <script>
 import { urlRouter } from '@/utils/contants'
 import SearchItem from './search/searchitem.vue'
+import WeatherIcon from './WeatherIcon.vue'
 export default {
     name: 'NavBar',
     data() {
@@ -140,7 +142,7 @@ export default {
             }
         },
     },
-    components: { SearchItem },
+    components: { SearchItem, WeatherIcon },
 }
 </script>
 

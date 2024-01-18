@@ -1,11 +1,8 @@
 <template>
     <div class="bg-white">
         <button
-            data-drawer-target="default-sidebar"
-            data-drawer-toggle="default-sidebar"
-            aria-controls="default-sidebar"
-            type="button"
-            class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            @click="showDrawer"
+            class="lg:hidden md:hidden sm:inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         >
             <span class="sr-only">Open sidebar</span>
             <svg
@@ -24,10 +21,19 @@
         </button>
 
         <div
+            v-if="isShow"
             id="default-sidebar"
-            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+            class="fixed lg:block lg:w-64 md:w-52 md:block top-0 left-0 z-40 h-screen transition-transform -translate-x-full sm:translate-x-0"
             aria-label="Sidebar"
         >
+            <div
+                v-if="isVisibleIconTogle"
+                class="absolute -right-5 top-1/2 bg-white p-2 rounded-r-lg"
+            >
+                <button @click="showDrawer">
+                    <i class="fa-solid fa-backward"></i>
+                </button>
+            </div>
             <div
                 class="flex justify-between flex-col h-full px-3 py-4 overflow-y-auto bg-white dark:bg-gray-800"
             >
@@ -38,6 +44,7 @@
                             :key="index"
                         >
                             <router-link
+                                @click="showDrawer"
                                 :to="`/admin/${item.path}`"
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 focus:bg-gray-200 dark:hover:bg-gray-700 group"
                             >
@@ -79,7 +86,32 @@ export default {
         return {
             MenuItem: urlRouterAdmin,
             local: JSON.parse(localStorage.getItem('user')),
+            isShow: true,
+            isVisibleIconTogle: false,
+            widthScreen: window.innerWidth,
         }
+    },
+    mounted() {
+        this.showDrawer()
+        window.addEventListener('resize', this.updateWindowWidth)
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.updateWindowWidth)
+    },
+    methods: {
+        showDrawer() {
+            this.isShow = !this.isShow
+        },
+        updateWindowWidth() {
+            this.widthScreen = window.innerWidth
+            if (this.widthScreen < 700) {
+                this.isShow = false
+                this.isVisibleIconTogle = true
+            } else {
+                this.isShow = true
+                this.isVisibleIconTogle = false
+            }
+        },
     },
 }
 </script>

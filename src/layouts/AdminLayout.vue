@@ -1,7 +1,7 @@
 <template>
     <div class="layout_admin">
         <Sidebar />
-        <div class="p-4 sm:ml-64 bg-gray-50 min-h-screen">
+        <div class="p-4 lg:ml-64 md:ml-56 sm:m-0 bg-gray-50 min-h-screen">
             <router-view />
         </div>
     </div>

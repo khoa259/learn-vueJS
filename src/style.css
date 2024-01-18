@@ -108,3 +108,9 @@ body {
 .titleCate:hover::after {
     width: 100%;
 }
+
+input {
+    padding: 10px 20px;
+    border: 2px solid rgb(61, 61, 61);
+    border-radius: 6px;
+}

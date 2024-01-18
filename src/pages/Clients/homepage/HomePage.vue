@@ -10,7 +10,7 @@
         >
             <div class="lg:flex lg:gap-2 max-h-[380px] mt-6 container">
                 <Banner />
-                <Weather />
+                <!-- <Weather /> -->
             </div>
         </div>
         <div class="container flex justify-center pt-8">

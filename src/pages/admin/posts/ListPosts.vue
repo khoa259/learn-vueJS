@@ -4,7 +4,9 @@
             <h1>quản lý bài viết</h1>
         </div>
         <div class="main pt-2">
-            <div class="flex justify-between items-center py-4">
+            <div
+                class="flex lg:flex-row lg:justify-between md:flex-row md:justify-between sm:flex-col sm:space-y-1 sm:items-start items-center py-4"
+            >
                 <div>
                     <input
                         v-model="keySearch"
@@ -46,10 +48,10 @@
             </p>
             <div class="relative overflow-x-auto">
                 <table
-                    class="w-full rounded-md text-sm text-left text-gray-500 dark:text-gray-400"
+                    class="w-full sm:min-w-[90rem] rounded-md text-sm text-left text-gray-500 dark:text-gray-400"
                 >
                     <thead
-                        class="text-xs bg-white uppercase border-b-2 dark:bg-gray-700 dark:text-gray-400 sticky top-0 relative"
+                        class="text-xs bg-white uppercase border-b-2 dark:bg-gray-700 dark:text-gray-400 sticky top-0"
                     >
                         <tr>
                             <th scope="col" class="px-6 text-xs py-3">STT</th>

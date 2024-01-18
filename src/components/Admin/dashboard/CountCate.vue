@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-yellow-200 w-full shadow-md rounded-md h-40 p-5">
+    <div class="bg-yellow-200 w-full shadow-md rounded-md min-h-40 p-5">
         <div class="count_cate">
             <div class="flex flex-col space-y-2">
                 <h2 class="text-slate-700 font-medium">Lượt truy cập mới</h2>
