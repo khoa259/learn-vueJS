@@ -114,7 +114,7 @@
 import axios from 'axios'
 
 import { urlRouter } from '@/utils/contants'
-import SearchItem from 'search/SearchItem.vue'
+import SearchItem from '/search/SearchItem.vue'
 // import WeatherIcon from '@/components/Clients/WeatherIcon.vue'
 export default {
     name: 'NavBar',
