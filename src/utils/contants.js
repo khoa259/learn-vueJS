@@ -15,7 +15,7 @@ import ListCategory from '@/pages/admin/category/ListCategory.vue'
 import Dashboard from '@/pages/admin/dashboard/Dashboard.vue'
 import ListPosts from '@/pages/admin/posts/ListPosts.vue'
 import FormPosts from '@/pages/admin/posts/FormPosts.vue'
-import ListUser from '@/pages/admin/users/listUser.vue'
+import ListsUsers from '@/pages/admin/users/ListsUsers.vue'
 import ProvinceTest from '@/pages/admin/ProvinceTest.vue'
 
 // 1 phút trước, 1 giờ trước,...
@@ -94,7 +94,7 @@ export const urlRouterAdmin = [
     },
     {
         path: 'users',
-        component: ListUser,
+        component: ListsUsers,
         label: 'Người dùng',
         icon: 'fa-solid fa-user',
     },
