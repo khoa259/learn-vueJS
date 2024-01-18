@@ -15,7 +15,7 @@ import ListCategory from '@/pages/admin/category/ListCategory.vue'
 import Dashboard from '@/pages/admin/dashboard/Dashboard.vue'
 import ListPosts from '@/pages/admin/posts/ListPosts.vue'
 import FormPosts from '@/pages/admin/posts/FormPosts.vue'
-import ListUser from '@/pages/admin/users/listUser.vue'
+// import ListUsers from '@/pages/admin/users/listUsers.vue'
 import ProvinceTest from '@/pages/admin/ProvinceTest.vue'
 
 // 1 phút trước, 1 giờ trước,...
@@ -92,12 +92,12 @@ export const urlRouterAdmin = [
         label: 'Bài viết',
         icon: 'fa-solid fa-book',
     },
-    {
-        path: 'users',
-        component: ListUser,
-        label: 'Người dùng',
-        icon: 'fa-solid fa-user',
-    },
+    // {
+    //     path: 'users',
+    //     component: ListUsers,
+    //     label: 'Người dùng',
+    //     icon: 'fa-solid fa-user',
+    // },
     {
         path: 'test',
         component: ProvinceTest,
