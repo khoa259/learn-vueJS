@@ -35,7 +35,6 @@
 import { mapActions, mapState } from 'vuex'
 
 import Banner from '@/components/Clients/Homepage/Banner.vue'
-import Weather from '@/components/Clients/Homepage/Weather.vue'
 import BoxItemCate from '@/components/Clients/Homepage/BoxItemCate.vue'
 import NewEatingArea from '@/components/Clients/Homepage/NewEatingArea.vue'
 import PostsTopView from '@/components/Clients/Homepage/PostsTopView.vue'
@@ -43,7 +42,6 @@ export default {
     name: 'HomePage',
     components: {
         Banner,
-        Weather,
         BoxItemCate,
         NewEatingArea,
         PostsTopView,
@@ -55,8 +53,10 @@ export default {
     }),
 
     created() {
-        this.getItemCate()
-        this.getAllPosts()
+        setTimeout(() => {
+            this.getItemCate()
+            this.getAllPosts()
+        }, 1200)
     },
     methods: {
         ...mapActions(['getAllPosts', 'getItemCate']),

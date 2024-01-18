@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full lg:w-1/4 bg-slate-50 shadow-md rounded-lg p-5 max-h-[60vh]"
+        class="w-full lg:w-1/4 bg-slate-50 shadow-md rounded-lg p-5 sm:h-60 max-h-[60vh]"
     >
         <h2 class="capitalize text-xl font-semibold">có thể bạn thích</h2>
         <div

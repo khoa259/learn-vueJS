@@ -1,18 +1,25 @@
 <template>
     <div class="flex flex-col">
         <div>
-            <button class="peer font-medium text-base text-white">20°C</button>
-
-            <!-- the menu here -->
+            <button class="peer font-medium text-base text-white">
+                {{ itemWeather.main ? itemWeather.main.temp : '24' }}°C
+            </button>
             <div
                 class="rounded-md hidden peer-hover:flex hover:flex w-[300px] flex-col bg-white drop-shadow-lg absolute z-20"
             >
                 <div class="p-5">
-                    <div class="font-bold text-base">Hà Nội, Việt Nam</div>
-                    <div class="text-sm text-gray-500">
-                        Thứ năm, ngày 10 tháng 10 năm 2023
+                    <div class="font-bold text-base">
+                        {{ itemWeather.name }},
+                        {{
+                            itemWeather.sys
+                                ? itemWeather.sys.country
+                                : 'Việt Nam'
+                        }}
                     </div>
-                    <div class="flex flex-row items-center">
+                    <div class="text-sm text-gray-500">
+                        {{ date }}
+                    </div>
+                    <div class="flex space-x-3 flex-row items-center">
                         <div
                             class="text-6xl self-center inline-flex items-center justify-start rounded-lg text-indigo-400 h-14 w-14"
                         >
@@ -31,7 +38,31 @@
                                 ></path>
                             </svg>
                         </div>
-                        <div class="font-medium text-4xl">24°C</div>
+                        <div class="font-medium text-4xl">
+                            {{
+                                itemWeather.main
+                                    ? itemWeather.main.temp
+                                    : 'loading...'
+                            }}°C
+                        </div>
+                        <div class="flex flex-col">
+                            <span
+                                >high :
+                                {{
+                                    itemWeather.main
+                                        ? itemWeather.main.temp_max
+                                        : 'loading...'
+                                }}°C</span
+                            >
+                            <span
+                                >low :
+                                {{
+                                    itemWeather.main
+                                        ? itemWeather.main.temp_min
+                                        : 'loading...'
+                                }}°C</span
+                            >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,10 +71,27 @@
 </template>
 
 <script>
-import { UrlWeather } from '../../api/weather.js'
 export default {
+    props: ['itemWeather'],
+    data() {
+        return {
+            date: '',
+        }
+    },
+    computed: {
+        getDate() {
+            let day = new Date()
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            }
+            this.date = day.toLocaleDateString('VN-vi', options)
+        },
+    },
     created() {
-        UrlWeather().then((res) => console.log(res))
+        this.getDate
     },
 }
 </script>

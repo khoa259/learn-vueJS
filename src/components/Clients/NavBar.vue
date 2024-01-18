@@ -9,7 +9,7 @@
                     class="mr-3 h-8"
                     alt="Flowbite Logo"
                 />
-                <WeatherIcon />
+                <!-- <WeatherIcon :itemWeather="dataWeather" /> -->
             </router-link>
 
             <div class="flex items-center md:order-2">
@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { UrlWeather } from '@/api/weather.js'
+import axios from 'axios'
 
 import { urlRouter } from '@/utils/contants'
 import SearchItem from './search/searchitem.vue'
@@ -120,6 +120,7 @@ export default {
     name: 'NavBar',
     data() {
         return {
+            dataWeather: {},
             isOpenModal: false,
             isOpen: false,
             menuItems: urlRouter,
@@ -127,13 +128,20 @@ export default {
             roleAdmin: JSON.parse(localStorage.getItem('role')),
         }
     },
-    created() {
-        this.callApiWeather
-    },
+    // get weather
+    // computed: {
+    //     getAPIWeather() {
+    //         axios
+    //             .get(import.meta.env.VITE_APP_API_WEATHER)
+    //             .then((res) => (this.dataWeather = res.data))
+    //     },
+    // },
+    // mounted() {
+    //     setTimeout(() => {
+    //         this.getAPIWeather
+    //     }, 200)
+    // },
     methods: {
-        async callApiWeather() {
-            await UrlWeather().then((res) => console.log(res))
-        },
         toggleMenu() {
             this.isOpen = !this.isOpen
         },
@@ -155,12 +163,10 @@ export default {
 </script>
 
 <style scoped>
-/* we will explain what these classes do next! */
 .v-enter-active,
 .v-leave-active {
     transition: opacity 0.5s ease;
 }
-
 .v-enter-from,
 .v-leave-to {
     opacity: 0;
