@@ -92,7 +92,7 @@ export default {
         }
     },
     mounted() {
-        this.showDrawer()
+        this.updateWindowWidth()
         window.addEventListener('resize', this.updateWindowWidth)
     },
     beforeDestroy() {
