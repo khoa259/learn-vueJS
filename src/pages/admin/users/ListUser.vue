@@ -112,6 +112,7 @@ export default {
     },
     components: { SelectLocation },
 }
+
 </script>
 
 <style></style>
