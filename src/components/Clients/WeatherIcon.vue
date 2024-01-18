@@ -40,7 +40,12 @@
 </template>
 
 <script>
-export default {}
+import { UrlWeather } from '../../api/weather.js'
+export default {
+    created() {
+        UrlWeather().then((res) => console.log(res))
+    },
+}
 </script>
 
 <style></style>

@@ -111,6 +111,8 @@
 </template>
 
 <script>
+import { UrlWeather } from '@/api/weather.js'
+
 import { urlRouter } from '@/utils/contants'
 import SearchItem from './search/searchitem.vue'
 import WeatherIcon from './WeatherIcon.vue'
@@ -125,7 +127,13 @@ export default {
             roleAdmin: JSON.parse(localStorage.getItem('role')),
         }
     },
+    created() {
+        this.callApiWeather
+    },
     methods: {
+        async callApiWeather() {
+            await UrlWeather().then((res) => console.log(res))
+        },
         toggleMenu() {
             this.isOpen = !this.isOpen
         },
