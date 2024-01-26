@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full p-0 sm:px-4">
+    <div class="w-full lg:p-0 md:px-3 sm:px-4">
         <h2 class="titleCate">lựa chọn nhanh chóng</h2>
         <div class="pt-6 flex space-x-3 overflow-x-auto">
             <figure

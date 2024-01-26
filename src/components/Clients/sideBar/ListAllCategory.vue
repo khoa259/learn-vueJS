@@ -5,6 +5,7 @@
             <button
                 v-for="(item, index) in ItemCate"
                 :key="index"
+                :on-focus="btnForcus"
                 @click="handleGetPostsByCategories(item._id)"
                 class="border-[var(--cl-yellow)] text-[var(--cl-yellow)] border-2 py-1 px-2 rounded-lg"
                 :class="{ active: btnForcus }"
@@ -34,11 +35,9 @@ export default {
     methods: {
         ...mapActions(['getItemCate', 'getPostsByCate', 'getAllPosts']),
         handleGetPostsByCategories(e) {
-            this.btnForcus = !this.btnForcus
-            if (this.btnForcus) {
-                return this.getPostsByCate({ categoryId: e })
-            } else {
-                this.getAllPosts()
+            if (e) {
+                this.getPostsByCate({ categoryId: e })
+                this.btnForcus = true
             }
         },
     },

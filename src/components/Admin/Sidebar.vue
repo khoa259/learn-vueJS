@@ -86,7 +86,7 @@ export default {
         return {
             MenuItem: urlRouterAdmin,
             local: JSON.parse(localStorage.getItem('user')),
-            isShow: true,
+            isShow: false,
             isVisibleIconTogle: false,
             widthScreen: window.innerWidth,
         }
@@ -104,12 +104,11 @@ export default {
         },
         updateWindowWidth() {
             this.widthScreen = window.innerWidth
-            if (this.widthScreen < 700) {
+            if (this.widthScreen > 768) {
+                this.isVisibleIconTogle = false
+            } else {
                 this.isShow = false
                 this.isVisibleIconTogle = true
-            } else {
-                this.isShow = true
-                this.isVisibleIconTogle = false
             }
         },
     },
