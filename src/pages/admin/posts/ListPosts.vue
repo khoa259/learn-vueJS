@@ -96,16 +96,23 @@
                                 class="px-6 py-4 text-sm font-medium text-slate-700 w-auto"
                             >
                                 <img
-                                    :src="item.imagePosts"
+                                    :src="
+                                        item.imagePosts
+                                            ? item.imagePosts.url
+                                            : 'lỗi'
+                                    "
                                     class="w-28 h-full max-h-36 object-cover"
                                     loading="lazy"
                                 />
                             </td>
                             <td
-                                v-if="item.categoryId"
                                 class="px-6 py-4 text-sm font-medium text-slate-700"
                             >
-                                {{ item.categoryId.nameCate }}
+                                {{
+                                    item.categoryId
+                                        ? item.categoryId.nameCate
+                                        : 'Lỗi danh mục'
+                                }}
                             </td>
                             <td
                                 class="px-6 py-4 text-sm font-medium text-slate-700"
@@ -147,8 +154,8 @@
                     </tbody>
                     <div v-else>Loading...</div>
                 </table>
-                <Pagination />
             </div>
+            <Pagination />
         </div>
     </div>
 </template>

@@ -7,29 +7,11 @@
         </div>
         <div>
             <form @submit.prevent="handleSave">
-                <div id="preview" class="relative" v-if="url">
-                    <img :src="url" class="relative" />
-                    <button
-                        type="button"
-                        v-if="keyLocation === 'edit'"
-                        :disabled="keyLocation === 'view'"
-                        class="bg-red-500 text-white absolute p-2 top-0 left-0"
-                        @click="removeImage"
-                    >
-                        X
-                    </button>
-                </div>
-                <div class="mb-6 flex items-center justify-start w-full">
-                    <input
-                        :disabled="keyLocation === 'view'"
-                        id="dropzone-file"
-                        type="file"
-                        @change="handleUpload"
-                        @blur="validateForm()"
-                        :class="{ is_valid: error.imagePosts }"
-                        v-if="keyLocation !== 'view'"
-                    />
-                </div>
+                <UploadImage
+                    @repsonseImage="repsonseImage"
+                    :keyLoaction="keyLocation"
+                    :GetUrlImage="url"
+                />
 
                 <div class="w-full mb-6">
                     <label
@@ -283,10 +265,14 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
+import UploadImage from '../../../components/uploadImage/UploadImage.vue'
+
 import API_PROVINCE from '@/api/province.js'
 import API_POSTS from '@/api/posts.js'
-import { mapActions, mapState } from 'vuex'
 export default {
+    components: { UploadImage },
     data() {
         return {
             keyLocation: '',
@@ -390,7 +376,7 @@ export default {
             this.idParams = this.$route.params.id
             API_POSTS.getPostsById(this.idParams).then((res) => {
                 this.posts = res.data.response
-                this.url = res.data.response.imagePosts
+                this.repsonseImage(res.data.response.imagePosts.url)
             })
         }
     },
@@ -426,6 +412,11 @@ export default {
             return isValid
         },
 
+        //upload image
+        repsonseImage(e) {
+            this.url = e
+        },
+
         // get province
         handleGetProvinceId() {
             API_PROVINCE.apiGetProvince().then((res) => {
@@ -443,39 +434,19 @@ export default {
             })
         },
 
-        // upload images
-        handleUpload(e) {
-            this.posts.imagePosts = e.target.files[0]
-            this.url = URL.createObjectURL(this.posts.imagePosts)
-        },
-        removeImage() {
-            API_POSTS.rmImage({ image_rm: this.url }).then((res) => {
-                log
-                this.url = res
-            })
-        },
         handleSave() {
-            console.log('handle submit', this.keyLocation === 'create')
             if (this.keyLocation === 'create') {
                 // thêm mới
-                console.log('handle', this.posts.fullAdress)
                 if (this.validateForm()) {
                     this.posts.fullAdress = this.getFullAdress
-                    const formData = new FormData()
-                    for (let key in this.posts) {
-                        formData.append(key, this.posts[key])
-                    }
-                    this.createPosts(formData)
+                    this.createPosts(this.posts)
                 }
             }
             // cập nhật
             else if (this.keyLocation === 'edit') {
                 this.posts.fullAdress = this.getFullAdress
-                const formData = new FormData()
-                for (let key in this.posts) {
-                    formData.append(key, this.posts[key])
-                }
-                this.updatePosts({ id: this.idParams, payload: formData })
+
+                this.updatePosts({ id: this.idParams, payload: this.posts })
             }
         },
     },

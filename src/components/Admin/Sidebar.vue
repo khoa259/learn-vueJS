@@ -86,13 +86,12 @@ export default {
         return {
             MenuItem: urlRouterAdmin,
             local: JSON.parse(localStorage.getItem('user')),
-            isShow: false,
+            isShow: true,
             isVisibleIconTogle: false,
             widthScreen: window.innerWidth,
         }
     },
     mounted() {
-        this.showDrawer()
         window.addEventListener('resize', this.updateWindowWidth)
     },
     beforeDestroy() {
@@ -100,11 +99,12 @@ export default {
     },
     methods: {
         showDrawer() {
-            this.isShow = !this.isShow
+            this.isShow = true
         },
         updateWindowWidth() {
             this.widthScreen = window.innerWidth
             if (this.widthScreen > 768) {
+                this.isShow = true
                 this.isVisibleIconTogle = false
             } else {
                 this.isShow = false
