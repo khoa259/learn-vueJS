@@ -6,7 +6,7 @@
                 <div class="container_posts">
                     <HeaderPosts :item="detailPosts" />
                     <div
-                        class="flex lg:flex-row lg:space-x-3 md:space-x-2 sm:flex-col sm:space-y-4 mt-4"
+                        class="flex lg:flex-row lg:space-x-3 lg:space-y-0 md:space-x-2 sm:flex-col sm:space-y-4 mt-4 min-h-[60vh]"
                     >
                         <DescriptionPosts :item="detailPosts" />
                         <RelatedPosts :postRelated="postRelated" />

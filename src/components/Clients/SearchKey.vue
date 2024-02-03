@@ -52,7 +52,13 @@
                             <router-link :to="item._id" @click="closeModal">
                                 <div class="flex space-x-2">
                                     <div class="img_posts w-12">
-                                        <img :src="item.imagePosts" alt="" />
+                                        <img
+                                            :src="
+                                                item.imagePosts &&
+                                                item.imagePosts.url
+                                            "
+                                            alt=""
+                                        />
                                     </div>
                                     <div class="item_posts w-full">
                                         <div class="flex justify-between">

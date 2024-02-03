@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full lg:w-1/4 bg-slate-50 shadow-md rounded-lg p-5 sm:h-60 max-h-[60vh]"
+        class="w-full lg:w-1/4 max-h-[60vh] lg:h-[50vh] bg-slate-50 shadow-md rounded-lg p-5 sm:h-60"
     >
         <h2 class="capitalize text-xl font-semibold">có thể bạn thích</h2>
         <div
@@ -17,7 +17,7 @@
                     class="flex lg:flex-row md:flex-row sm:flex-col sm:space-x-2 pb-2 border-b-2 lg:w-full lg:h-full sm:w-40 sm:h-60"
                 >
                     <img
-                        :src="item.imagePosts"
+                        :src="item.imagePosts && item.imagePosts.url"
                         class="lg:max-h-24 rounded lg:w-20 md:max-h-24 md:w-20 sm:w-full sm:min-h-60"
                         alt=""
                     />

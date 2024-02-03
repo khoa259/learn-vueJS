@@ -11,7 +11,7 @@
                 <img
                     class="h-auto max-h-80 mx-auto"
                     loading="lazy"
-                    :src="item.imagePosts"
+                    :src="item.imagePosts && item.imagePosts.url"
                     alt="#"
                 />
                 <span class="max-w-xs">

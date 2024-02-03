@@ -106,13 +106,13 @@
                 </ul>
             </div>
         </div>
-        <searchItem v-show="isOpenModal" @closeModal="showSearch" />
+        <SearchKey v-show="isOpenModal" @closeModal="showSearch" />
     </nav>
 </template>
 
 <script>
 import { urlRouter } from '@/utils/contants'
-import SearchItem from '../search/searchItem.vue'
+import SearchKey from './SearchKey.vue'
 import WeatherIcon from './WeatherIcon.vue'
 export default {
     name: 'NavBar',
@@ -156,7 +156,7 @@ export default {
             }
         },
     },
-    components: { SearchItem, WeatherIcon },
+    components: { SearchKey, WeatherIcon },
 }
 </script>
 
