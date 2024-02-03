@@ -111,10 +111,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import { urlRouter } from '@/utils/contants'
-import SearchItem from './search/searchitem.vue'
+import SearchItem from './search/searchItem.vue'
 import WeatherIcon from './WeatherIcon.vue'
 export default {
     name: 'NavBar',
