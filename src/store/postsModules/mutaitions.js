@@ -1,4 +1,7 @@
 const mutationsPost = {
+    SetLoading(state, status) {
+        state.loading = status
+    },
     CreatePosts(state, ItemPosts) {
         state.ItemPosts = ItemPosts
     },
@@ -6,6 +9,7 @@ const mutationsPost = {
         state.ItemPosts = ItemPosts
     },
     GetAllPosts(state, ItemPosts) {
+        state.loading = true
         state.ItemPosts = ItemPosts.getAll
         state.ItemPostsTopView = ItemPosts.topView
         state.NumberItemPosts = ItemPosts.getLength

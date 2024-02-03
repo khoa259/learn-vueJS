@@ -29,6 +29,7 @@ const actionsPosts = {
         try {
             const { data } = await API_POSTS.getPosts(page)
             commit('GetAllPosts', data.response)
+            commit('SetLoading', false)
         } catch (error) {
             toast.error(data.message)
             console.log(error)
