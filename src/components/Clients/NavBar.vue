@@ -106,13 +106,13 @@
                 </ul>
             </div>
         </div>
-        <SearchItem v-show="isOpenModal" @closeModal="showSearch" />
+        <searchItem v-show="isOpenModal" @closeModal="showSearch" />
     </nav>
 </template>
 
 <script>
 import { urlRouter } from '@/utils/contants'
-import SearchItem from './search/searchItem.vue'
+import SearchItem from '../search/searchItem.vue'
 import WeatherIcon from './WeatherIcon.vue'
 export default {
     name: 'NavBar',
