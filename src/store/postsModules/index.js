@@ -4,6 +4,7 @@ import mutationsPost from './mutaitions'
 
 const postModules = {
     state: {
+        loading: true,
         ItemPosts: [],
         ItemPostsTopView: [],
         limitItem: 0,

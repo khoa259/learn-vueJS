@@ -1,25 +1,25 @@
 <template>
-    <div class="w-full p-0 sm:px-4">
+    <div class="w-full lg:p-0 md:px-3 sm:px-4">
         <h2 class="titleCate">lựa chọn nhanh chóng</h2>
-        <div class="pt-6 flex space-x-3 overflow-x-auto">
-            <figure
-                class="flex flex-col max-w-[180px] h-48 flex-shrink-0 overflow-hidden rounded-md bg-[var(--cl-yellow)] px-3 py-8"
+        <div class="mt-6 flex space-x-3 overflow-x-auto">
+            <div
+                class="flex flex-col max-w-[180px] h-48 flex-shrink-0 overflow-hidden rounded-md bg-[var(--cl-yellow)] p-4"
                 v-for="(item, index) in itemsCategories"
                 :key="index"
             >
-                <figcaption
+                <div
                     class="px-4 text-center text-base font-medium uppercase text-slate-700"
                 >
                     <p>{{ item.nameCate }}</p>
-                </figcaption>
-                <router-link :to="item._id">
+                </div>
+                <router-link :to="item._id" class="mt-2">
                     <img
-                        class="rounded-lg"
-                        :src="item.imageCate"
-                        alt="image description"
+                        class="rounded-lg h-[130px] w-[130px] object-cover"
+                        :src="item.imageCate && item.imageCate.url"
+                        :alt="item.nameCate"
                     />
                 </router-link>
-            </figure>
+            </div>
         </div>
     </div>
 </template>

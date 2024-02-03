@@ -18,7 +18,7 @@
                         class="text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                     >
                         <i class="fa-solid fa-plus"></i>
-                        Tao danh mục mới
+                        Tạo danh mục mới
                     </button>
 
                     <button
@@ -68,8 +68,12 @@
                             </td>
                             <td class="px-6 py-4 text-base font-medium">
                                 <img
-                                    :src="item.imageCate"
-                                    :alt="item.imageCate"
+                                    :src="
+                                        item.imageCate
+                                            ? item.imageCate.url
+                                            : 'ảnh'
+                                    "
+                                    :alt="item.nameCate"
                                     class="w-48 h-auto max-h-32 object-contain bg-slate-200 rounded-md"
                                 />
                             </td>
@@ -109,25 +113,10 @@
             }}</template>
             <template v-slot:body>
                 <form @submit.prevent="onSubmit">
-                    <div class="mb-6">
-                        <input
-                            type="file"
-                            @change="handleUploadFile"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
-                        />
-                    </div>
-                    <div id="preview" class="relative" v-if="urlImg">
-                        <img :src="urlImg" class="relative" />
-                        <button
-                            v-if="urlImg"
-                            type="button"
-                            class="bg-red-500 text-white absolute p-2 top-0 left-0"
-                            @click="removeImage"
-                        >
-                            X
-                        </button>
-                    </div>
+                    <UploadImage
+                        @repsonseImage="repsonseImage"
+                        :GetUrlImage="urlImg"
+                    />
                     <div class="mb-6">
                         <label
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -135,7 +124,7 @@
                         >
                         <input
                             type="text"
-                            v-model="nameCates"
+                            v-model="categories.nameCate"
                             placeholder="Tên danh mục..."
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
@@ -149,19 +138,23 @@
 
 <script>
 import { mapActions } from 'vuex'
+
 import ModalComponent from '@/components/ModalComponent.vue'
-import API_CATEORIES from '@/api/category'
-import API_POSTS from '@/api/posts.js'
+import UploadImage from '@/components/uploadImage/UploadImage.vue'
+
+import API_CATEORIES from '@/api/category.js'
 
 export default {
-    components: { ModalComponent },
+    components: { ModalComponent, UploadImage },
     data() {
         return {
+            categories: {
+                nameCate: '',
+                imageCate: '',
+            },
             isModalVisible: false,
-            nameCates: '',
-            imageCate: null,
-            urlImg: null,
             IdUpdate: '',
+            urlImg: null,
         }
     },
     computed: {
@@ -182,6 +175,10 @@ export default {
             'getDetailCate',
             'createCate',
         ]),
+        repsonseImage(e) {
+            console.log('e', e)
+            this.urlImg = e
+        },
         showModal() {
             this.IdUpdate = ''
             this.isModalVisible = true
@@ -190,34 +187,28 @@ export default {
             this.isModalVisible = false
         },
 
-        handleUploadFile(e) {
-            this.imageCate = e.target.files[0]
-            this.urlImg = URL.createObjectURL(this.imageCate)
-            console.log(this.urlImg)
-        },
-        removeImage() {
-            API_POSTS.rmImage({ image_rm: this.urlImg }).then((res) => {
-                this.urlImg = res
-            })
-        },
         getIdUpdate(e) {
             this.IdUpdate = e
             API_CATEORIES.getCategoryDetail(this.IdUpdate).then((res) => {
-                console.log(res)
-                this.urlImg = res.data.response.imageCate
-                this.nameCates = res.data.response.nameCate
+                this.repsonseImage(res.data.response.imageCate.url)
+                this.categories = res.data.response
             })
         },
-        async onSubmit() {
-            const formData = new FormData()
-            formData.append('images', this.imageCate)
-            formData.append('nameCate', this.nameCates)
+
+        getImage(e) {
+            console.log(e)
+            e = this.categories.imageCate.url
+        },
+
+        onSubmit() {
             if (this.IdUpdate) {
-                await this.updateCate({ id: this.IdUpdate, payload: formData })
-                this.nameCates = ''
-                this.imageCate = null
+                this.updateCate({ id: this.IdUpdate, payload: this.categories })
+                this.categories.nameCate = ''
+                this.categories.url = ''
             } else {
-                await this.createCate(formData)
+                this.createCate(this.categories)
+                this.categories.nameCate = ''
+                this.categories.url = ''
             }
             this.url = URL.revokeObjectURL(this.imageCate)
             this.isModalVisible = false
@@ -226,15 +217,4 @@ export default {
 }
 </script>
 
-<style scoped>
-#preview {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-#preview img {
-    max-width: 100%;
-    max-height: 160px;
-}
-</style>
+<style scoped></style>

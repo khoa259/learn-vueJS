@@ -4,8 +4,8 @@
             <img
                 loading="lazy"
                 class="rounded-t-lg h-52 w-full"
-                :src="item.imagePosts"
-                alt=""
+                :src="item.imagePosts && item.imagePosts.url"
+                :alt="item.title"
             />
         </router-link>
         <div
@@ -78,7 +78,7 @@
                     <router-link
                         v-if="item.categoryId"
                         :to="item._id"
-                        class="text-sm font-medium underline underline-offset-4 decoration-solid decoration-2 text-[var(--cl-yellow)] decoration-[var(--cl-yellow)]"
+                        class="text-sm w-20 text-end truncate font-medium underline underline-offset-4 decoration-solid decoration-2 text-[var(--cl-yellow)] decoration-[var(--cl-yellow)]"
                         >{{ item.categoryId.nameCate }}</router-link
                     >
                 </div>
@@ -95,10 +95,10 @@ export default {
         return {
             idSave: null,
             isSave: false,
+            loading: true,
         }
     },
     props: ['item'],
-
     methods: {
         formatNumberView(e) {
             return formatNumberView(e)

@@ -36,7 +36,8 @@
             class="lg:flex lg:gap-5 lg:px-0 sm:blocks sm:px-4 bg-white rounded-md"
         >
             <Sidebar :isModalVisible="isShow" />
-            <div class="lg:w-4/5 md:w-4/5 sm:w-full">
+            <div v-if="Loading">Loading...</div>
+            <div class="lg:w-4/5 md:w-4/5 sm:w-full" v-else>
                 <div
                     class="grid lg:grid-cols-3 lg:px-0 lg:gap-4 md:grid-cols-2 md:gap-3 md:px-5 sm:grid-cols-2 sm:gap-3 container"
                 >
@@ -45,7 +46,7 @@
                         :key="index"
                         class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transition-all duration-300 cursor-pointer hover:shadow-lg"
                     >
-                        <CartItem :item="item" />
+                        <CardItemVue :item="item" />
                     </div>
                 </div>
                 <Pagination />
@@ -55,14 +56,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
-import CartItem from '@/components/Clients/cartItem/CartItem.vue'
+import CardItemVue from '@/components/Clients/cardItem/CardItem.vue'
 import Sidebar from '@/components/Clients/sideBar/SideBar.vue'
 import Pagination from '@/components/Pagination.vue'
 export default {
     components: {
-        CartItem,
+        CardItemVue,
         Sidebar,
         Pagination,
     },
@@ -73,16 +74,17 @@ export default {
         }
     },
     computed: {
-        items() {
-            return this.$store.state.postsMod.ItemPosts
-        },
-        countPage() {
-            return this.$store.state.postsMod.NumberItemPosts
-        },
+        ...mapState({
+            items: (state) => state.postsMod.ItemPosts,
+            countPage: (state) => state.postsMod.NumberItemPosts,
+            Loading: (state) => state.postsMod.loading,
+        }),
     },
 
     created() {
-        this.getAllPosts()
+        setTimeout(() => {
+            this.getAllPosts()
+        }, 4500)
     },
     methods: {
         ...mapActions(['getAllPosts']),

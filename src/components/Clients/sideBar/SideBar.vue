@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="isModalVisible"
-        class="lg:w-1/4 max-h-[500px] bg-white lg:sticky md:sticky px-2 py-3 top-2"
+        class="lg:w-1/4 max-h-[500px] bg-white lg:sticky md:sticky sm:block px-2 py-3 top-2"
     >
         <div class="text-[var(--cl-yellow)] uppercase font-semibold">
             <i class="fa-solid fa-filter"></i>

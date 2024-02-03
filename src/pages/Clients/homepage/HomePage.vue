@@ -23,10 +23,13 @@
             />
         </div>
         <div class="pt-8 static lg:px-0 md:px-5 sm:px-4">
-            <PostsTopView :itemsPostsTopView="postsTopView" />
+            <PostsTopView
+                :itemsPostsTopView="postsTopView"
+                :statusLoading="Loading"
+            />
         </div>
         <div class="pt-8 static lg:px-0 md:px-5 sm:px-4">
-            <NewEatingArea :itemsPosts="posts" />
+            <NewEatingArea :itemsPosts="posts" :statusLoading="Loading" />
         </div>
     </div>
 </template>
@@ -40,23 +43,27 @@ import NewEatingArea from '@/components/Clients/Homepage/NewEatingArea.vue'
 import PostsTopView from '@/components/Clients/Homepage/PostsTopView.vue'
 export default {
     name: 'HomePage',
+
     components: {
         Banner,
         BoxItemCate,
         NewEatingArea,
         PostsTopView,
     },
-    computed: mapState({
-        categories: (state) => state.categoryMod.itemCate,
-        posts: (state) => state.postsMod.ItemPosts,
-        postsTopView: (state) => state.postsMod.ItemPostsTopView,
-    }),
+    computed: {
+        ...mapState({
+            categories: (state) => state.categoryMod.itemCate,
+            posts: (state) => state.postsMod.ItemPosts,
+            postsTopView: (state) => state.postsMod.ItemPostsTopView,
+            Loading: (state) => state.postsMod.loading,
+        }),
+    },
 
     created() {
+        this.getItemCate()
         setTimeout(() => {
-            this.getItemCate()
             this.getAllPosts()
-        }, 1200)
+        }, 800)
     },
     methods: {
         ...mapActions(['getAllPosts', 'getItemCate']),
