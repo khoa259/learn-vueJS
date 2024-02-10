@@ -4,8 +4,8 @@ import MutationCategories from './mutations'
 const categoriesModules = {
     namespace: true,
     state: {
+        loading: true,
         itemCate: [],
-        itemCateDetail: '',
     },
     getters: GetterCategories,
     actions: ActionCategories,

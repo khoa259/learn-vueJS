@@ -1,5 +1,5 @@
 <template>
-    <div class="layout_default bg-slate-50">
+    <div class="layout_default bg-white">
         <Navbar />
         <div class="min-h-screen">
             <router-view v-slot="{ Component }">

@@ -27,7 +27,11 @@
                                 <div class="max-w-[150px]">
                                     <img
                                         class="max-h-28 object-cover rounded-md"
-                                        :src="item.imagePosts"
+                                        :src="
+                                            item.imagePosts.url
+                                                ? item.imagePosts.url
+                                                : 'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
+                                        "
                                         alt=""
                                         loading="lazy"
                                     />

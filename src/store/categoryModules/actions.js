@@ -4,7 +4,8 @@ const ActionCategories = {
     async getItemCate({ commit }) {
         try {
             const { data } = await API_CATEORIES.getCategory()
-            commit('getAllCategories', data.response)
+            commit('StatusLoading', false)
+            commit('GetAllCategories', data.response)
         } catch (error) {
             console.log(error)
         }

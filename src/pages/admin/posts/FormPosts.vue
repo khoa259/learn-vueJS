@@ -267,8 +267,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
-import UploadImage from '../../../components/uploadImage/UploadImage.vue'
-
+import UploadImage from '@/components/uploadImage/UploadImage.vue'
 import API_PROVINCE from '@/api/province.js'
 import API_POSTS from '@/api/posts.js'
 export default {
@@ -308,7 +307,7 @@ export default {
                 pricemin: '20000',
                 pricemax: '40000',
                 address: 'so 136',
-                province: '',
+                province: '01',
                 district: '',
                 ward: '',
                 fullAdress: '',
@@ -376,7 +375,7 @@ export default {
             this.idParams = this.$route.params.id
             API_POSTS.getPostsById(this.idParams).then((res) => {
                 this.posts = res.data.response
-                this.repsonseImage(res.data.response.imagePosts.url)
+                this.repsonseImage(res.data.response.imagePosts)
             })
         }
     },
@@ -414,7 +413,9 @@ export default {
 
         //upload image
         repsonseImage(e) {
-            this.url = e
+            console.log('image', e)
+            this.url = e.url
+            this.posts.imagePosts = e
         },
 
         // get province

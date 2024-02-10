@@ -42,7 +42,7 @@ import API_UPLOAD from '@/api/upload.js'
 export default {
     props: {
         keyLoaction: String,
-        GetUrlImage: String,
+        GetUrlImage: {},
     },
     data() {
         return {
@@ -54,6 +54,7 @@ export default {
     },
     watch: {
         GetUrlImage(e) {
+            console.log('url image', e)
             this.urlImg = e
             this.loading = false
         },

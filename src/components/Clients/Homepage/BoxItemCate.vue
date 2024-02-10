@@ -1,7 +1,10 @@
 <template>
     <div class="w-full lg:p-0 md:px-3 sm:px-4">
         <h2 class="titleCate">lựa chọn nhanh chóng</h2>
-        <div class="mt-6 flex space-x-3 overflow-x-auto">
+        <div v-if="statusLoading">
+            <BoxCateSkeleton />
+        </div>
+        <div class="mt-6 flex space-x-3 overflow-x-auto" v-else>
             <div
                 class="flex flex-col max-w-[180px] h-48 flex-shrink-0 overflow-hidden rounded-md bg-[var(--cl-yellow)] p-4"
                 v-for="(item, index) in itemsCategories"
@@ -25,8 +28,10 @@
 </template>
 
 <script>
+import BoxCateSkeleton from '@/components/LoadingCpn/BoxCateSkeleton.vue'
 export default {
-    props: ['itemsCategories'],
+    props: ['itemsCategories', 'statusLoading'],
+    components: { BoxCateSkeleton },
 }
 </script>
 

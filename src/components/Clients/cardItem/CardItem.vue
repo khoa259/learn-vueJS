@@ -1,10 +1,21 @@
 <template>
-    <div v-if="item">
+    <div
+        v-if="item"
+        class="bg-white rounded-md dark:bg-gray-800 dark:border-gray-700 transition-all duration-300 cursor-pointer hover:shadow-lg"
+    >
         <router-link :to="item._id">
             <img
+                v-if="item.imagePosts"
                 loading="lazy"
-                class="rounded-t-lg h-52 w-full"
+                class="rounded-t-lg h-52 w-full object-cover bg-gray-50"
                 :src="item.imagePosts && item.imagePosts.url"
+                :alt="item.title"
+            />
+            <img
+                v-else
+                loading="lazy"
+                class="rounded-t-lg h-52 w-full object-cover bg-gray-50"
+                src="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
                 :alt="item.title"
             />
         </router-link>
