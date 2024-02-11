@@ -1,5 +1,8 @@
 const MutationCategories = {
-    getAllCategories(state, ItemCate) {
+    StatusLoading(state, status) {
+        state.loading = status
+    },
+    GetAllCategories(state, ItemCate) {
         state.itemCate = ItemCate
     },
     CreateCategories(state, ItemCate) {

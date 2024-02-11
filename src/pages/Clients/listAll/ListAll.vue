@@ -32,11 +32,11 @@
                 </select>
             </div>
         </div>
-        <div
-            class="lg:flex lg:gap-5 lg:px-0 sm:blocks sm:px-4 bg-white rounded-md"
-        >
+        <div class="lg:flex lg:gap-5 lg:px-0 sm:blocks sm:px-4 rounded-md">
             <Sidebar :isModalVisible="isShow" />
-            <div v-if="Loading">Loading...</div>
+            <div v-if="Loading" class="text-center w-full mt-8">
+                <SpinLoading />
+            </div>
             <div class="lg:w-4/5 md:w-4/5 sm:w-full" v-else>
                 <div
                     class="grid lg:grid-cols-3 lg:px-0 lg:gap-4 md:grid-cols-2 md:gap-3 md:px-5 sm:grid-cols-2 sm:gap-3 container"
@@ -44,7 +44,7 @@
                     <div
                         v-for="(item, index) in items"
                         :key="index"
-                        class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transition-all duration-300 cursor-pointer hover:shadow-lg"
+                        class="max-w-sm bg-white"
                     >
                         <CardItemVue :item="item" />
                     </div>
@@ -58,14 +58,18 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
+import { debounceCallAPI } from '@/utils/contants'
+import SpinLoading from '@/components/LoadingCpn/SpinLoading.vue'
 import CardItemVue from '@/components/Clients/cardItem/CardItem.vue'
 import Sidebar from '@/components/Clients/sideBar/SideBar.vue'
 import Pagination from '@/components/Pagination.vue'
+
 export default {
     components: {
         CardItemVue,
         Sidebar,
         Pagination,
+        SpinLoading,
     },
     data() {
         return {
@@ -84,7 +88,7 @@ export default {
     created() {
         setTimeout(() => {
             this.getAllPosts()
-        }, 4500)
+        }, 300)
     },
     methods: {
         ...mapActions(['getAllPosts']),

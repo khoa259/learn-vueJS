@@ -18,6 +18,14 @@ import FormPosts from '@/pages/admin/posts/FormPosts.vue'
 import ListsUsers from '@/pages/admin/users/ListsUsers.vue'
 import ProvinceTest from '@/pages/admin/ProvinceTest.vue'
 
+const debounceCallAPI = (e) => {
+    console.log('1', e)
+    setTimeout(() => {
+        console.log('2', e)
+        return e
+    }, 30000)
+}
+export { debounceCallAPI }
 // 1 phút trước, 1 giờ trước,...
 const formatDate = (value) => {
     const date = value instanceof Date ? value : new Date(value)

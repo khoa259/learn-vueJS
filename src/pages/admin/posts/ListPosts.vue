@@ -19,7 +19,7 @@
                     <router-link
                         to="posts/create"
                         type="button"
-                        class="text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                        class="text-white bg-yellow-400 hover:bg-yellow-500 font-base rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                     >
                         <i class="fa-solid fa-plus"></i>
                         Tao bài viết
@@ -27,21 +27,21 @@
                     <button
                         type="button"
                         @click="handleCreateRandomPosts"
-                        class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
+                        class="text-white bg-green-700 hover:bg-green-800 font-base rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
                     >
                         <i class="fa-solid fa-file-excel"></i>
                         Tạo 5 bài viết ngẫu nhiên
                     </button>
                     <button
                         type="button"
-                        class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
+                        class="text-white bg-green-700 hover:bg-green-800 font-base rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
                     >
                         <i class="fa-solid fa-file-excel"></i>
                         Xuất file Excel
                     </button>
                 </div>
             </div>
-            <p class="font-medium text-sm my-2">
+            <p class="font-base text-sm my-2">
                 Có tổng
                 <span v-if="ItemPosts" class="text-base">{{ getLength }}</span>
                 <span v-else>0</span> bài viết
@@ -85,15 +85,15 @@
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50"
                         >
                             <td
-                                class="px-6 py-4 text-sm text-center font-medium text-slate-700 w-10"
+                                class="px-4 py-2 text-sm text-center font-base text-slate-700 w-5"
                             >
                                 {{ index + 1 }}
                             </td>
-                            <td class="px-6 py-4 text-sm text-slate-700 w-auto">
+                            <td class="px-4 py-2 text-sm text-slate-700 w-auto">
                                 {{ item.title }}
                             </td>
                             <td
-                                class="px-6 py-4 text-sm font-medium text-slate-700 w-auto"
+                                class="px-4 py-2 text-sm font-base text-slate-700 w-auto"
                             >
                                 <img
                                     :src="
@@ -106,7 +106,7 @@
                                 />
                             </td>
                             <td
-                                class="px-6 py-4 text-sm font-medium text-slate-700"
+                                class="px-4 py-2 text-sm font-base text-slate-700"
                             >
                                 {{
                                     item.categoryId
@@ -115,19 +115,19 @@
                                 }}
                             </td>
                             <td
-                                class="px-6 py-4 text-sm font-medium text-slate-700"
+                                class="px-4 py-2 text-sm font-base text-slate-700"
                             >
                                 {{ formatPrice(item.pricemin) }} -
                                 {{ formatPrice(item.pricemax) }}
                             </td>
                             <td
-                                class="px-6 py-4 text-sm font-medium text-slate-700"
+                                class="px-4 py-2 text-sm font-base text-slate-700"
                             >
                                 {{ item.timeopen }} - {{ item.timeclose }}
                             </td>
                             <td
                                 v-if="item"
-                                class="px-6 py-4 text-sm font-medium font-base w-60 text-slate-700"
+                                class="px-4 py-2 text-sm font-base font-base w-60 text-slate-700"
                             >
                                 {{ item.fullAdress }}
                             </td>

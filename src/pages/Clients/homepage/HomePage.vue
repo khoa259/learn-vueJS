@@ -14,7 +14,10 @@
             </div>
         </div>
         <div class="container flex justify-center pt-8">
-            <BoxItemCate :itemsCategories="categories" />
+            <BoxItemCate
+                :itemsCategories="categories"
+                :statusLoading="loadingCategories"
+            />
         </div>
         <div class="container sub_banner pt-8">
             <img
@@ -25,11 +28,11 @@
         <div class="pt-8 static lg:px-0 md:px-5 sm:px-4">
             <PostsTopView
                 :itemsPostsTopView="postsTopView"
-                :statusLoading="Loading"
+                :statusLoading="loadingPosts"
             />
         </div>
         <div class="pt-8 static lg:px-0 md:px-5 sm:px-4">
-            <NewEatingArea :itemsPosts="posts" :statusLoading="Loading" />
+            <NewEatingArea :itemsPosts="posts" :statusLoading="loadingPosts" />
         </div>
     </div>
 </template>
@@ -55,15 +58,16 @@ export default {
             categories: (state) => state.categoryMod.itemCate,
             posts: (state) => state.postsMod.ItemPosts,
             postsTopView: (state) => state.postsMod.ItemPostsTopView,
-            Loading: (state) => state.postsMod.loading,
+            loadingPosts: (state) => state.postsMod.loading,
+            loadingCategories: (state) => state.categoryMod.loading,
         }),
     },
 
     created() {
-        this.getItemCate()
         setTimeout(() => {
+            this.getItemCate()
             this.getAllPosts()
-        }, 800)
+        }, 200)
     },
     methods: {
         ...mapActions(['getAllPosts', 'getItemCate']),

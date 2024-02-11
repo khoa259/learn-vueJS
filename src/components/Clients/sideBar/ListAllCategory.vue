@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="text-base font-medium text-start pb-2">Món ngon</div>
-        <div class="flex flex-wrap gap-1">
+        <div v-if="loading">
+            <SpinLoading />
+        </div>
+        <div class="flex flex-wrap gap-1" v-else>
             <button
                 v-for="(item, index) in ItemCate"
                 :key="index"
@@ -17,20 +20,26 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import SpinLoading from '@/components/LoadingCpn/SpinLoading.vue'
+
 export default {
+    components: { SpinLoading },
     data() {
         return {
             btnForcus: false,
         }
     },
     computed: {
-        ItemCate() {
-            return this.$store.state.categoryMod.itemCate
-        },
+        ...mapState({
+            ItemCate: (state) => state.categoryMod.itemCate,
+            loading: (state) => state.categoryMod.loading,
+        }),
     },
     created() {
-        this.getItemCate()
+        setTimeout(() => {
+            this.getItemCate()
+        }, 300)
     },
     methods: {
         ...mapActions(['getItemCate', 'getPostsByCate', 'getAllPosts']),

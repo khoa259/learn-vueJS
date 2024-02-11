@@ -10,7 +10,7 @@
         <div class="flex flex-col gap-4 mt-5">
             <InputSearch />
             <ListAllCategory />
-            <SortByPrice />
+            <SortByDistricts />
         </div>
     </div>
 </template>
@@ -18,11 +18,10 @@
 <script>
 import InputSearch from './InputSearch.vue'
 import ListAllCategory from './ListAllCategory.vue'
-import SortByPrice from './SortByPrice.vue'
-
+import SortByDistricts from './SortByDistricts.vue'
 export default {
     name: 'SideBar',
-    components: { InputSearch, ListAllCategory, SortByPrice },
+    components: { InputSearch, ListAllCategory, SortByDistricts },
     props: ['isModalVisible'],
     data() {
         return {
@@ -32,7 +31,6 @@ export default {
     computed: {
         showModal() {
             this.isModalVisible
-            console.log('iteim', this.isModalVisible)
         },
     },
 }

@@ -176,8 +176,8 @@ export default {
             'createCate',
         ]),
         repsonseImage(e) {
-            console.log('e', e)
-            this.urlImg = e
+            this.urlImg = e.url
+            this.categories.imageCate = e
         },
         showModal() {
             this.IdUpdate = ''
@@ -190,14 +190,9 @@ export default {
         getIdUpdate(e) {
             this.IdUpdate = e
             API_CATEORIES.getCategoryDetail(this.IdUpdate).then((res) => {
-                this.repsonseImage(res.data.response.imageCate.url)
+                this.repsonseImage(res.data.response.imageCate)
                 this.categories = res.data.response
             })
-        },
-
-        getImage(e) {
-            console.log(e)
-            e = this.categories.imageCate.url
         },
 
         onSubmit() {
@@ -210,7 +205,7 @@ export default {
                 this.categories.nameCate = ''
                 this.categories.url = ''
             }
-            this.url = URL.revokeObjectURL(this.imageCate)
+            // this.url = URL.revokeObjectURL(this.imageCate)
             this.isModalVisible = false
         },
     },
