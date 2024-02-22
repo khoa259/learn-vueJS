@@ -26,7 +26,7 @@
                             <div class="flex space-x-2">
                                 <div class="max-w-[150px]">
                                     <img
-                                        class="max-h-28 object-cover rounded-md"
+                                        class="max-h-28 w-28 object-cover rounded-md"
                                         :src="
                                             item.imagePosts.url
                                                 ? item.imagePosts.url

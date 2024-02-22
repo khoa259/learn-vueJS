@@ -20,14 +20,6 @@
                         <i class="fa-solid fa-plus"></i>
                         Tạo danh mục mới
                     </button>
-
-                    <button
-                        type="button"
-                        class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
-                    >
-                        <i class="fa-solid fa-file-excel"></i>
-                        Xuất file Excel
-                    </button>
                 </div>
             </div>
 
@@ -74,7 +66,7 @@
                                             : 'ảnh'
                                     "
                                     :alt="item.nameCate"
-                                    class="w-48 h-auto max-h-32 object-contain bg-slate-200 rounded-md"
+                                    class="w-28 h-32 rounded-md max-h-36 object-cover bg-slate-200"
                                 />
                             </td>
                             <td class="px-6 py-4 text-base font-medium">

@@ -299,15 +299,15 @@ export default {
             },
             posts: {
                 imagePosts: null,
-                title: 'tesst1',
-                description: 'dis,fmie',
+                title: '',
+                description: '',
                 categoryId: '',
-                timeopen: '09:20',
-                timeclose: '22:20',
-                pricemin: '20000',
-                pricemax: '40000',
-                address: 'so 136',
-                province: '01',
+                timeopen: '',
+                timeclose: '',
+                pricemin: '',
+                pricemax: '',
+                address: '',
+                province: '',
                 district: '',
                 ward: '',
                 fullAdress: '',
@@ -449,6 +449,9 @@ export default {
 
                 this.updatePosts({ id: this.idParams, payload: this.posts })
             }
+            setTimeout(() => {
+                this.$router.push('/admin/posts')
+            }, 800)
         },
     },
 }

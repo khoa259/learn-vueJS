@@ -1,5 +1,8 @@
 <template>
     <div class="dashboard">
+        <div class="bg-green-500 p-4 text-gray-50 rounded-md">
+            Đang phát triển
+        </div>
         <div class="title_admin">
             <h1>Thống kê</h1>
         </div>
