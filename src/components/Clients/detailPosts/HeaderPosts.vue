@@ -105,12 +105,12 @@
                     class="w-full border-[var(--cl-yellow)] text-[var(--cl-yellow)] border-2 py-1 rounded-lg"
                     @click="handleSave(item._id)"
                     :class="[
-                        isSave
+                        item.statusSave
                             ? 'bg-blue-700 text-white border-none'
                             : 'text-[var(--cl-yellow)]',
                     ]"
                 >
-                    {{ item.statusSave ? 'Yêu thích' : 'Bỏ thích' }}
+                    {{ item.statusSave ? 'Bỏ thích' : 'Yêu thích' }}
                 </button>
             </div>
         </div>
@@ -125,7 +125,7 @@ export default {
     props: ['item'],
     data() {
         return {
-            isSave: Boolean,
+            isSave: false,
             local: JSON.parse(localStorage.getItem('user')),
         }
     },

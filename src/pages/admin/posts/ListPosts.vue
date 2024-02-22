@@ -32,13 +32,6 @@
                         <i class="fa-solid fa-file-excel"></i>
                         Tạo 5 bài viết ngẫu nhiên
                     </button>
-                    <button
-                        type="button"
-                        class="text-white bg-green-700 hover:bg-green-800 font-base rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
-                    >
-                        <i class="fa-solid fa-file-excel"></i>
-                        Xuất file Excel
-                    </button>
                 </div>
             </div>
             <p class="font-base text-sm my-2">
@@ -101,7 +94,7 @@
                                             ? item.imagePosts.url
                                             : 'lỗi'
                                     "
-                                    class="w-28 h-full max-h-36 object-cover"
+                                    class="w-28 h-32 rounded-md max-h-36 object-cover"
                                     loading="lazy"
                                 />
                             </td>

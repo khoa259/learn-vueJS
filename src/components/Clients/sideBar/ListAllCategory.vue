@@ -6,6 +6,14 @@
         </div>
         <div class="flex flex-wrap gap-1" v-else>
             <button
+                :on-focus="btnForcus"
+                @click="GetPostsByCategories"
+                class="border-[var(--cl-yellow)] text-[var(--cl-yellow)] border-2 py-1 px-2 rounded-lg"
+                :class="{ active: btnForcus }"
+            >
+                Tất cả
+            </button>
+            <button
                 v-for="(item, index) in ItemCate"
                 :key="index"
                 :on-focus="btnForcus"
@@ -48,6 +56,9 @@ export default {
                 this.getPostsByCate({ categoryId: e })
                 this.btnForcus = true
             }
+        },
+        GetPostsByCategories() {
+            this.getAllPosts()
         },
     },
 }

@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="title-page">Liên Hệ</h1>
         <div
-            class="mt-8 flex gap-8 lg:justify-between sm:grid sm:grid-cols-1 sm:px-4"
+            class="mt-8 flex lg:flex-row lg:space-x-3 md:space-x-2 sm:flex-col p-4"
         >
             <div class="form-contact w-full">
                 <form>
