@@ -13,4 +13,12 @@ export default {
         const url = '/getUser'
         return instance.get(url)
     },
+    getAdmin() {
+        const url = '/getAdmin'
+        return instance.get(url)
+    },
+    changeRole(id, payload) {
+        const url = `/changeRole/${id}`
+        return instance.put(url, payload)
+    },
 }

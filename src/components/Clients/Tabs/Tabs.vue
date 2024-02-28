@@ -1,8 +1,6 @@
 <template>
     <div>
-        <div
-            class="flex space-x-4 px-4 py-3 border-b-2 border-[var(--cl-yellow)]"
-        >
+        <div class="flex space-x-2 border-b-2 border-[var(--cl-yellow)]">
             <button
                 v-for="(tab, index) in tabs"
                 :key="index"

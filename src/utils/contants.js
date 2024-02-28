@@ -57,7 +57,7 @@ const formatNumberView = (value) => {
 // 09/01/2024, 14:22
 const formatDateFull = (value) => {
     if (value) {
-        return moment(String(value)).format('DD/MM/YYYY HH:SS')
+        return moment(String(value)).format('DD/MM/YYYY hh:mm:ss')
     }
 }
 
